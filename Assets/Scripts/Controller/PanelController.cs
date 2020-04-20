@@ -24,9 +24,9 @@ public class PanelController : MonoBehaviour
         editBuildPanel.SetActive(false);
     }
 
-	// Lt build panel On touch button
+	
     public void StartBuild(string objType) {
-        touchController.NewBuild(objType);//this "Starts" a new build in the build system
+        touchController.NewBuild(objType);
         if (isOpenBuildpanel) { CloseBuildPanel(); }
         else { OpenBuildPanel(); }
     }

@@ -20,10 +20,23 @@ public class TileGraphicController : MonoBehaviour
             for (int z = 0; z < World.Height; z++) {
                 // Get the tile data
                 Tile tile_data = World.GetTileAt(x, z);
-                CreateGroundcube(tile_data);
-            }
+				GameObject tile_go = GetTileGO("GroundCube");
+				tile_go.GetComponent<GroundCube>().tile = tile_data;
+				tile_go.transform.position = new Vector3(tile_data.X, -1, tile_data.Z);
+				tile_go.name = "Tile_" + tile_data.X + "_" + tile_data.Z;
+
+				tile_go.transform.SetParent(this.transform.Find("Tiles"), true);
+
+				// Add our tile/GO pair to the dictionary.
+				tileGameObjectMap.Add(tile_data, tile_go);
+
+				OnTileChanged(tile_data);
+			}
         }
         World.RegisterTileChanged(OnTileChanged);
+		if (WorldController.Instance._StartWithPathfind) {
+			WorldController.Instance.StartPathfinding();
+		}
     }
 
     private void LoadTilePrefabs() {
@@ -36,21 +49,6 @@ public class TileGraphicController : MonoBehaviour
         }
     }
 
-    public GameObject CreateGroundcube(Tile tile_data) {
-        Vector3 groundPos = new Vector3(tile_data.X, -1, tile_data.Z);
-        GameObject tile_go = GetTileGO("GroundCube");
-        tile_go.GetComponent<GroundCube>().tile = tile_data;
-        tile_go.transform.position = new Vector3(tile_data.X, -1, tile_data.Z);
-        tile_go.name = "Tile_" + tile_data.X + "_" + tile_data.Z;
-
-        tile_go.transform.SetParent(this.transform.Find("Tiles"), true);
-        // Add our tile/GO pair to the dictionary.
-        tileGameObjectMap.Add(tile_data, tile_go);
-
-        OnTileChanged(tile_data);
-
-        return tile_go;
-    }
 
     private GameObject GetTileGO(string tileGOname) {
         return Instantiate(tileGOS[tileGOname]);

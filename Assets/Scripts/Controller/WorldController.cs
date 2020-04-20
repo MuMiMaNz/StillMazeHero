@@ -21,6 +21,7 @@ public class WorldController : MonoBehaviour
     //private Path_AStar oldPathAStar;
 
     static bool loadWorld = false;
+	public bool _StartWithPathfind { get; protected set; }
 
     // Use this for initialization
     void OnEnable() {
@@ -33,15 +34,16 @@ public class WorldController : MonoBehaviour
         if (loadWorld) {
             loadWorld = false;
             CreateWorldFromSaveFile();
-            //StartPathfinding();
-        }
+			_StartWithPathfind = true;
+		}
         else {
             CreateEmptyWorld();
-        }
+			_StartWithPathfind = false;
+		}
        
     }
 
-    void Update() {
+	void Update() {
         // TODO: Add pause/unpause, speed controls, etc...
         World.Update(Time.deltaTime);
 
@@ -58,7 +60,9 @@ public class WorldController : MonoBehaviour
     public void NewWorld() {
         Debug.Log("NewWorld button was clicked.");
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		World.PlaceOuterWalledWithTiles();
+		StartPathfinding();
     }
 
     public void SaveWorld() {
@@ -89,7 +93,7 @@ public class WorldController : MonoBehaviour
         World = new World(10,10);
 
         // Center the Camera
-        Camera.main.transform.position = new Vector3(World.Width / 2, Camera.main.transform.position.y, -0.5f);
+        Camera.main.transform.position = new Vector3(World.Width / 2,8f, -0.5f);
 
     }
     void CreateWorldFromSaveFile() {
@@ -101,9 +105,9 @@ public class WorldController : MonoBehaviour
         Debug.Log(reader.ToString());
         World = (World)serializer.Deserialize(reader);
         reader.Close();
-        
+		
         // Center the Camera
-        Camera.main.transform.position = new Vector3(World.Width / 2, Camera.main.transform.position.y, -0.5f);
+        Camera.main.transform.position = new Vector3(World.Width / 2, 8f, -0.5f);
 
     }
 
@@ -139,7 +143,6 @@ public class WorldController : MonoBehaviour
                 //Debug.Log(t.X + ","+ t.Z);
                 //Debug.Log(tileGraphicController.tileGameObjectMap[t]);
                 tileGraphicController.tileGameObjectMap[t].GetComponent<GroundCube>().UpdatePathfindingGraphic();
-
             }
             return true;
         }

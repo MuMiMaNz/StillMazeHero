@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6486283517318157511}
   - component: {fileID: 4106629528115079357}
   - component: {fileID: 173591129910299344}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Wall_low_intersec2 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 7465347374941391644}
   - component: {fileID: 2911498547471136431}
   - component: {fileID: 7660856242183040659}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: SM_Bld_Castle_Wall_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 3438414293724220329}
   - component: {fileID: 2116531804620652417}
   - component: {fileID: 8107538471130631538}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: SM_Bld_Castle_Wall_05 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -248,7 +248,7 @@ GameObject:
   - component: {fileID: 1128918742373388926}
   - component: {fileID: 8282611344570411080}
   - component: {fileID: 2435662661467673777}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Wall_low_intersec2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -327,7 +327,7 @@ GameObject:
   - component: {fileID: 1423373981636607375}
   - component: {fileID: 2486148113059268694}
   - component: {fileID: 8361684110133782446}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Wall_low_intersec2 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -407,7 +407,7 @@ GameObject:
   - component: {fileID: -3470012174462560492}
   - component: {fileID: 9067189893319549556}
   - component: {fileID: 2274138949280299804}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: InnerWall_Cross
   m_TagString: Building
   m_Icon: {fileID: 0}
@@ -480,7 +480,6 @@ MonoBehaviour:
   buildingType: InnerWall
   goodMat: {fileID: 2100000, guid: 9fd91d16699307d449b42117365e2b69, type: 2}
   badMat: {fileID: 2100000, guid: 439a570770679144189b4990afc1a915, type: 2}
-  numSpaceNeed: 1
 --- !u!1 &8824019524739556248
 GameObject:
   m_ObjectHideFlags: 0
@@ -492,7 +491,7 @@ GameObject:
   - component: {fileID: 4286558282368525964}
   - component: {fileID: 2453136338302392314}
   - component: {fileID: 4822610282290361751}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Wall_low_intersec2 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -571,7 +570,7 @@ GameObject:
   - component: {fileID: 6704094009817784145}
   - component: {fileID: 2339568076777396398}
   - component: {fileID: 3498865104170163205}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: SM_Bld_Castle_Wall_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}

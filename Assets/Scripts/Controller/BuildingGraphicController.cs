@@ -6,8 +6,7 @@ public class BuildingGraphicController : MonoBehaviour {
     World World {
         get { return WorldController.Instance.World; }
     }
-
-    
+	
     Dictionary<Building, GameObject> buildingGameObjectMap;
     Dictionary<string, GameObject> buildingGOS;
 
@@ -28,8 +27,6 @@ public class BuildingGraphicController : MonoBehaviour {
             OnBuildingCreated(bld);
         }
 
-        //World.WorldWithOuterWall();
-        WorldController.Instance.StartPathfinding();
     }
 
     //public void SetupNewWorldWithGoalAndWall() {

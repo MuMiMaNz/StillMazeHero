@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1677679105239945550}
   - component: {fileID: -5089664166320014563}
   - component: {fileID: 6788382244726037413}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Goal
   m_TagString: Building
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 141876, guid: 141aa4408d61bc244a29ea886cc08ae3, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 499888, guid: 141aa4408d61bc244a29ea886cc08ae3, type: 3}
       propertyPath: m_LocalPosition.x

@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: -6727239672658901096}
   - component: {fileID: 450161589416247523}
   - component: {fileID: -8656581741054657727}
-  m_Layer: 10
-  m_Name: InnerWall_Corner
+  m_Layer: 8
+  m_Name: InnerWall_CornerShort
   m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81,7 +81,6 @@ MonoBehaviour:
   buildingType: 
   goodMat: {fileID: 2100000, guid: 9fd91d16699307d449b42117365e2b69, type: 2}
   badMat: {fileID: 2100000, guid: 439a570770679144189b4990afc1a915, type: 2}
-  numSpaceNeed: 1
 --- !u!1 &6291146951252822328
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,7 +92,7 @@ GameObject:
   - component: {fileID: 2603521179146063202}
   - component: {fileID: 6545779672089107496}
   - component: {fileID: 7412744016694261359}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: SM_Bld_Castle_Wall_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +171,7 @@ GameObject:
   - component: {fileID: 1091460507492256340}
   - component: {fileID: 2913452951032938517}
   - component: {fileID: 5579491427644996137}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: SM_Bld_Castle_Tower_Wall_Top_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -251,7 +250,7 @@ GameObject:
   - component: {fileID: 4442865977679405829}
   - component: {fileID: 4987777037275519491}
   - component: {fileID: 7834916013528283172}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: SM_Bld_Castle_Tower_Wall_Top_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

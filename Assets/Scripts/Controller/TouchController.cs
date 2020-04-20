@@ -52,7 +52,8 @@ public class TouchController : MonoBehaviour
         }
     }
 
-    public void NewBuild(string objType)//this gets called by one of the buttons 
+	// Lt build panel On touch button retrun PreviewBuilding
+	public void NewBuild(string objType)
     {
         //preview = Instantiate(objType, Vector3.zero, Quaternion.identity);
         //preview = WorldController.Instance.GetPreviewBuilding(objType);

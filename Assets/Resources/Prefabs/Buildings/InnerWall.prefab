@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -5850139502403573632}
   - component: {fileID: -1164516407457767580}
   - component: {fileID: -5688624620024427562}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: InnerWall
   m_TagString: Building
   m_Icon: {fileID: 0}
@@ -80,7 +80,6 @@ MonoBehaviour:
   buildingType: InnerWall
   goodMat: {fileID: 2100000, guid: 9fd91d16699307d449b42117365e2b69, type: 2}
   badMat: {fileID: 2100000, guid: 439a570770679144189b4990afc1a915, type: 2}
-  numSpaceNeed: 1
 --- !u!1 &5283230644101648124
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,7 +91,7 @@ GameObject:
   - component: {fileID: 167358302740388898}
   - component: {fileID: 5597717188528988561}
   - component: {fileID: 1123783033425246637}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: SM_Bld_Castle_Wall_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,7 +170,7 @@ GameObject:
   - component: {fileID: 4350942501130818095}
   - component: {fileID: 4967955272402922281}
   - component: {fileID: 7886553553952426254}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: SM_Bld_Castle_Tower_Wall_Top_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
