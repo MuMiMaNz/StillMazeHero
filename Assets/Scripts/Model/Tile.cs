@@ -40,8 +40,8 @@ public class Tile :IXmlSerializable {
 
     public World world { get; protected set; }
 
-    public int X { get; protected set; }
-    public int Z { get; protected set; }
+    public int X { get;  set; }
+    public int Z { get;  set; }
 
     public float movementCost {
         get {

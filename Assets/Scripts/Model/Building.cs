@@ -22,6 +22,10 @@ public class Building : IXmlSerializable {
     // multile tiles.
     public Tile tile {get; protected set;}
 
+	public void SetTile(Tile t) {
+		tile = t;
+	}
+
     // This "objectType" will be queried by the visual system to know what sprite to render for this object
     public string objectType { get; protected set;}
 
@@ -89,22 +93,6 @@ public class Building : IXmlSerializable {
         bldParamaters = new Dictionary<string, float>();
     }
 
-    //static public Building CreatePrototype(string objectType, float movementCost = 1f, int width = 1, int height = 1,string parent= "Buildings", bool linksToNeighbour = false) {
-    //    Building obj = new Building();
-
-    //    obj.objectType = objectType;
-    //    obj.movementCost = movementCost;
-    //    obj.width = width;
-    //    obj.height = height;
-    //    obj.spaceNeed = width*height;
-    //    obj.parent = parent;
-    //    obj.linksToNeighbour = linksToNeighbour;
-
-    //    obj.funcPositionValidation = obj.__IsValidPosition;
-
-    //    return obj;
-    //}
-
     static public Building PlaceInstance(Building proto, Tile tile) {
 
         if (proto.funcPositionValidation(tile) == false) {
@@ -112,14 +100,6 @@ public class Building : IXmlSerializable {
             return null;
         }
         Building obj = proto.Clone();
-
-        //obj.objectType = proto.objectType;
-        //obj.movementCost = proto.movementCost;
-        //obj.width = proto.width;
-        //obj.height = proto.height;
-        //obj.spaceNeed = proto.spaceNeed;
-        //obj.parent = proto.parent;
-        //obj.linksToNeighbour = proto.linksToNeighbour;
 
         obj.tile = tile;
 

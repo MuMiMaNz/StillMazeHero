@@ -11,7 +11,7 @@ public class World : IXmlSerializable {
     Tile[,] tiles;
 
     // Array use on Save/Load
-    public List<Building> buildings;
+    public List<Building> buildings { get;protected set; }
 
     // The pathfinding graph used to navigate our world map.
     public Path_TileGraph tileGraph;
@@ -72,7 +72,7 @@ public class World : IXmlSerializable {
 
                     // Place Outer gate building with start tile
                     if (tile_data.Z == 0 && tile_data.X == Width / 2) {
-                        PlaceBuilding("OuterWall_Gate", tile_data);
+                        PlaceBuilding("OuterWall_Gate", tile_data,true);
                         
                         
                     } // Empty at left&right of Gate center pivot
@@ -80,7 +80,7 @@ public class World : IXmlSerializable {
 
                     }// Outer Wall
                     else if (tile_data.Z == 0 || tile_data.Z == Height - 1 || tile_data.X == 0 || tile_data.X == Width - 1) {
-                        PlaceBuilding("OuterWall", tile_data);
+                        PlaceBuilding("OuterWall", tile_data,true);
                     }
                 }
                 else {
@@ -88,7 +88,7 @@ public class World : IXmlSerializable {
                     tiles[x, z].Type = TileType.Floor;
                     // Goal building with goal tile
                     if (tile_data.Z == Height - 3 && tile_data.X == Width / 2) {
-                        PlaceBuilding("Goal", tile_data);
+                        PlaceBuilding("Goal", tile_data,true);
                         
                     }
                 }
@@ -119,36 +119,6 @@ public class World : IXmlSerializable {
 
     }
 
-
-    //public void WorldWithOuterWall() {
-    //    // Create an Outer Wall and GroundCube
-    //    for (int x = 0; x < Width; x++) {
-    //        for (int z = 0; z < Height; z++) {
-    //            // Get the tile data
-    //            Tile tile_data = GetTileAt(x, z);
-
-    //            // Outer Gate 
-    //            if (tile_data.Z == 0 && tile_data.X == Width / 2) {
-    //                //Debug.Log("Place Gate at" + tile_data.X + "," + tile_data.Z);
-    //                PlaceBuilding("OuterWall_Gate", tile_data);
-    //                startTile = GetTileAt(x, z + 1);
-    //                Debug.Log("Start Tile at" + startTile.X + "," + startTile.Z);
-    //            }
-    //            else if (tile_data.Z == 0 && (tile_data.X == (Width / 2) - 1 || tile_data.X == (Width / 2) + 1)) {
-    //                // Empty left&right Gate Block
-    //            }// Goal
-    //            else if (tile_data.Z == Height-3 && tile_data.X == Width / 2 ) {
-    //                PlaceBuilding("Goal", tile_data);
-    //                goalTile = GetTileAt(x, z );
-    //                Debug.Log("Goal Tile at" + goalTile.X + "," + goalTile.Z);
-    //            }
-    //            // Outer Wall
-    //            else if (tile_data.Z == 0 || tile_data.Z == Height - 1 || tile_data.X == 0 || tile_data.X == Width - 1) {
-    //                PlaceBuilding("OuterWall", tile_data);
-    //            }
-    //        }
-    //    }
-    //}
 
     // Set the Goal tile
     public void SetGoalTile(Tile t) {
@@ -233,7 +203,14 @@ public class World : IXmlSerializable {
             new Building("Base", 0,  2, 2,"Buildings",false ));
     }
 
-    public Building PlaceBuilding(string objectType, Tile t) {
+	public void RemoveBldList(Building bld) {
+		buildings.Remove(bld);
+		foreach(Building b in buildings) {
+			Debug.Log(b.objectType + b.tile.X + "," + b.tile.Z);
+		}
+	}
+
+    public Building PlaceBuilding(string objectType, Tile t, bool savebld) {
         //Debug.Log("PlaceInstalledObject");
         // TODO: This function assumes 1x1 tiles -- change this later!
 
@@ -249,7 +226,7 @@ public class World : IXmlSerializable {
             return null;
         }
         // Don't Save Dummy building
-        if (bld.objectType != "DummyBuilding" && bld.objectType != "DummyGoal")
+        if (bld.objectType != "DummyBuilding" && bld.objectType != "DummyGoal" && savebld)
             buildings.Add(bld);
 
         // Set start and goal tile due to specific building
@@ -419,7 +396,7 @@ public class World : IXmlSerializable {
                 int x = int.Parse(reader.GetAttribute("X"));
                 int z = int.Parse(reader.GetAttribute("Z"));
 
-                Building bld = PlaceBuilding(reader.GetAttribute("objectType"), tiles[x, z]);
+                Building bld = PlaceBuilding(reader.GetAttribute("objectType"), tiles[x, z],true);
                 //Debug.Log(bld.objectType);
                 bld.ReadXml(reader);
             } while (reader.ReadToNextSibling("Building"));

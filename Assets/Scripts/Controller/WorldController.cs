@@ -8,17 +8,15 @@ using System.IO;
 public class WorldController : MonoBehaviour
 {
     public static WorldController Instance { get; protected set; }
+	public World World { get; protected set; }
 
-    public int Width = 14;
+	public TileGraphicController tileGraphicController;
+
+	public int Width = 14;
     public int Height = 14;
 
-    // The world and tile data
-    public World World { get; protected set; }
-
-    public TileGraphicController tileGraphicController;
 
     private Path_AStar pathAStar;
-    //private Path_AStar oldPathAStar;
 
     static bool loadWorld = false;
 	public bool _StartWithPathfind { get; protected set; }

@@ -5,7 +5,10 @@ using UnityEngine;
 
 public class TouchController : MonoBehaviour
 {
-    public Camera cam;
+	World World {
+		get { return WorldController.Instance.World; }
+	}
+	public Camera cam;
     public LayerMask notBuildingLayer;
     public LayerMask buildingLayer;
 
@@ -16,8 +19,9 @@ public class TouchController : MonoBehaviour
     public BuildingGraphicController buildingGraphicCntroller;
     
     private bool isBuilding = false;
-    
-    private void Update()
+	private bool isMove = false;
+
+	private void Update()
     {
         if (Input.touchCount == 1) {
             Touch touch = Input.touches[0];
@@ -53,16 +57,16 @@ public class TouchController : MonoBehaviour
     }
 
 	// Lt build panel On touch button retrun PreviewBuilding
-	public void NewBuild(string objType)
+	public void NewBuild(string objType,bool _isMove)
     {
-        //preview = Instantiate(objType, Vector3.zero, Quaternion.identity);
-        //preview = WorldController.Instance.GetPreviewBuilding(objType);
+        
         preview = buildingGraphicCntroller.GetPreviewBuilding(objType);
         preview.transform.SetParent(this.transform, true);
         buildingController = preview.GetComponent<BuildingController>();//grab the script that is sitting on the preview
         buildingController.isBuilding = true;
         isBuilding = true;//we can now build
-    }
+		isMove = _isMove;
+	}
 
     private void StopBuild()
     {
@@ -76,9 +80,10 @@ public class TouchController : MonoBehaviour
 
     private void BuildIt()//actually build the thing
     {
-        buildingController.TryBuild();//just calls the Build() method on the previewScript
-        if(buildingController.CanBuild())
-            StopBuild();
+        buildingController.TryBuild( isMove);
+		if (buildingController.CanBuild()) {
+			StopBuild();
+		}
     }
 
     private void DoRay(Touch touch)//simple ray cast from the main camera. Notice there is no range
@@ -112,7 +117,7 @@ public class TouchController : MonoBehaviour
         return isBuilding;
     }
 
-    // Select that actual building
+    // Select placed building
     private void SelectBuilding(Touch touch) {
         Ray ray = cam.ScreenPointToRay(touch.position);
         RaycastHit hit;
@@ -124,10 +129,14 @@ public class TouchController : MonoBehaviour
                     buildingController.SetSelected(false);
                     buildingController.ChangeColor();
                 }
-                hit.collider.gameObject.GetComponent<BuildingController>().SetSelected(true);
-                buildingController = hit.collider.gameObject.GetComponent<BuildingController>();
+				GameObject hitGO = hit.collider.gameObject;
+				hitGO.GetComponent<BuildingController>().SetSelected(true);
+                buildingController = hitGO.GetComponent<BuildingController>();
                 buildingController.ChangeColor();
-                panelController.OpenEditPanel(buildingController);
+				//Debug.Log(hitGO.transform.position.x + "," + hitGO.transform.position.z);
+				buildingController.SetBuildingTileData(new Tile(World, (int)hitGO.transform.position.x, (int)hitGO.transform.position.z));
+
+				panelController.OpenEditPanel(buildingController);
                 panelController.CloseBuildPanel();
             }
             else if (Physics.Raycast(ray, out hit, Mathf.Infinity, notBuildingLayer)) {

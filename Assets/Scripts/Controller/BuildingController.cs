@@ -13,7 +13,7 @@ public class BuildingController : MonoBehaviour {
     public List<GroundCube> cubes = new List<GroundCube>();//list of all the ground cubes the preview is sitting ontop of/notice this is a GroundCube type list not a gameobject list 
 
     public string buildingType;
-    private Building building;
+    public Building building { get; protected set; }
     public Material goodMat;
     public Material badMat;
     private List<Material> originalMat = new List<Material>();
@@ -115,16 +115,21 @@ public class BuildingController : MonoBehaviour {
         }
     }
 
-    public void TryBuild() {      
+	public void SetBuildingTileData(Tile t) {
+		building.SetTile( t);
+		
+	}
+
+    public void TryBuild( bool _isMove) {      
         Tile t = World.GetTileAt((int)transform.position.x , (int)transform.position.z);
 
         // If move Goal building Use Dummy Goal building and set new Goal tile
         if (buildingType == "Goal") {
-            World.PlaceBuilding("DummyGoal", t);
+            World.PlaceBuilding("DummyGoal", t,false);
             World.SetGoalTile(t);
         }else {
             // Normal building Use Dummy building 
-            World.PlaceBuilding("DummyBuilding", t);
+            World.PlaceBuilding("DummyBuilding", t,false);
         }
         // to Check if building this tile not obstruct valid pathfinding
         if (WorldController.Instance.StartPathfinding()) {
@@ -132,10 +137,16 @@ public class BuildingController : MonoBehaviour {
             foreach (GroundCube cube in cubes) {
                 cube.SetSelection(false);
             }
-            
             t.RemoveBuilding();
-            WorldController.Instance.World.PlaceBuilding(buildingType, t);
+            WorldController.Instance.World.PlaceBuilding(buildingType, t,true);
             canBuild = true;
+
+			// If Moving building Remove old Building Data
+			if (_isMove) {
+				building.tile.RemoveBuilding();
+				World.RemoveBldList(building);
+			}
+
             //destroy the preview
             Destroy(gameObject);
         }else {

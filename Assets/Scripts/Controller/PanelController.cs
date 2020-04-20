@@ -5,7 +5,10 @@ using UnityEngine.UI;
 
 public class PanelController : MonoBehaviour
 {
-    private BuildingController currentSelectBuilding;
+	World World {
+		get { return WorldController.Instance.World; }
+	}
+	private BuildingController currentSelectBuilding;
 
     public GameObject buildPanelL;
     public GameObject buildPanelR;
@@ -26,7 +29,7 @@ public class PanelController : MonoBehaviour
 
 	
     public void StartBuild(string objType) {
-        touchController.NewBuild(objType);
+        touchController.NewBuild(objType,false);
         if (isOpenBuildpanel) { CloseBuildPanel(); }
         else { OpenBuildPanel(); }
     }
@@ -72,6 +75,9 @@ public class PanelController : MonoBehaviour
     private void SellBuilding( ) {
         if(currentSelectBuilding == null) { return; }
 
+		Debug.Log("Sell Building At: " + currentSelectBuilding.building.tile.X + "," + currentSelectBuilding.building.tile.Z);
+		Tile t = WorldController.Instance.World.GetTileAt((int)currentSelectBuilding.transform.position.x, (int)currentSelectBuilding.transform.position.z);
+		World.RemoveBldList(currentSelectBuilding.building);
         currentSelectBuilding.Destroy();
         currentSelectBuilding = null;
         editBuildPanel.SetActive(false);
@@ -82,7 +88,9 @@ public class PanelController : MonoBehaviour
     private void MoveBuilding() {
         if (currentSelectBuilding == null) { return; }
 
-        touchController.NewBuild(currentSelectBuilding.GetBuildingType());
+		// Pass Old Building data before destroy
+		Tile t = WorldController.Instance.World.GetTileAt((int)currentSelectBuilding.transform.position.x, (int)currentSelectBuilding.transform.position.z);
+		touchController.NewBuild(currentSelectBuilding.GetBuildingType(),true);
 
         currentSelectBuilding.Destroy();
         currentSelectBuilding = null;
