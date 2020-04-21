@@ -148,7 +148,7 @@ public class Building : IXmlSerializable {
         return obj;
     }
 
-	public void Deconstruct() {
+	public void Deconstruct(bool _isSell) {
 		Debug.Log("Deconstruct Building");
 
 		tile.RemoveBuilding();
@@ -156,7 +156,10 @@ public class Building : IXmlSerializable {
 		if (cbOnRemoved != null)
 			cbOnRemoved(this);
 
-		//World.InvalidateTileGraph();
+		// If selling building recalculate A*
+		//if (_isSell) {
+		//	World.InvalidateTileGraph();
+		//}
 
 		// At this point, no DATA structures should be pointing to us, so we
 		// should get garbage-collected.

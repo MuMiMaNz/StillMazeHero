@@ -29,7 +29,7 @@ public class PanelController : MonoBehaviour
 
 	
     public void StartBuild(string objType) {
-        touchController.PewviewBuilding(objType,false);
+        touchController.PreviewBuilding(objType,false);
         if (isOpenBuildpanel) { CloseBuildPanel(); }
         else { OpenBuildPanel(); }
     }
@@ -52,6 +52,7 @@ public class PanelController : MonoBehaviour
         SetEditPanel();
         editBuildPanel.SetActive(true);
         buildPanelR.SetActive(false);
+		buildPanelL.SetActive(false);
     }
     
     private void SetEditPanel( ) {
@@ -78,7 +79,7 @@ public class PanelController : MonoBehaviour
 		// Select Building at Pivot point (Left button) and remove for multi tile
 		//Debug.Log("Sell Building At: " + currentSelectBuilding.building.tile.X + "," + currentSelectBuilding.building.tile.Z);
 		Tile t = WorldController.Instance.World.GetTileAt((int)currentSelectBuilding.transform.position.x, (int)currentSelectBuilding.transform.position.z);
-		t.building.Deconstruct();
+		t.building.Deconstruct(true);
 		
 
 		currentSelectBuilding.Destroy();
@@ -93,8 +94,8 @@ public class PanelController : MonoBehaviour
 
 		// Destroy building and create new preview
 		Tile t = WorldController.Instance.World.GetTileAt((int)currentSelectBuilding.transform.position.x, (int)currentSelectBuilding.transform.position.z);
-		t.building.Deconstruct();
-		touchController.PewviewBuilding(currentSelectBuilding.GetBuildingType(),true);
+		t.building.Deconstruct(false);
+		touchController.PreviewBuilding(currentSelectBuilding.GetBuildingType(),true);
 
         currentSelectBuilding.Destroy();
         currentSelectBuilding = null;

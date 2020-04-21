@@ -5,18 +5,22 @@ using UnityEngine.SceneManagement;
 using System.Xml.Serialization;
 using System.IO;
 
+public enum GameMode { BuildMode, PlayMode }
+
 public class WorldController : MonoBehaviour
 {
     public static WorldController Instance { get; protected set; }
 	public World World { get; protected set; }
 
+	public CameraController cameraController;
 	public TileGraphicController tileGraphicController;
 
 	public int Width = 14;
     public int Height = 14;
 
+	public GameMode gameMode { get; protected set; }
 
-    private Path_AStar pathAStar;
+	private Path_AStar pathAStar;
 
     static bool loadWorld = false;
 	public bool _StartWithPathfind { get; protected set; }
@@ -38,14 +42,17 @@ public class WorldController : MonoBehaviour
             CreateEmptyWorld();
 			_StartWithPathfind = false;
 		}
+
+		gameMode = GameMode.BuildMode;
        
     }
 
 	void Update() {
         // TODO: Add pause/unpause, speed controls, etc...
         World.Update(Time.deltaTime);
+		cameraController.Update(Time.deltaTime);
 
-    }
+	}
 
     // Gets the tile at the unity-space coordinates
     public Tile GetTileAtWorldCoord(Vector3 coord) {
@@ -57,6 +64,7 @@ public class WorldController : MonoBehaviour
 
 	public void PlayItDude() {
 		World.CreatePlayerAtStart();
+		gameMode = GameMode.PlayMode;
 	}
 
     public void NewWorld() {
@@ -94,10 +102,8 @@ public class WorldController : MonoBehaviour
         // Create a world with Empty tiles
         World = new World(10,10);
 
-        // Center the Camera
-        Camera.main.transform.position = new Vector3(World.Width / 2,8f, -0.5f);
-
     }
+
     void CreateWorldFromSaveFile() {
         Debug.Log("CreateWorldFromSaveFile");
         // Create a world from our save file data.
@@ -107,9 +113,7 @@ public class WorldController : MonoBehaviour
         Debug.Log(reader.ToString());
         World = (World)serializer.Deserialize(reader);
         reader.Close();
-		
-        // Center the Camera
-        Camera.main.transform.position = new Vector3(World.Width / 2, 8f, -0.5f);
+
 
     }
 
@@ -123,12 +127,12 @@ public class WorldController : MonoBehaviour
 
         Path_AStar oldPathAStar = pathAStar;
 
-        // Update old path way to not a pathway
+        // Update old path way not valid anymore
         if (oldPathAStar != null) {
-                foreach (Tile t in oldPathAStar.Path()) {
-                    //Debug.Log("Old Path:"+ tileGraphicController.tileGameObjectMap[t] );
-                    t.isPathway = false;
-                    tileGraphicController.tileGameObjectMap[t].GetComponent<GroundCube>().UpdatePathfindingGraphic();
+           foreach (Tile t in oldPathAStar.Path()) {
+           //Debug.Log("Old Path:"+ tileGraphicController.tileGameObjectMap[t] );
+				t.isPathway = false;
+				tileGraphicController.tileGameObjectMap[t].GetComponent<GroundCube>().UpdatePathfindingGraphic();
              }
          }
         // Generate New pathway
@@ -142,8 +146,6 @@ public class WorldController : MonoBehaviour
         else {
             foreach (Tile t in pathAStar.Path()) {
                 t.isPathway = true;
-                //Debug.Log(t.X + ","+ t.Z);
-                //Debug.Log(tileGraphicController.tileGameObjectMap[t]);
                 tileGraphicController.tileGameObjectMap[t].GetComponent<GroundCube>().UpdatePathfindingGraphic();
             }
             return true;

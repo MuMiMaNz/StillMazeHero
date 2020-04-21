@@ -13,6 +13,7 @@ public class World : IXmlSerializable {
 	// Array use on Save/Load
 	public List<Building> buildings { get; protected set; }
 	public List<Character> characters { get; protected set; }
+	public Character player { get; protected set; }
 
 	// The pathfinding graph used to navigate our world map.
 	public Path_TileGraph tileGraph;
@@ -104,6 +105,7 @@ public class World : IXmlSerializable {
 		Debug.Log("CreateCharacter");
 		Character c = PlaceCharacter("Player",startTile);
 
+		player = c;
 		characters.Add(c);
 
 		if (cbCharacterCreated != null)
@@ -275,8 +277,15 @@ public class World : IXmlSerializable {
 
         if (cbBuildingCreated != null) {
             cbBuildingCreated(bld);
-            InvalidateTileGraph();
-        }
+
+			if (bld.movementCost != 1) {
+				// Since tiles return movement cost as their base cost multiplied
+				// buy the furniture's movement cost, a furniture movement cost
+				// of exactly 1 doesn't impact our pathfinding system, so we can
+				// occasionally avoid invalidating pathfinding graphs
+				InvalidateTileGraph();  // Reset the pathfinding system
+			}
+		}
         return bld;
     }
 

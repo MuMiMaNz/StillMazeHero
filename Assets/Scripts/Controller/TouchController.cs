@@ -57,7 +57,7 @@ public class TouchController : MonoBehaviour
     }
 
 	// Lt build panel On touch button retrun PreviewBuilding
-	public void PewviewBuilding(string objType,bool _isMove) {
+	public void PreviewBuilding(string objType,bool _isMove) {
         
         preview = buildingGraphicCntroller.GetPreviewBuilding(objType);
         preview.transform.SetParent(this.transform, true);

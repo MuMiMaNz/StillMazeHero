@@ -104,6 +104,7 @@
     <Compile Include="Assets\Pack\LeanTween\Framework\LeanTweenExt.cs" />
     <Compile Include="Assets\Scripts\Controller\BuildingController.cs" />
     <Compile Include="Assets\Scripts\Controller\BuildingGraphicController.cs" />
+    <Compile Include="Assets\Scripts\Controller\CameraController.cs" />
     <Compile Include="Assets\Scripts\Controller\CharacterGraphicController.cs" />
     <Compile Include="Assets\Scripts\Controller\PanelController.cs" />
     <Compile Include="Assets\Scripts\Controller\TileGraphicController.cs" />

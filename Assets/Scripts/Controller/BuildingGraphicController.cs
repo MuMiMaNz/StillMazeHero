@@ -73,6 +73,7 @@ public class BuildingGraphicController : MonoBehaviour {
 		GameObject bld_go = buildingGameObjectMap[bld];
 		Destroy(bld_go);
 		buildingGameObjectMap.Remove(bld);
+		World.InvalidateTileGraph();
 	}
 
 	void OnBuildingChanged(Building bld) {

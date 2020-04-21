@@ -93,7 +93,6 @@ public class Tile :IXmlSerializable {
 			Debug.LogError("Trying to assign a Character to a tile that already has one!");
 			return false;
 		}
-		
 		character = chrInstance;
 
 		return true;

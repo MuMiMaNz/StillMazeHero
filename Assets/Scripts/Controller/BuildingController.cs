@@ -132,7 +132,7 @@ public class BuildingController : MonoBehaviour {
             foreach (GroundCube cube in cubes) {
                 cube.SetSelection(false);
             }
-			t.building.Deconstruct();
+			t.building.Deconstruct(false);
             WorldController.Instance.World.PlaceBuilding(buildingType, t);
             canBuild = true;
 
@@ -141,7 +141,7 @@ public class BuildingController : MonoBehaviour {
         }else {
 			// Invalid Prebuild position (Obstruct pathway)
 			// TODO: make Alert Dialog
-			t.building.Deconstruct();
+			t.building.Deconstruct(false);
 			canBuild = false;
         }
 

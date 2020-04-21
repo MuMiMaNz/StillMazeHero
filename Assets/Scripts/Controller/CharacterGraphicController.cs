@@ -7,23 +7,21 @@ public class CharacterGraphicController : MonoBehaviour {
 	World World {
 		get { return WorldController.Instance.World; }
 	}
-
 	Dictionary<Character, GameObject> characterGameObjectMap;
 	Dictionary<string, GameObject> characterGOS;
 
 	public TouchController touchController;
 
 	void Start() {
-
 		characterGameObjectMap = new Dictionary<Character, GameObject>();
 
 		LoadPrefabs();
-
 		// Register our callback so that our GameObject gets updated whenever
 		// the tile's type changes.
 		World.RegisterCharacterCreated(OnCharacterCreated);
 
 		// Go through any EXISTING character (i.e. from a save that was loaded OnEnable) and call the OnCreated event manually
+		//OnCharacterCreated(World.player);
 		foreach (Character c in World.characters) {
 			OnCharacterCreated(c);
 		}
