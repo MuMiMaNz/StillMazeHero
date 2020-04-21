@@ -13,7 +13,7 @@ public class BuildingController : MonoBehaviour {
     public List<GroundCube> cubes = new List<GroundCube>();//list of all the ground cubes the preview is sitting ontop of/notice this is a GroundCube type list not a gameobject list 
 
     public string buildingType;
-    public Building building { get; protected set; }
+    public Building bldPrototype { get; protected set; }
     public Material goodMat;
     public Material badMat;
     private List<Material> originalMat = new List<Material>();
@@ -35,7 +35,7 @@ public class BuildingController : MonoBehaviour {
         }
         //originalMat = this.transform.Find("3D").GetComponent<MeshRenderer>().material;
         ChangeColor();
-        building = World.GetBuildingPrototype(buildingType);
+        bldPrototype = World.GetBuildingPrototype(buildingType);
 
     }
 
@@ -87,7 +87,7 @@ public class BuildingController : MonoBehaviour {
         //Debug.Log("isBuilding :" + isBuilding);
         // Check is preview can build
         if (isBuilding) {
-            if (gosBumped.Count == 0 && building.spaceNeed <= cubes.Count){
+            if (gosBumped.Count == 0 && bldPrototype.spaceNeed <= cubes.Count){
                 foreach (MeshRenderer mesh in meshRend) {
                     mesh.material = goodMat;
                     canBuild = true;
@@ -116,20 +116,20 @@ public class BuildingController : MonoBehaviour {
     }
 
 	public void SetBuildingTileData(Tile t) {
-		building.SetTile( t);
+		bldPrototype.SetTile( t);
 		
 	}
 
-    public void TryBuild( bool _isMove) {      
+    public void TryBuild() {      
         Tile t = World.GetTileAt((int)transform.position.x , (int)transform.position.z);
 
         // If move Goal building Use Dummy Goal building and set new Goal tile
         if (buildingType == "Goal") {
-            World.PlaceBuilding("DummyGoal", t,false);
+			World.PlaceBuilding("DummyGoal", t);
             World.SetGoalTile(t);
         }else {
-            // Normal building Use Dummy building 
-            World.PlaceBuilding("DummyBuilding", t,false);
+			// Normal building Use Dummy building 
+			World.PlaceBuilding("DummyBuilding", t);
         }
         // to Check if building this tile not obstruct valid pathfinding
         if (WorldController.Instance.StartPathfinding()) {
@@ -137,23 +137,17 @@ public class BuildingController : MonoBehaviour {
             foreach (GroundCube cube in cubes) {
                 cube.SetSelection(false);
             }
-            t.RemoveBuilding();
-            WorldController.Instance.World.PlaceBuilding(buildingType, t,true);
+			t.building.Deconstruct();
+            WorldController.Instance.World.PlaceBuilding(buildingType, t);
             canBuild = true;
-
-			// If Moving building Remove old Building Data
-			if (_isMove) {
-				building.tile.RemoveBuilding();
-				World.RemoveBldList(building);
-			}
 
             //destroy the preview
             Destroy(gameObject);
         }else {
-            // Invalid Prebuild position (Obstruct pathway)
-            // TODO: make Alert Dialog
-            canBuild = false;
-            t.RemoveBuilding();
+			// Invalid Prebuild position (Obstruct pathway)
+			// TODO: make Alert Dialog
+			t.building.Deconstruct();
+			canBuild = false;
         }
 
     }

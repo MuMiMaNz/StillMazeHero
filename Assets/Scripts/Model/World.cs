@@ -10,8 +10,8 @@ public class World : IXmlSerializable {
     // A two-dimensional array to hold our tile data.
     Tile[,] tiles;
 
-    // Array use on Save/Load
-    public List<Building> buildings { get;protected set; }
+	// Array use on Save/Load
+	public List<Building> buildings;
 
     // The pathfinding graph used to navigate our world map.
     public Path_TileGraph tileGraph;
@@ -72,7 +72,7 @@ public class World : IXmlSerializable {
 
                     // Place Outer gate building with start tile
                     if (tile_data.Z == 0 && tile_data.X == Width / 2) {
-                        PlaceBuilding("OuterWall_Gate", tile_data,true);
+                        PlaceBuilding("OuterWall_Gate", tile_data);
                         
                         
                     } // Empty at left&right of Gate center pivot
@@ -80,7 +80,7 @@ public class World : IXmlSerializable {
 
                     }// Outer Wall
                     else if (tile_data.Z == 0 || tile_data.Z == Height - 1 || tile_data.X == 0 || tile_data.X == Width - 1) {
-                        PlaceBuilding("OuterWall", tile_data,true);
+                        PlaceBuilding("OuterWall", tile_data);
                     }
                 }
                 else {
@@ -88,7 +88,7 @@ public class World : IXmlSerializable {
                     tiles[x, z].Type = TileType.Floor;
                     // Goal building with goal tile
                     if (tile_data.Z == Height - 3 && tile_data.X == Width / 2) {
-                        PlaceBuilding("Goal", tile_data,true);
+                        PlaceBuilding("Goal", tile_data);
                         
                     }
                 }
@@ -203,14 +203,7 @@ public class World : IXmlSerializable {
             new Building("Base", 0,  2, 2,"Buildings",false ));
     }
 
-	public void RemoveBldList(Building bld) {
-		buildings.Remove(bld);
-		foreach(Building b in buildings) {
-			Debug.Log(b.objectType + b.tile.X + "," + b.tile.Z);
-		}
-	}
-
-    public Building PlaceBuilding(string objectType, Tile t, bool savebld) {
+    public Building PlaceBuilding(string objectType, Tile t) {
         //Debug.Log("PlaceInstalledObject");
         // TODO: This function assumes 1x1 tiles -- change this later!
 
@@ -219,14 +212,16 @@ public class World : IXmlSerializable {
             return null;
         }
 
-        Building bld = Building.PlaceInstance(buildingPrototypes[objectType], t);
+        Building bld = Building.PlaceBuilding(buildingPrototypes[objectType], t);
 
         if (bld == null) {
             // Failed to place object -- most likely there was already something there.
             return null;
         }
-        // Don't Save Dummy building
-        if (bld.objectType != "DummyBuilding" && bld.objectType != "DummyGoal" && savebld)
+
+		bld.RegisterOnRemovedCallback(OnBuildingRemoved);
+		// Don't Save Dummy building
+		//if (bld.objectType != "DummyBuilding" && bld.objectType != "DummyGoal" )
             buildings.Add(bld);
 
         // Set start and goal tile due to specific building
@@ -245,8 +240,12 @@ public class World : IXmlSerializable {
         }
         return bld;
     }
-    
-    public void RegisterBuildingCreated(Action<Building> callbackfunc) {
+
+	public void OnBuildingRemoved(Building bld) {
+		buildings.Remove(bld);
+	}
+
+	public void RegisterBuildingCreated(Action<Building> callbackfunc) {
         cbBuildingCreated += callbackfunc;
     }
 
@@ -396,7 +395,7 @@ public class World : IXmlSerializable {
                 int x = int.Parse(reader.GetAttribute("X"));
                 int z = int.Parse(reader.GetAttribute("Z"));
 
-                Building bld = PlaceBuilding(reader.GetAttribute("objectType"), tiles[x, z],true);
+                Building bld = PlaceBuilding(reader.GetAttribute("objectType"), tiles[x, z]);
                 //Debug.Log(bld.objectType);
                 bld.ReadXml(reader);
             } while (reader.ReadToNextSibling("Building"));

@@ -508,9 +508,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3e528ac7edf4aa42bafad97eebdf5f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileGraphicController: {fileID: 687641644}
   Width: 14
   Height: 14
-  tileGraphicController: {fileID: 687641644}
 --- !u!4 &188468852
 Transform:
   m_ObjectHideFlags: 0
@@ -3151,8 +3151,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1457707639}
-          m_MethodName: NewBuild
+        - m_Target: {fileID: 1340144065}
+          m_MethodName: StartBuild
           m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

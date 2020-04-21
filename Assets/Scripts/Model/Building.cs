@@ -9,21 +9,15 @@ using System.Xml.Serialization;
 
 public class Building : IXmlSerializable {
 
-    public Dictionary<string, float> bldParamaters;
-    public Action<Building, float> updateActions;
+	public World World { get; protected set; }
 
-    public void Update(float deltaTime) {
-        if (updateActions != null) {
-            updateActions(this, deltaTime);
-        }
-    }
-
-    // This represents the BASE tile of the object -- but in practice, large objects may actually occupy
-    // multile tiles.
-    public Tile tile {get; protected set;}
+	// This represents the BASE tile of the object -- but in practice, large objects may actually occupy
+	// multile tiles.
+	public Tile tile {get; protected set;}
 
 	public void SetTile(Tile t) {
-		tile = t;
+		if(t!=null)
+			tile = t;
 	}
 
     // This "objectType" will be queried by the visual system to know what sprite to render for this object
@@ -46,15 +40,27 @@ public class Building : IXmlSerializable {
         get; protected set;
     }
 
-    Action<Building> cbOnChanged;
+	public Dictionary<string, float> bldParamaters;
+	Action<Building> cbOnChanged;
+	Action<Building> cbOnRemoved;
 
-    Func<Tile, bool> funcPositionValidation;
+	public Action<Building, float> updateActions;
 
-    // TODO: Implement larger objects
-    // TODO: Implement object rotation
+	
 
-    // Empty constructor is used for serialization
-    public Building() {
+	Func<Tile, bool> funcPositionValidation;
+
+	public void Update(float deltaTime) {
+		if (updateActions != null) {
+			updateActions(this, deltaTime);
+		}
+	}
+
+	// TODO: Implement larger objects
+	// TODO: Implement object rotation
+
+	// Empty constructor is used for serialization
+	public Building() {
         bldParamaters = new Dictionary<string, float>();
     }
 
@@ -93,7 +99,7 @@ public class Building : IXmlSerializable {
         bldParamaters = new Dictionary<string, float>();
     }
 
-    static public Building PlaceInstance(Building proto, Tile tile) {
+    static public Building PlaceBuilding(Building proto, Tile tile) {
 
         if (proto.funcPositionValidation(tile) == false) {
             Debug.LogError("Building.PlaceInstance -- Invalid Position");
@@ -113,6 +119,8 @@ public class Building : IXmlSerializable {
             return null;
         }
 
+		//Debug.Log("Place Building:" + obj.objectType + "At" + obj.tile.X + "," + obj.tile.Z);
+
         if (obj.linksToNeighbour) {
             // This type of Building links itself to its neighbours,
             // so we should inform our neighbours that they have a new
@@ -122,21 +130,21 @@ public class Building : IXmlSerializable {
             int x = tile.X;
             int z = tile.Z;
 
-            t = tile.world.GetTileAt(x, z + 1);
+            t = tile.World.GetTileAt(x, z + 1);
             if (t != null && t.building != null && t.building.cbOnChanged != null  && t.building.objectType == obj.objectType) {
                 // We have a Northern Neighbour with the same object type as us, so
                 // tell it that it has changed by firing is callback.
                 t.building.cbOnChanged(t.building);
             }
-            t = tile.world.GetTileAt(x + 1, z);
+            t = tile.World.GetTileAt(x + 1, z);
             if (t != null && t.building != null && t.building.cbOnChanged != null && t.building.objectType == obj.objectType) {
                 t.building.cbOnChanged(t.building);
             }
-            t = tile.world.GetTileAt(x, z - 1);
+            t = tile.World.GetTileAt(x, z - 1);
             if (t != null && t.building != null && t.building.cbOnChanged != null && t.building.objectType == obj.objectType) {
                 t.building.cbOnChanged(t.building);
             }
-            t = tile.world.GetTileAt(x - 1, z);
+            t = tile.World.GetTileAt(x - 1, z);
             if (t != null && t.building != null && t.building.cbOnChanged != null  && t.building.objectType == obj.objectType) {
                 t.building.cbOnChanged(t.building);
             }
@@ -145,7 +153,22 @@ public class Building : IXmlSerializable {
         return obj;
     }
 
-    public void RegisterOnChangedCallback(Action<Building> callbackFunc) {
+	public void Deconstruct() {
+		Debug.Log("Deconstruct Building");
+
+		tile.RemoveBuilding();
+
+		if (cbOnRemoved != null)
+			cbOnRemoved(this);
+
+		//World.InvalidateTileGraph();
+
+		// At this point, no DATA structures should be pointing to us, so we
+		// should get garbage-collected.
+
+	}
+
+	public void RegisterOnChangedCallback(Action<Building> callbackFunc) {
         cbOnChanged += callbackFunc;
     }
 
@@ -153,7 +176,15 @@ public class Building : IXmlSerializable {
         cbOnChanged -= callbackFunc;
     }
 
-    public bool IsValidPosition(Tile t) {
+	public void RegisterOnRemovedCallback(Action<Building> callbackFunc) {
+		cbOnRemoved += callbackFunc;
+	}
+
+	public void UnregisterOnRemovedCallback(Action<Building> callbackFunc) {
+		cbOnRemoved -= callbackFunc;
+	}
+
+	public bool IsValidPosition(Tile t) {
         return funcPositionValidation(t);
     }
 

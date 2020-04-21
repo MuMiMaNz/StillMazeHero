@@ -38,7 +38,7 @@ public class Tile :IXmlSerializable {
         get;  set;
     }
 
-    public World world { get; protected set; }
+    public World World { get; protected set; }
 
     public int X { get;  set; }
     public int Z { get;  set; }
@@ -66,7 +66,7 @@ public class Tile :IXmlSerializable {
     /// <param name="x">The x coordinate.</param>
     /// <param name="z">The y coordinate.</param>
     public Tile(World world, int x, int z) {
-        this.world = world;
+        this.World = world;
         this.X = x;
         this.Z = z;
     }
@@ -98,13 +98,33 @@ public class Tile :IXmlSerializable {
         return true;
     }
 
-    public void RemoveBuilding() {
-        //Debug.Log("Remove building at" + X + "," + Z);
-        building = null;
-    }
+    //public void RemoveBuilding() {
+    //    //Debug.Log("Remove building at" + X + "," + Z);
+    //    building = null;
+    //}
 
-    // Tells us if two tiles are adjacent.
-    public bool IsNeighbour(Tile tile ,bool diagOkay = false ) {
+	public bool RemoveBuilding() {
+		//  uninstalling with multi-tile Building.
+
+		if (building == null)
+			return false;
+
+		Building b = building;
+
+		// Select Building at Pivot point (Left button) and remove for multi tile
+		for (int x_off = X; x_off < (X + b.width); x_off++) {
+			for (int z_off = Z; z_off < (Z + b.height); z_off++) {
+
+				Tile t = World.GetTileAt(x_off, z_off);
+				t.building = null;
+			}
+		}
+
+		return true;
+	}
+
+	// Tells us if two tiles are adjacent.
+	public bool IsNeighbour(Tile tile ,bool diagOkay = false ) {
         // Check to see if we have a difference of exactly ONE between the two
         // tile coordinates.  Is so, then we are vertical or horizontal neighbours.
         return
@@ -130,23 +150,23 @@ public class Tile :IXmlSerializable {
 
         Tile n;
 
-        n = world.GetTileAt(X, Z + 1);
+        n = World.GetTileAt(X, Z + 1);
         ns[0] = n;  // Could be null, but that's okay.
-        n = world.GetTileAt(X + 1, Z);
+        n = World.GetTileAt(X + 1, Z);
         ns[1] = n;  // Could be null, but that's okay.
-        n = world.GetTileAt(X, Z - 1);
+        n = World.GetTileAt(X, Z - 1);
         ns[2] = n;  // Could be null, but that's okay.
-        n = world.GetTileAt(X - 1, Z);
+        n = World.GetTileAt(X - 1, Z);
         ns[3] = n;  // Could be null, but that's okay.
 
         if (diagOkay == true) {
-            n = world.GetTileAt(X + 1, Z + 1);
+            n = World.GetTileAt(X + 1, Z + 1);
             ns[4] = n;  // Could be null, but that's okay.
-            n = world.GetTileAt(X + 1, Z - 1);
+            n = World.GetTileAt(X + 1, Z - 1);
             ns[5] = n;  // Could be null, but that's okay.
-            n = world.GetTileAt(X - 1, Z - 1);
+            n = World.GetTileAt(X - 1, Z - 1);
             ns[6] = n;  // Could be null, but that's okay.
-            n = world.GetTileAt(X - 1, Z + 1);
+            n = World.GetTileAt(X - 1, Z + 1);
             ns[7] = n;  // Could be null, but that's okay.
         }
 

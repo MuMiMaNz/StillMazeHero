@@ -66,11 +66,23 @@ public class BuildingGraphicController : MonoBehaviour {
             // Register our callback so that our GameObject gets updated whenever
             // the object's into changes.
             bld.RegisterOnChangedCallback(OnBuildingChanged);
+			bld.RegisterOnRemovedCallback(OnBuildingRemoved);
         }
 
     }
 
-    void OnBuildingChanged(Building bld) {
+	void OnBuildingRemoved(Building bld) {
+		if (buildingGameObjectMap.ContainsKey(bld) == false) {
+			Debug.LogError("OnFurnitureRemoved -- trying to Remove graphic for building not in our map.");
+			return;
+		}
+
+		GameObject bld_go = buildingGameObjectMap[bld];
+		Destroy(bld_go);
+		buildingGameObjectMap.Remove(bld);
+	}
+
+	void OnBuildingChanged(Building bld) {
         //Debug.Log("OnBuildingChanged");
         // Make sure the building's graphics are correct.
         if (buildingGameObjectMap.ContainsKey(bld) == false) {
