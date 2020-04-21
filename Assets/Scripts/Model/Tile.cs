@@ -28,8 +28,14 @@ public class Tile :IXmlSerializable {
         }
     }
 
-    // Building is something like a wall, door, or sofa.
-    public Building building {
+	// Character that stay in this tile ex. Enemy unit.
+	// TODO: make a tile that
+	public Character character {
+		get; protected set;
+	}
+
+	// Building is something like a wall, door, or sofa.
+	public Building building {
         get; protected set;
     }
 
@@ -81,7 +87,19 @@ public class Tile :IXmlSerializable {
         cbTileTypeChanged -= callback;
     }
 
-    public bool PlaceBuilding(Building objInstance) {
+	public bool PlaceCharacter(Character chrInstance) {
+		
+		if (character != null) {
+			Debug.LogError("Trying to assign a Character to a tile that already has one!");
+			return false;
+		}
+		
+		character = chrInstance;
+
+		return true;
+	}
+
+	public bool PlaceBuilding(Building bldInstance) {
         //if (objInstance == null) {
         //    // We are uninstalling whatever was here before.
         //    building = null;
@@ -93,7 +111,7 @@ public class Tile :IXmlSerializable {
             return false;
         }
         // At this point, everything's fine!
-        building = objInstance;
+        building = bldInstance;
 
         return true;
     }
@@ -121,6 +139,15 @@ public class Tile :IXmlSerializable {
 		}
 
 		return true;
+	}
+
+	public bool RemoveCharacter() {
+		if (character == null) {
+			return false;
+		}else {
+			character = null;
+			return true;
+		}
 	}
 
 	// Tells us if two tiles are adjacent.

@@ -132,9 +132,7 @@ public class TouchController : MonoBehaviour
 				hitGO.GetComponent<BuildingController>().SetSelected(true);
                 buildingController = hitGO.GetComponent<BuildingController>();
                 buildingController.ChangeColor();
-				//Debug.Log(hitGO.transform.position.x + "," + hitGO.transform.position.z);
-				buildingController.SetBuildingTileData(new Tile(World, (int)hitGO.transform.position.x, (int)hitGO.transform.position.z));
-
+				
 				panelController.OpenEditPanel(buildingController);
                 panelController.CloseBuildPanel();
             }

@@ -115,11 +115,6 @@ public class BuildingController : MonoBehaviour {
         }
     }
 
-	public void SetBuildingTileData(Tile t) {
-		bldPrototype.SetTile( t);
-		
-	}
-
     public void TryBuild() {      
         Tile t = World.GetTileAt((int)transform.position.x , (int)transform.position.z);
 

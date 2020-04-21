@@ -15,11 +15,6 @@ public class Building : IXmlSerializable {
 	// multile tiles.
 	public Tile tile {get; protected set;}
 
-	public void SetTile(Tile t) {
-		if(t!=null)
-			tile = t;
-	}
-
     // This "objectType" will be queried by the visual system to know what sprite to render for this object
     public string objectType { get; protected set;}
 

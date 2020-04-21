@@ -26,14 +26,7 @@ public class BuildingGraphicController : MonoBehaviour {
         foreach (Building bld in World.buildings) {
             OnBuildingCreated(bld);
         }
-
     }
-
-    //public void SetupNewWorldWithGoalAndWall() {
-    //    World.PlaceOuterWalledWithTiles();
-    //    WorldController.Instance.StartPathfinding();
-    //}
-    
     
     //  Load 3D Game Object Here
     void LoadPrefabs() {

@@ -55,6 +55,10 @@ public class WorldController : MonoBehaviour
         return World.GetTileAt(x, z);
     }
 
+	public void PlayItDude() {
+		World.CreatePlayerAtStart();
+	}
+
     public void NewWorld() {
         Debug.Log("NewWorld button was clicked.");
 

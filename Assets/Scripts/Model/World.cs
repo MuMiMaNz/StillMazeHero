@@ -11,18 +11,20 @@ public class World : IXmlSerializable {
     Tile[,] tiles;
 
 	// Array use on Save/Load
-	public List<Building> buildings;
+	public List<Building> buildings { get; protected set; }
+	public List<Character> characters { get; protected set; }
 
-    // The pathfinding graph used to navigate our world map.
-    public Path_TileGraph tileGraph;
+	// The pathfinding graph used to navigate our world map.
+	public Path_TileGraph tileGraph;
     public Tile startTile { get; protected set; }
     public Tile goalTile { get; protected set; }
 
     // Store building prototype data
     Dictionary<string, Building> buildingPrototypes;
+	Dictionary<string, Character> characterPrototypes;
 
-    Action<Building> cbBuildingCreated;
-    //Action<Character> cbCharacterCreated;
+	Action<Building> cbBuildingCreated;
+    Action<Character> cbCharacterCreated;
     Action<Tile> cbTileChanged;
 
     // The tile width of the world.
@@ -54,8 +56,10 @@ public class World : IXmlSerializable {
         }
         Debug.Log("World created with " + (Width * Height) + " tiles.");
         CreateBuildingPrototypes();
+		CreateCharacterPrototypes();
 
-        buildings = new List<Building>();
+		characters = new List<Character>();
+		buildings = new List<Building>();
     }
 
     // Set Square OuterWall TileType
@@ -96,24 +100,24 @@ public class World : IXmlSerializable {
         }
     }
 
-    //public Character CreateCharacter(Tile t) {
-    //    Debug.Log("CreateCharacter");
-    //    Character c = new Character(t);
+	public Character CreatePlayerAtStart() {
+		Debug.Log("CreateCharacter");
+		Character c = PlaceCharacter("Player",startTile);
 
-    //    characters.Add(c);
+		characters.Add(c);
 
-    //    if (cbCharacterCreated != null)
-    //        cbCharacterCreated(c);
+		if (cbCharacterCreated != null)
+			cbCharacterCreated(c);
 
-    //    return c;
-    //}
+		return c;
+	}
 
-    public void Update(float deltaTime) {
-        //foreach (Character c in characters) {
-        //    c.Update(deltaTime);
-        //}
+	public void Update(float deltaTime) {
+		foreach (Character c in characters) {
+			c.Update(deltaTime);
+		}
 
-        foreach (Building b in buildings) {
+		foreach (Building b in buildings) {
             b.Update(deltaTime);
         }
 
@@ -135,8 +139,21 @@ public class World : IXmlSerializable {
         return tiles[x, z];
     }
 
-    // All Building prototypes data
-    void CreateBuildingPrototypes() {
+	// All Character prototypes data
+	void CreateCharacterPrototypes() {
+		characterPrototypes = new Dictionary<string, Character>();
+
+		characterPrototypes.Add("Player",
+			new Character("Player", // Name
+							100f, // HP
+							1, //Speed
+							"Player" // Parent
+							)
+		);
+	}
+
+	// All Building prototypes data
+	void CreateBuildingPrototypes() {
         buildingPrototypes = new Dictionary<string, Building>();
 
         buildingPrototypes.Add("InnerWall",
@@ -203,16 +220,38 @@ public class World : IXmlSerializable {
             new Building("Base", 0,  2, 2,"Buildings",false ));
     }
 
-    public Building PlaceBuilding(string objectType, Tile t) {
+	public Character PlaceCharacter(string chrType, Tile t) {
+
+		if (characterPrototypes.ContainsKey(chrType) == false) {
+			Debug.LogError("buildingPrototypes doesn't contain a proto for key: " + chrType);
+			return null;
+		}
+
+		Character c = Character.PlaceCharacter(characterPrototypes[chrType], t);
+
+		if (c == null) {
+			// Failed to place Character -- most likely there was already something there.
+			return null;
+		}
+
+		c.RegisterOnRemovedCallback(OnCharacterRemoved);
+		// Don't Save Dummy building
+		//if (bld.objectType != "DummyBuilding" && bld.objectType != "DummyGoal" )
+		characters.Add(c);
+
+		return c;
+	}
+
+    public Building PlaceBuilding(string bldType, Tile t) {
         //Debug.Log("PlaceInstalledObject");
         // TODO: This function assumes 1x1 tiles -- change this later!
 
-        if (buildingPrototypes.ContainsKey(objectType) == false) {
-            Debug.LogError("buildingPrototypes doesn't contain a proto for key: " + objectType);
+        if (buildingPrototypes.ContainsKey(bldType) == false) {
+            Debug.LogError("buildingPrototypes doesn't contain a proto for key: " + bldType);
             return null;
         }
 
-        Building bld = Building.PlaceBuilding(buildingPrototypes[objectType], t);
+        Building bld = Building.PlaceBuilding(buildingPrototypes[bldType], t);
 
         if (bld == null) {
             // Failed to place object -- most likely there was already something there.
@@ -222,7 +261,7 @@ public class World : IXmlSerializable {
 		bld.RegisterOnRemovedCallback(OnBuildingRemoved);
 		// Don't Save Dummy building
 		//if (bld.objectType != "DummyBuilding" && bld.objectType != "DummyGoal" )
-            buildings.Add(bld);
+        buildings.Add(bld);
 
         // Set start and goal tile due to specific building
         if (bld.objectType == "OuterWall_Gate") { 
@@ -241,8 +280,20 @@ public class World : IXmlSerializable {
         return bld;
     }
 
+	public void OnCharacterRemoved(Character c) {
+		characters.Remove(c);
+	}
+
 	public void OnBuildingRemoved(Building bld) {
 		buildings.Remove(bld);
+	}
+
+	public void RegisterCharacterCreated(Action<Character> callbackfunc) {
+		cbCharacterCreated += callbackfunc;
+	}
+
+	public void UnregisterCharacterCreated(Action<Character> callbackfunc) {
+		cbCharacterCreated -= callbackfunc;
 	}
 
 	public void RegisterBuildingCreated(Action<Building> callbackfunc) {
