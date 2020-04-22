@@ -8,9 +8,9 @@ public class CharacterGraphicController : MonoBehaviour {
 	}
 	Dictionary<Character, GameObject> characterGameObjectMap;
 	Dictionary<string, GameObject> characterGOS;
-	
-	public MovementController movementController;
 
+	//public MovementController movementController;
+	public PlayerController playerController;
 
 	void Start() {
 		characterGameObjectMap = new Dictionary<Character, GameObject>();
@@ -28,21 +28,6 @@ public class CharacterGraphicController : MonoBehaviour {
 		}
 	}
 
-	//Vector3 moveDT;
-
-	//private void Update() {
-	//	//[Range(0.01f,1f)]
-	//	 float moveFT = 0.75f;
-	//	// Move player data
-	//	if (WorldController.Instance.gameMode == GameMode.PlayMode) {
-	//		Vector2 move = TCKInput.GetAxis("Joystick");
-	//		//Debug.Log("Joystick moveX : " + move.x);
-	//		//Debug.Log("Joystick moveXY : " + move.y);
-	//		moveDT = new Vector3(move.x * moveFT, -0.5f, move.y * moveFT);
-	//		//World.player.X += move.x* moveFT * Time.deltaTime;
-	//		//World.player.Z += move.y* moveFT * Time.deltaTime;
-	//	}
-	//}
 
 	private void FixedUpdate() {
 
@@ -51,15 +36,15 @@ public class CharacterGraphicController : MonoBehaviour {
 			foreach (Character c in World.characters) {
 				GameObject c_go = characterGameObjectMap[c];
 				if (c.objectType == "Player") { 
-				
-				//c_go.transform.position = new Vector3(c.X, -0.5f, c.Z);
-				Rigidbody rb = c_go.GetComponent<Rigidbody>();
-				//rb.MovePosition(new Vector3(c.X, -0.3f, c.Z));
-				rb.MovePosition(c_go.transform.position + movementController.playerMoveDT * Time.deltaTime);
-				//c_go.GetComponent<Rigidbody>().MovePosition(c_go.GetComponent<Rigidbody>().position + moveDT * Time.deltaTime);
-				World.player.X = c_go.transform.position.x;
-				World.player.Z = c_go.transform.position.z;
-					}
+					
+					Rigidbody rb = c_go.GetComponent<Rigidbody>();
+					
+					rb.MovePosition(rb.position + playerController.playerMoveDT * Time.fixedDeltaTime);
+			
+					//c_go.GetComponent<Rigidbody>().MovePosition(c_go.GetComponent<Rigidbody>().position + moveDT * Time.deltaTime);
+					World.player.X = c_go.transform.position.x;
+					World.player.Z = c_go.transform.position.z;
+				}
 			}
 		}
 	}

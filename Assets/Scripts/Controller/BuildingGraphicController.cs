@@ -39,6 +39,16 @@ public class BuildingGraphicController : MonoBehaviour {
         }
     }
 
+	// Change building collider to real physics
+	public void ChangeBuildingPhysic(bool realPhysics) {
+		foreach (Building bld in World.buildings) {
+			GameObject bld_go = buildingGameObjectMap[bld];
+			bld_go.GetComponent<Collider>().isTrigger = !realPhysics;
+			bld_go.GetComponent<Rigidbody>().useGravity = realPhysics;
+			Debug.Log(bld_go.name + bld_go.GetComponent<Collider>().isTrigger);
+		}
+	}
+
     public void OnBuildingCreated(Building bld) {
         //Debug.Log("OnBuildingCreated");
         // Create a visual GameObject linked to this data.

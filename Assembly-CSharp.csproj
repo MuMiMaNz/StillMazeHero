@@ -122,6 +122,7 @@
     <Compile Include="Assets\Scripts\Controller\CharacterGraphicController.cs" />
     <Compile Include="Assets\Scripts\Controller\MovementController.cs" />
     <Compile Include="Assets\Scripts\Controller\PanelController.cs" />
+    <Compile Include="Assets\Scripts\Controller\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Controller\TileGraphicController.cs" />
     <Compile Include="Assets\Scripts\Controller\TouchController.cs" />
     <Compile Include="Assets\Scripts\Controller\WorldController.cs" />
