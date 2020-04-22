@@ -13,6 +13,8 @@ public class WorldController : MonoBehaviour
 	public World World { get; protected set; }
 
 	public CameraController cameraController;
+	public MovementController movementController;
+	public PanelController panelController;
 	public TileGraphicController tileGraphicController;
 
 	public int Width = 14;
@@ -44,14 +46,13 @@ public class WorldController : MonoBehaviour
 		}
 
 		gameMode = GameMode.BuildMode;
-       
     }
 
 	void Update() {
         // TODO: Add pause/unpause, speed controls, etc...
         World.Update(Time.deltaTime);
-		cameraController.Update(Time.deltaTime);
-
+		cameraController.Update();
+		movementController.Update(Time.deltaTime);
 	}
 
     // Gets the tile at the unity-space coordinates
@@ -65,6 +66,8 @@ public class WorldController : MonoBehaviour
 	public void PlayItDude() {
 		World.CreatePlayerAtStart();
 		gameMode = GameMode.PlayMode;
+		panelController.SetBuildModePanel(false);
+		panelController.SetPlayModePanel(true);
 	}
 
     public void NewWorld() {

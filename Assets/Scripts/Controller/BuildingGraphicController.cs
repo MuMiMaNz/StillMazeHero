@@ -74,6 +74,7 @@ public class BuildingGraphicController : MonoBehaviour {
 		Destroy(bld_go);
 		buildingGameObjectMap.Remove(bld);
 		World.InvalidateTileGraph();
+		WorldController.Instance.StartPathfinding();
 	}
 
 	void OnBuildingChanged(Building bld) {

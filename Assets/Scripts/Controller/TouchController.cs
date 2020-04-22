@@ -23,23 +23,25 @@ public class TouchController : MonoBehaviour
 
 	private void Update()
     {
-        if (Input.touchCount == 1) {
-            Touch touch = Input.touches[0];
-            if (touch.phase == TouchPhase.Ended && isBuilding && buildingController.CanBuild())//pressing LMB, and isBuiding = true, and the Preview Script -> canBuild = true
-        {
-                BuildIt();//then build the thing
-            }
-                DoRay(touch);
-        }
-        // Rotate building??? - not for now
-        //else if (Input.touchCount == 2) {
-        //    Touch touch1 = Input.touches[0];
-        //    Touch touch2 = Input.touches[1];
-        //    if (touch2.phase == TouchPhase.Began && isBuilding)//for rotation
-        //   {
-        //        preview.transform.Rotate(0f, 90f, 0f);//spins like a top, in 90 degree turns
-        //    }
-        //}
+		if (WorldController.Instance.gameMode == GameMode.BuildMode) {
+			if (Input.touchCount == 1) {
+				Touch touch = Input.touches[0];
+				if (touch.phase == TouchPhase.Ended && isBuilding && buildingController.CanBuild())//pressing LMB, and isBuiding = true, and the Preview Script -> canBuild = true
+			{
+					BuildIt();//then build the thing
+				}
+				DoRay(touch);
+			}
+			// Rotate building??? - not for now
+			//else if (Input.touchCount == 2) {
+			//    Touch touch1 = Input.touches[0];
+			//    Touch touch2 = Input.touches[1];
+			//    if (touch2.phase == TouchPhase.Began && isBuilding)//for rotation
+			//   {
+			//        preview.transform.Rotate(0f, 90f, 0f);//spins like a top, in 90 degree turns
+			//    }
+			//}
+		}
     }
 
     public void CancleBuilding() {
@@ -132,9 +134,10 @@ public class TouchController : MonoBehaviour
 				hitGO.GetComponent<BuildingController>().SetSelected(true);
                 buildingController = hitGO.GetComponent<BuildingController>();
                 buildingController.ChangeColor();
-				
+
+				panelController.CloseBuildPanel();
 				panelController.OpenEditPanel(buildingController);
-                panelController.CloseBuildPanel();
+                
             }
             else if (Physics.Raycast(ray, out hit, Mathf.Infinity, notBuildingLayer)) {
                 if (buildingController != null) {

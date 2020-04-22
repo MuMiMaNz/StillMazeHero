@@ -306,7 +306,7 @@ RectTransform:
   m_Children:
   - {fileID: 189799158}
   m_Father: {fileID: 1627839475}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -381,7 +381,7 @@ RectTransform:
   m_Children:
   - {fileID: 1728629858}
   m_Father: {fileID: 1627839475}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
@@ -508,6 +508,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3e528ac7edf4aa42bafad97eebdf5f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraController: {fileID: 963194229}
   tileGraphicController: {fileID: 687641644}
   Width: 14
   Height: 14
@@ -1694,7 +1695,7 @@ RectTransform:
   - {fileID: 995358737}
   - {fileID: 221176387}
   m_Father: {fileID: 1627839475}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -2829,9 +2830,9 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 95175298}
   - {fileID: 102509813}
   - {fileID: 827250810}
-  - {fileID: 95175298}
   - {fileID: 334897753}
   m_Father: {fileID: 1340144066}
   m_RootOrder: 0

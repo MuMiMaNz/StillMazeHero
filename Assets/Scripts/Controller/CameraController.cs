@@ -13,7 +13,7 @@ public class CameraController : MonoBehaviour {
 		this.transform.position = new Vector3(World.Width / 2, 8f, -0.5f);
 	}
 	
-    public void Update(float deltaTime) {
+    public void Update() {
         if(WorldController.Instance.gameMode == GameMode.BuildMode) {
 			this.transform.position = new Vector3(World.Width / 2, 8f, -0.5f);
 		}else if (WorldController.Instance.gameMode == GameMode.PlayMode) {

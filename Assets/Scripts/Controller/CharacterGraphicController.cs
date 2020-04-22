@@ -27,6 +27,18 @@ public class CharacterGraphicController : MonoBehaviour {
 		}
 	}
 
+	private void FixedUpdate() {
+
+		if (WorldController.Instance.gameMode == GameMode.PlayMode) {
+			// Update GO position
+			foreach (Character c in World.characters) {
+				GameObject c_go = characterGameObjectMap[c];
+				//c_go.transform.position = new Vector3(c.X, -0.5f, c.Z);
+				c_go.GetComponent<Rigidbody>().MovePosition(new Vector3(c.X, -0.3f, c.Z));
+			}
+		}
+	}
+
 	//  Load 3D Game Object Here
 	void LoadPrefabs() {
 		characterGOS = new Dictionary<string, GameObject>();

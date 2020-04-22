@@ -14,8 +14,8 @@ public class Character {
 	public float HP { get; protected set; }
 	public float speed { get; protected set; }
 	
-	public float X { get; protected set; }
-	public float Z { get; protected set; }
+	public float X { get;  set; }
+	public float Z { get;  set; }
 
 	public Tile charStartTile { get; protected set; }
 

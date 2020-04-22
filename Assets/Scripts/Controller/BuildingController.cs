@@ -115,7 +115,8 @@ public class BuildingController : MonoBehaviour {
         }
     }
 
-    public void TryBuild() {      
+    public void TryBuild() { 
+		     
         Tile t = World.GetTileAt((int)transform.position.x , (int)transform.position.z);
 
         // If move Goal building Use Dummy Goal building and set new Goal tile

@@ -13,7 +13,7 @@ public class World : IXmlSerializable {
 	// Array use on Save/Load
 	public List<Building> buildings { get; protected set; }
 	public List<Character> characters { get; protected set; }
-	public Character player { get; protected set; }
+	public Character player {  get; protected set; }
 
 	// The pathfinding graph used to navigate our world map.
 	public Path_TileGraph tileGraph;
@@ -113,6 +113,10 @@ public class World : IXmlSerializable {
 
 		return c;
 	}
+
+	//public Character GetPlayer() {
+	//	return player;
+	//}
 
 	public void Update(float deltaTime) {
 		foreach (Character c in characters) {

@@ -5,12 +5,13 @@ using UnityEngine.UI;
 
 public class PanelController : MonoBehaviour
 {
-	World World {
-		get { return WorldController.Instance.World; }
-	}
+	
 	private BuildingController currentSelectBuilding;
 
-    public GameObject buildPanelL;
+	public GameObject BuildModePanel;
+	public GameObject PlayModePanel;
+
+	public GameObject buildPanelL;
     public GameObject buildPanelR;
     public GameObject editBuildPanel;
     public Text buildingNameText;
@@ -25,7 +26,9 @@ public class PanelController : MonoBehaviour
     private void Start() {
         OpenBuildPanel();
         editBuildPanel.SetActive(false);
-    }
+		SetBuildModePanel(true);
+		SetPlayModePanel(false);
+	}
 
 	
     public void StartBuild(string objType) {
@@ -34,7 +37,14 @@ public class PanelController : MonoBehaviour
         else { OpenBuildPanel(); }
     }
 
-    public void OpenBuildPanel() {
+	public void SetBuildModePanel(bool _isActive) {
+		BuildModePanel.SetActive(_isActive);
+	}
+	public void SetPlayModePanel(bool _isActive) {
+		PlayModePanel.SetActive(_isActive);
+	}
+
+	public void OpenBuildPanel() {
         isOpenBuildpanel = true;
         buildPanelL.SetActive(true);
         buildPanelR.SetActive(false);
@@ -80,7 +90,6 @@ public class PanelController : MonoBehaviour
 		//Debug.Log("Sell Building At: " + currentSelectBuilding.building.tile.X + "," + currentSelectBuilding.building.tile.Z);
 		Tile t = WorldController.Instance.World.GetTileAt((int)currentSelectBuilding.transform.position.x, (int)currentSelectBuilding.transform.position.z);
 		t.building.Deconstruct(true);
-		
 
 		currentSelectBuilding.Destroy();
         currentSelectBuilding = null;

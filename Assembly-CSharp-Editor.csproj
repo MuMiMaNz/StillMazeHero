@@ -63,6 +63,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Pack\LeanTween\Editor\LeanTweenDocumentationEditor.cs" />
+    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\CustomInspectors\Controllers\Base\AxesBasedControllerEditor.cs" />
+    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\CustomInspectors\Controllers\Base\ControllerBaseEditor.cs" />
+    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\CustomInspectors\Controllers\TCKButtonEditor.cs" />
+    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\CustomInspectors\Controllers\TCKJoystickEditor.cs" />
+    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\CustomInspectors\Controllers\TCKTouchpadEditor.cs" />
+    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\Extensions\SerializedPropertyExtensions.cs" />
+    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\Initialize\TCKInitialize.cs" />
+    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\Utils\TCKEditorChangeCheck.cs" />
+    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\Utils\TCKEditorHelper.cs" />
+    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\Utils\TCKEditorLayout.cs" />
+    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\Utils\TCKEditorStyle.cs" />
+    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\Utils\TCKPrefabCreator.cs" />
+    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\Windows\TCKWindow.cs" />
+    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\Windows\Tabs\TCKAboutTab.cs" />
     <Reference Include="UnityEditor.TestRunner">
       <HintPath>D:/Unity_project/StillMazeHero/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
     </Reference>
