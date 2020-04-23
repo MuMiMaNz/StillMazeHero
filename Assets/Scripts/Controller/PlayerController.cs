@@ -6,15 +6,13 @@ public class PlayerController : MonoBehaviour
 	World World {
 		get { return WorldController.Instance.World; }
 	}
-	public Vector3 playerMoveDT;
+	public Vector3 playerMoveDT { get; protected set; }
 
 	//[Range(0.01f,1f)]
 	private float moveFT = 0.75f;
-	public bool isHitWall ;
 
 	private void Start() {
 		playerMoveDT = Vector3.zero;
-		isHitWall = false;
 	}
 
 	public void Update() {
@@ -30,8 +28,19 @@ public class PlayerController : MonoBehaviour
 
 		}
 	}
-	
-	
+
+	private void FixedUpdate() {
+		if (WorldController.Instance.gameMode == GameMode.PlayMode) {
+			GameObject c_go = GameObject.Find("Player");
+
+			Rigidbody rb = c_go.GetComponent<Rigidbody>();
+
+			rb.MovePosition(rb.position + playerMoveDT * Time.fixedDeltaTime);
+			
+			World.player.X = c_go.transform.position.x;
+			World.player.Z = c_go.transform.position.z;
+		}
+	}
 
 
 }

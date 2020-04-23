@@ -10,7 +10,7 @@ public class BuildingGraphicController : MonoBehaviour {
     Dictionary<Building, GameObject> buildingGameObjectMap;
     Dictionary<string, GameObject> buildingGOS;
 
-    public TouchController touchController;
+    public BuildingSelectController touchController;
 
     void Start() {
         
@@ -45,7 +45,6 @@ public class BuildingGraphicController : MonoBehaviour {
 			GameObject bld_go = buildingGameObjectMap[bld];
 			bld_go.GetComponent<Collider>().isTrigger = !realPhysics;
 			bld_go.GetComponent<Rigidbody>().useGravity = realPhysics;
-			Debug.Log(bld_go.name + bld_go.GetComponent<Collider>().isTrigger);
 		}
 	}
 

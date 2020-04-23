@@ -29,7 +29,7 @@ public class WorldController : MonoBehaviour
 	public bool _StartWithPathfind { get; protected set; }
 
     // Use this for initialization
-    void OnEnable() {
+    void Awake() {
 
         if (Instance != null) {
             Debug.LogError("There should never be two world controllers.");
@@ -69,6 +69,7 @@ public class WorldController : MonoBehaviour
 		gameMode = GameMode.PlayMode;
 		panelController.SetBuildModePanel(false);
 		panelController.SetPlayModePanel(true);
+		cameraController.SetPlayModeCam();
 
 		// Change Building to Real physics
 		buildingGraphicController.ChangeBuildingPhysic(true);
@@ -97,7 +98,7 @@ public class WorldController : MonoBehaviour
     }
 
     public void LoadWorld() {
-        Debug.Log("LoadWorld button was clicked.");
+        //Debug.Log("LoadWorld button was clicked.");
 
         // Reload the scene to reset all data (and purge old references)
         loadWorld = true;

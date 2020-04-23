@@ -114,11 +114,7 @@ public class Tile :IXmlSerializable {
 
         return true;
     }
-
-    //public void RemoveBuilding() {
-    //    //Debug.Log("Remove building at" + X + "," + Z);
-    //    building = null;
-    //}
+	
 
 	public bool RemoveBuilding() {
 		//  uninstalling with multi-tile Building.

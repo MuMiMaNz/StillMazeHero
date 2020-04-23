@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TouchController : MonoBehaviour
+public class BuildingSelectController : MonoBehaviour
 {
 	World World {
 		get { return WorldController.Instance.World; }
@@ -19,7 +19,7 @@ public class TouchController : MonoBehaviour
     public BuildingGraphicController buildingGraphicCntroller;
     
     private bool isBuilding = false;
-	private bool isMove = false;
+	public bool isOpenEditPanel = false;
 
 	private void Update()
     {
@@ -59,14 +59,13 @@ public class TouchController : MonoBehaviour
     }
 
 	// Lt build panel On touch button retrun PreviewBuilding
-	public void PreviewBuilding(string objType,bool _isMove) {
+	public void PreviewBuilding(string objType) {
         
         preview = buildingGraphicCntroller.GetPreviewBuilding(objType);
         preview.transform.SetParent(this.transform, true);
         buildingController = preview.GetComponent<BuildingController>();//grab the script that is sitting on the preview
         buildingController.isBuilding = true;
         isBuilding = true;//we can now build
-		isMove = _isMove;
 	}
 
     private void StopBuild()
@@ -98,7 +97,8 @@ public class TouchController : MonoBehaviour
                 PositionPreviewBuilding(hit.point);
             }
         }else {
-            SelectBuilding(touch);
+			if(isOpenEditPanel == false)
+				SelectBuilding(touch);
             
         }
     }
@@ -131,12 +131,14 @@ public class TouchController : MonoBehaviour
                     buildingController.ChangeColor();
                 }
 				GameObject hitGO = hit.collider.gameObject;
+				//Debug.Log(hitGO.name);
 				hitGO.GetComponent<BuildingController>().SetSelected(true);
                 buildingController = hitGO.GetComponent<BuildingController>();
                 buildingController.ChangeColor();
 
 				panelController.CloseBuildPanel();
 				panelController.OpenEditPanel(buildingController);
+				isOpenEditPanel = true;
                 
             }
             else if (Physics.Raycast(ray, out hit, Mathf.Infinity, notBuildingLayer)) {

@@ -118,13 +118,12 @@
     <Compile Include="Assets\Scripts\API_Demo.cs" />
     <Compile Include="Assets\Scripts\Controller\BuildingController.cs" />
     <Compile Include="Assets\Scripts\Controller\BuildingGraphicController.cs" />
+    <Compile Include="Assets\Scripts\Controller\BuildingSelectController.cs" />
     <Compile Include="Assets\Scripts\Controller\CameraController.cs" />
     <Compile Include="Assets\Scripts\Controller\CharacterGraphicController.cs" />
-    <Compile Include="Assets\Scripts\Controller\MovementController.cs" />
     <Compile Include="Assets\Scripts\Controller\PanelController.cs" />
     <Compile Include="Assets\Scripts\Controller\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Controller\TileGraphicController.cs" />
-    <Compile Include="Assets\Scripts\Controller\TouchController.cs" />
     <Compile Include="Assets\Scripts\Controller\WorldController.cs" />
     <Compile Include="Assets\Scripts\FirstPersonExample1.cs" />
     <Compile Include="Assets\Scripts\Model\Building.cs" />

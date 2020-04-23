@@ -19,7 +19,7 @@ public class PanelController : MonoBehaviour
     public Button moveButton;
     public Button closeEditPanelButton;
 
-    public TouchController touchController;
+    public BuildingSelectController touchController;
 
     private bool isOpenBuildpanel;
 
@@ -32,7 +32,7 @@ public class PanelController : MonoBehaviour
 
 	
     public void StartBuild(string objType) {
-        touchController.PreviewBuilding(objType,false);
+        touchController.PreviewBuilding(objType);
         if (isOpenBuildpanel) { CloseBuildPanel(); }
         else { OpenBuildPanel(); }
     }
@@ -81,6 +81,7 @@ public class PanelController : MonoBehaviour
     private void CloseEditPanel() {
         editBuildPanel.SetActive(false);
         OpenBuildPanel();
+		touchController.isOpenEditPanel = false;
     }
 
     private void SellBuilding( ) {
@@ -88,28 +89,32 @@ public class PanelController : MonoBehaviour
 
 		// Select Building at Pivot point (Left button) and remove for multi tile
 		//Debug.Log("Sell Building At: " + currentSelectBuilding.building.tile.X + "," + currentSelectBuilding.building.tile.Z);
-		Tile t = WorldController.Instance.World.GetTileAt((int)currentSelectBuilding.transform.position.x, (int)currentSelectBuilding.transform.position.z);
-		t.building.Deconstruct(true);
+		Tile t = WorldController.Instance.World.GetTileAt(Mathf.RoundToInt(currentSelectBuilding.transform.position.x), Mathf.RoundToInt(currentSelectBuilding.transform.position.z));
+		t.building.Deconstruct();
 
 		currentSelectBuilding.Destroy();
         currentSelectBuilding = null;
         editBuildPanel.SetActive(false);
         OpenBuildPanel();
         buildPanelR.SetActive(false);
-    }
+		touchController.isOpenEditPanel = false;
+	}
 
     private void MoveBuilding() {
         if (currentSelectBuilding == null) { return; }
-
+		Debug.Log(currentSelectBuilding.bldPrototype.objectType);
 		// Destroy building and create new preview
-		Tile t = WorldController.Instance.World.GetTileAt((int)currentSelectBuilding.transform.position.x, (int)currentSelectBuilding.transform.position.z);
-		t.building.Deconstruct(false);
-		touchController.PreviewBuilding(currentSelectBuilding.GetBuildingType(),true);
+		Tile t = WorldController.Instance.World.GetTileAt( Mathf.RoundToInt(currentSelectBuilding.transform.position.x), Mathf.RoundToInt(currentSelectBuilding.transform.position.z));
+		Debug.Log("Tile :" + t.X + "," + t.Z);
+		Debug.Log(t.building.objectType);
+		t.building.Deconstruct();
+		touchController.PreviewBuilding(currentSelectBuilding.GetBuildingType());
+
 
         currentSelectBuilding.Destroy();
         currentSelectBuilding = null;
         editBuildPanel.SetActive(false);
         buildPanelR.SetActive(false);
-
-    }
+		touchController.isOpenEditPanel = false;
+	}
 }

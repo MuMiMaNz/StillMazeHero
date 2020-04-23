@@ -133,7 +133,7 @@ public class BuildingController : MonoBehaviour {
             foreach (GroundCube cube in cubes) {
                 cube.SetSelection(false);
             }
-			t.building.Deconstruct(false);
+			t.building.Deconstruct();
             WorldController.Instance.World.PlaceBuilding(buildingType, t);
             canBuild = true;
 
@@ -142,7 +142,7 @@ public class BuildingController : MonoBehaviour {
         }else {
 			// Invalid Prebuild position (Obstruct pathway)
 			// TODO: make Alert Dialog
-			t.building.Deconstruct(false);
+			t.building.Deconstruct();
 			canBuild = false;
         }
 
@@ -153,8 +153,6 @@ public class BuildingController : MonoBehaviour {
         return canBuild;
     }
 
-    ////////////////////////////////////////////////////
-
     public void SetSelected(bool select) {
         //Debug.Log(select);
         isSelected = select;
@@ -164,11 +162,11 @@ public class BuildingController : MonoBehaviour {
         return buildingType;
     }
 
-    public void Destroy() {
-        Tile t = WorldController.Instance.World.GetTileAt((int)transform.position.x, (int)transform.position.z);
-        t.RemoveBuilding();
-        Destroy(gameObject);
-    }
+	public void Destroy() {
+		//Tile t = WorldController.Instance.World.GetTileAt((int)transform.position.x, (int)transform.position.z);
+		//t.building.Deconstruct();
+		Destroy(gameObject);
+	}
 }
 
     

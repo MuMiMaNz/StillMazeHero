@@ -27,27 +27,26 @@ public class CharacterGraphicController : MonoBehaviour {
 
 		}
 	}
+	
+	//private void FixedUpdate() {
 
+	//	if (WorldController.Instance.gameMode == GameMode.PlayMode) {
+	//		// Update GO position
+	//		foreach (Character c in World.characters) {
+	//			GameObject c_go = characterGameObjectMap[c];
+	//			if (c.objectType == "Player") {
 
-	private void FixedUpdate() {
+	//				Rigidbody rb = c_go.GetComponent<Rigidbody>();
 
-		if (WorldController.Instance.gameMode == GameMode.PlayMode) {
-			// Update GO position
-			foreach (Character c in World.characters) {
-				GameObject c_go = characterGameObjectMap[c];
-				if (c.objectType == "Player") { 
-					
-					Rigidbody rb = c_go.GetComponent<Rigidbody>();
-					
-					rb.MovePosition(rb.position + playerController.playerMoveDT * Time.fixedDeltaTime);
-			
-					//c_go.GetComponent<Rigidbody>().MovePosition(c_go.GetComponent<Rigidbody>().position + moveDT * Time.deltaTime);
-					World.player.X = c_go.transform.position.x;
-					World.player.Z = c_go.transform.position.z;
-				}
-			}
-		}
-	}
+	//				rb.MovePosition(rb.position + playerController.playerMoveDT * Time.fixedDeltaTime);
+
+	//				//c_go.GetComponent<Rigidbody>().MovePosition(c_go.GetComponent<Rigidbody>().position + moveDT * Time.deltaTime);
+	//				World.player.X = c_go.transform.position.x;
+	//				World.player.Z = c_go.transform.position.z;
+	//			}
+	//		}
+	//	}
+	//}
 
 	//  Load 3D Game Object Here
 	void LoadPrefabs() {

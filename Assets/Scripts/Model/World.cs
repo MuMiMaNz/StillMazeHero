@@ -28,16 +28,14 @@ public class World : IXmlSerializable {
     Action<Character> cbCharacterCreated;
     Action<Tile> cbTileChanged;
 
-    // The tile width of the world.
+
     public int Width { get; protected set; }
-    // The tile height of the world
     public int Height { get; protected set; }
 
     // Initializes a new instance of the World class.
     public World(int _width , int _height ) {
 
         SetupWorld(_width, _height);
-
     }
 
     private void SetupWorld(int width,int height) {
@@ -153,7 +151,7 @@ public class World : IXmlSerializable {
 			new Character("Player", // Name
 							100f, // HP
 							1, //Speed
-							"Player" // Parent
+							"PlayerRoot" // Parent
 							)
 		);
 	}
@@ -194,7 +192,7 @@ public class World : IXmlSerializable {
         );
         buildingPrototypes.Add("Goal",
             new Building(
-                                "Goal",
+								"Goal",
                                 1,  // passable
                                 1,  // Width
                                 1,  // Height
@@ -222,8 +220,6 @@ public class World : IXmlSerializable {
                                 false // Links to neighbours and "sort of" becomes part of a large object
                             )
         );
-        buildingPrototypes.Add("Base",
-            new Building("Base", 0,  2, 2,"Buildings",false ));
     }
 
 	public Character PlaceCharacter(string chrType, Tile t) {
@@ -277,6 +273,7 @@ public class World : IXmlSerializable {
         if (bld.objectType == "Goal") {
             goalTile = GetTileAt(t.X, t.Z);
             Debug.Log("Goal Tile at" + goalTile.X + "," + goalTile.Z);
+			Debug.Log(goalTile.building.objectType);
         }
 
         if (cbBuildingCreated != null) {
