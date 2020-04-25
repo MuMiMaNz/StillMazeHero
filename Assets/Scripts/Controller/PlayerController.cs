@@ -6,45 +6,72 @@ public class PlayerController : MonoBehaviour
 	World World {
 		get { return WorldController.Instance.World; }
 	}
-	public Vector3 playerMoveDT { get; protected set; }
+	public CameraController camController;
+	private Transform camTransform;
 
+	public Vector3 joyMoveDT { get; protected set; }
+	private Quaternion playerRotateDT;
+	public GameObject playerGO { get; protected set; }
+	private Rigidbody rb;
 	//[Range(0.01f,1f)]
 	private float moveFT = 0.75f;
 
-	private void Start() {
-		playerMoveDT = Vector3.zero;
+	public void SeekPlayerGO() {
+		
+		playerGO = GameObject.Find("Player");
+		rb = playerGO.GetComponent<Rigidbody>();
+		playerRotateDT = rb.rotation;
+		joyMoveDT = Vector3.zero;
+		camTransform = camController.transform;
 	}
+
 
 	public void Update() {
 		if (WorldController.Instance.gameMode == GameMode.PlayMode) {
 			
 			Vector2 move = TCKInput.GetAxis("Joystick");
-			//Debug.Log("Joystick moveX : " + move.x);
-			//Debug.Log("Joystick moveXY : " + move.y);
-			//World.player.X += move.x * moveFT * Time.fixedDeltaTime;
-			//World.player.Z += move.y * moveFT * Time.fixedDeltaTime;
 
-			playerMoveDT = new Vector3(move.x * moveFT, 0, move.y * moveFT);
-			//Debug.Log("Move X :" + move.x);
-			//Debug.Log("Move Y :" + move.y);
+			joyMoveDT = new Vector3(move.x , 0, move.y );
+			//Debug.Log(joyMoveDT.x);
+
+			//camController.MoveCamOnPlayerMove(move);
 		}
 	}
 
 	private void FixedUpdate() {
 		if (WorldController.Instance.gameMode == GameMode.PlayMode) {
-			GameObject c_go = GameObject.Find("Player");
+		
+			if (joyMoveDT != Vector3.zero) {
+				
+				// Adjust jostict direction to camera angle
+				Vector3 newPos = camTransform.rotation * joyMoveDT;
+				newPos.y = 0f;
+				//Vector3 newPos = Vector3.zero;
+				//if (joyMoveDT.z > 0) newPos += camTransform.forward;
+				//if (joyMoveDT.z == 0) newPos = camTransform.forward;
+				//if (joyMoveDT.z < 0) newPos += -camTransform.forward;
+				//if (joyMoveDT.x > 0) newPos += camTransform.right;
+				//if (joyMoveDT.x == 0) newPos += camTransform.right;
+				//if (joyMoveDT.x < 0) newPos += -camTransform.right;
 
-			Rigidbody rb = c_go.GetComponent<Rigidbody>();
-			// Move position
-			rb.MovePosition(rb.position + playerMoveDT * Time.fixedDeltaTime);
-			// Rotate player
-			Vector2 move = TCKInput.GetAxis("Joystick");
+				// Move position
+				rb.MovePosition(rb.position + newPos * moveFT * Time.fixedDeltaTime);
 
-			rb.rotation = Quaternion.LookRotation(new Vector3(move.x, 0, move.y));
+				// Rotate player
 
+				Quaternion oldRotate = rb.rotation;
+				rb.rotation = Quaternion.Slerp(oldRotate, Quaternion.LookRotation(newPos.normalized), 200f);
 
-			World.player.X = c_go.transform.position.x;
-			World.player.Z = c_go.transform.position.z;
+				
+				// Save data to player character
+				World.player.X = playerGO.transform.position.x;
+				World.player.Z = playerGO.transform.position.z;
+			}
+			
+
+			//rb.rotation = Quaternion.LookRotation(new Vector3(move.x, 0, move.y).normalized);
+
+			
 		}
 	}
 

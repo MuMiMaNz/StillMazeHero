@@ -13,7 +13,7 @@ public class WorldController : MonoBehaviour
 	public World World { get; protected set; }
 
 	public CameraController cameraController;
-	
+	public PlayerController playerControllerl;
 	public PanelController panelController;
 	public BuildingGraphicController buildingGraphicController;
 	public TileGraphicController tileGraphicController;
@@ -70,7 +70,7 @@ public class WorldController : MonoBehaviour
 		panelController.SetBuildModePanel(false);
 		panelController.SetPlayModePanel(true);
 		cameraController.SetPlayModeCam();
-
+		playerControllerl.SeekPlayerGO();
 		// Change Building to Real physics
 		buildingGraphicController.ChangeBuildingPhysic(true);
 	}

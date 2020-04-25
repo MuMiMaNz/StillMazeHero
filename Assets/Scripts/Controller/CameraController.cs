@@ -30,13 +30,17 @@ public class CameraController : MonoBehaviour {
 			this.transform.position = new Vector3(World.Width / 2, 8f, -0.5f);
 		}else if (WorldController.Instance.gameMode == GameMode.PlayMode) {
 
-			// Camera follow player
-			Vector3 newPos = new Vector3(World.player.X, 0, World.player.Z) + new Vector3(0, 0.5f, -1f);
-			this.transform.position = Vector3.Slerp(this.transform.position, newPos, 0.8f);
+			// Camera follow player with distance
+			//Vector3 camPos  = new Vector3(playerController.playerGO.transform.position.x, 0, playerController.playerGO.transform.position.z);
+
+			Vector3 distanceCam = -playerController.playerGO.transform.forward *2;
+
+			Vector3 camPos = new Vector3(World.player.X, 0, World.player.Z) + distanceCam;
+			this.transform.position = Vector3.Slerp(this.transform.position, camPos, 500f);
 			//this.transform.rotation = Quaternion.Euler(38, 0, 0);
 
 			//Swipe to rotate cam
-			if (Input.touchCount > 0 && playerController.playerMoveDT == Vector3.zero ) {
+			if (Input.touchCount > 0 && playerController.joyMoveDT == Vector3.zero ) {
 				if (Input.GetTouch(0).phase == TouchPhase.Began) {
 					FirstPoint = Input.GetTouch(0).position;
 					xAngleTemp = xAngle;
@@ -44,9 +48,17 @@ public class CameraController : MonoBehaviour {
 				}
 				if (Input.GetTouch(0).phase == TouchPhase.Moved) {
 					SecondPoint = Input.GetTouch(0).position;
+					// Rotate Camera
 					xAngle = xAngleTemp + (SecondPoint.x - FirstPoint.x) * 180 / Screen.width;
 					yAngle = yAngleTemp + (SecondPoint.y - FirstPoint.y) * 90 / Screen.height;
 					this.transform.rotation = Quaternion.Euler(yAngle, xAngle, 0.0f);
+
+
+					//// Move Camera
+					//Debug.Log((SecondPoint.x - FirstPoint.x) / Screen.width);
+					//// X-axis drag from screen width : -1 to 1
+					//float XDrag = (SecondPoint.x - FirstPoint.x) / Screen.width;
+					//this.transform.position += new Vector3(XDrag,0, XDrag) *-2;
 				}
 			}
 		}
@@ -65,9 +77,10 @@ public class CameraController : MonoBehaviour {
 		Debug.Log("Set Play mode cam");
 		xAngle = 0;
 		yAngle = 38;
-		
+
 		//Vector3 newPos = new Vector3(World.player.X, 0, World.player.Z) + new Vector3(0, 0.5f, -1f);
-		//this.transform.position = Vector3.Slerp(this.transform.position, newPos, 0.8f);
+		//this.transform.position = Vector3.Slerp(this.transform.position, newPos, 5f);
 		this.transform.rotation = Quaternion.Euler(38, 0, 0);
 	}
+	
 }
