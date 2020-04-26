@@ -129,6 +129,7 @@
     <Compile Include="Assets\Scripts\Model\Building.cs" />
     <Compile Include="Assets\Scripts\Model\Character.cs" />
     <Compile Include="Assets\Scripts\Model\GroundCube.cs" />
+    <Compile Include="Assets\Scripts\Model\Player.cs" />
     <Compile Include="Assets\Scripts\Model\Tile.cs" />
     <Compile Include="Assets\Scripts\Model\World.cs" />
     <Compile Include="Assets\Scripts\Pathfinding\Path_AStar.cs" />

@@ -16,7 +16,7 @@ public class CameraController : MonoBehaviour {
 	float yAngle;
 	float xAngleTemp;
 	float yAngleTemp;
-
+	Vector3 distanceCam;
 
 	void Start() {
 		xAngle = 0;
@@ -33,10 +33,9 @@ public class CameraController : MonoBehaviour {
 			// Camera follow player with distance
 			//Vector3 camPos  = new Vector3(playerController.playerGO.transform.position.x, 0, playerController.playerGO.transform.position.z);
 
-			Vector3 distanceCam = -playerController.playerGO.transform.forward *2;
 
 			Vector3 camPos = new Vector3(World.player.X, 0, World.player.Z) + distanceCam;
-			this.transform.position = Vector3.Slerp(this.transform.position, camPos, 500f);
+			this.transform.position = Vector3.Slerp(this.transform.position, camPos, 0.07f);
 			//this.transform.rotation = Quaternion.Euler(38, 0, 0);
 
 			//Swipe to rotate cam
@@ -53,6 +52,7 @@ public class CameraController : MonoBehaviour {
 					yAngle = yAngleTemp + (SecondPoint.y - FirstPoint.y) * 90 / Screen.height;
 					this.transform.rotation = Quaternion.Euler(yAngle, xAngle, 0.0f);
 
+					distanceCam = (-playerController.playerGO.transform.forward*0.7f) + new Vector3(0, 0.5f, 0);
 
 					//// Move Camera
 					//Debug.Log((SecondPoint.x - FirstPoint.x) / Screen.width);
@@ -80,6 +80,7 @@ public class CameraController : MonoBehaviour {
 
 		//Vector3 newPos = new Vector3(World.player.X, 0, World.player.Z) + new Vector3(0, 0.5f, -1f);
 		//this.transform.position = Vector3.Slerp(this.transform.position, newPos, 5f);
+		distanceCam = new Vector3(0, 0.5f, -1f);
 		this.transform.rotation = Quaternion.Euler(38, 0, 0);
 	}
 	

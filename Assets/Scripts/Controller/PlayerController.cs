@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
 				// Rotate player
 
 				Quaternion oldRotate = rb.rotation;
-				rb.rotation = Quaternion.Slerp(oldRotate, Quaternion.LookRotation(newPos.normalized), 200f);
+				rb.rotation = Quaternion.Slerp(oldRotate, Quaternion.LookRotation(newPos.normalized), 0.5f);
 
 				
 				// Save data to player character

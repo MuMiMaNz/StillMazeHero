@@ -509,6 +509,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraController: {fileID: 963194229}
+  playerControllerl: {fileID: 2077411287}
   panelController: {fileID: 1340144065}
   buildingGraphicController: {fileID: 678056890}
   tileGraphicController: {fileID: 687641644}
@@ -2981,6 +2982,7 @@ MonoBehaviour:
     m_Bits: 256
   panelController: {fileID: 1340144065}
   buildingGraphicCntroller: {fileID: 678056890}
+  isOpenEditPanel: 0
 --- !u!4 &1457707640
 Transform:
   m_ObjectHideFlags: 0
@@ -3674,8 +3676,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f978302cbcfbf943be09790f73d95f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMoveDT: {x: 0, y: 0, z: 0}
-  isHitWall: 0
+  camController: {fileID: 963194229}
 --- !u!4 &2077411288
 Transform:
   m_ObjectHideFlags: 0

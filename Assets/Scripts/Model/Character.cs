@@ -13,16 +13,35 @@ public class Character {
 
 	public float HP { get; protected set; }
 	public float speed { get; protected set; }
-	
+
+	public int STR { get; protected set; }
+	public int INT { get; protected set; }
+	public int VIT { get; protected set; }
+	public int DEX { get; protected set; }
+	public int AGI { get; protected set; }
+	public int LUK { get; protected set; }
+
 	public float X { get;  set; }
 	public float Z { get;  set; }
 
 	public Tile charStartTile { get; protected set; }
 
+	public Character() {
+
+	}
+
 	protected Character(Character other) {
 		this.objectType = other.objectType;
 		this.HP = other.HP;
 		this.speed = other.speed;
+
+		this.STR = other.STR;
+		this.INT = other.INT;
+		this.VIT = other.VIT;
+		this.DEX = other.DEX;
+		this.AGI = other.AGI;
+		this.LUK = other.LUK;
+
 		//this.X = other.X;
 		//this.Z = other.Z;
 		this.parent = other.parent;
@@ -37,10 +56,16 @@ public class Character {
 		return new Character(this);
 	}
 
-	public Character(string objectType, float HP = 100f, float speed = 1, string parent = "Character") {
+	public Character(string objectType,int STR = 1,int INT = 1, int VIT = 1, int DEX = 1, int AGI = 1, int LUK = 1,  float HP = 100f, float speed = 1, string parent = "Character") {
 		this.objectType = objectType;
 		this.HP = HP;
 		this.speed = speed;
+		this.STR = STR;
+		this.INT = INT;
+		this.VIT = VIT;
+		this.DEX = DEX;
+		this.AGI = AGI;
+		this.LUK = LUK;
 		
 		//this.X = charStartTile.X;
 		//this.Z = charStartTile.Z;

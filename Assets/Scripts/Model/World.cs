@@ -13,7 +13,7 @@ public class World : IXmlSerializable {
 	// Array use on Save/Load
 	public List<Building> buildings { get; protected set; }
 	public List<Character> characters { get; protected set; }
-	public Character player {  get; protected set; }
+	public Player player {  get; protected set; }
 
 	// The pathfinding graph used to navigate our world map.
 	public Path_TileGraph tileGraph;
@@ -23,6 +23,7 @@ public class World : IXmlSerializable {
     // Store building prototype data
     Dictionary<string, Building> buildingPrototypes;
 	Dictionary<string, Character> characterPrototypes;
+	Dictionary<string, Player> playerPrototypes;
 
 	Action<Building> cbBuildingCreated;
     Action<Character> cbCharacterCreated;
@@ -55,7 +56,8 @@ public class World : IXmlSerializable {
         }
         Debug.Log("World created with " + (Width * Height) + " tiles.");
         CreateBuildingPrototypes();
-		CreateCharacterPrototypes();
+		//CreateCharacterPrototypes();
+
 
 		characters = new List<Character>();
 		buildings = new List<Building>();
@@ -99,17 +101,18 @@ public class World : IXmlSerializable {
         }
     }
 
-	public Character CreatePlayerAtStart() {
-		Debug.Log("CreateCharacter");
-		Character c = PlaceCharacter("Player",startTile);
+	public Player CreatePlayerAtStart() {
+		Debug.Log("CreatePlayer");
+		Player p = PlacePlayer(startTile);
 
-		player = c;
-		characters.Add(c);
+		player = p;
+		Debug.Log("Player Name : " + player.name);
+		//characters.Add(c);
 
 		if (cbCharacterCreated != null)
-			cbCharacterCreated(c);
+			cbCharacterCreated(p);
 
-		return c;
+		return p;
 	}
 
 	//public Character GetPlayer() {
@@ -143,18 +146,19 @@ public class World : IXmlSerializable {
         return tiles[x, z];
     }
 
-	// All Character prototypes data
-	void CreateCharacterPrototypes() {
-		characterPrototypes = new Dictionary<string, Character>();
 
-		characterPrototypes.Add("Player",
-			new Character("Player", // Name
-							100f, // HP
-							1, //Speed
-							"PlayerRoot" // Parent
-							)
-		);
-	}
+	// All Character prototypes data
+	//void CreateCharacterPrototypes() {
+	//	characterPrototypes = new Dictionary<string, Character>();
+
+	//	characterPrototypes.Add("Player",
+	//		new Character("Player", // Name
+	//						100f, // HP
+	//						1, //Speed
+	//						"PlayerRoot" // Parent
+	//						)
+	//	);
+	//}
 
 	// All Building prototypes data
 	void CreateBuildingPrototypes() {
@@ -221,6 +225,31 @@ public class World : IXmlSerializable {
                             )
         );
     }
+
+	public Player PlacePlayer( Tile t) {
+
+		//if (characterPrototypes.ContainsKey(playerType) == false) {
+		//	Debug.LogError("buildingPrototypes doesn't contain a proto for key: " + playerType);
+		//	return null;
+		//}
+
+		// TODO: Load Player data and pass it here
+		// This is hard-code Player data
+		Player dummyPlayer = new Player("Player", "MuMiMaN", 10, 6, 8, 4, 4, 2, 500, 2, "PlayerRoot");
+		Player p = Player.PlacePlayer(dummyPlayer, t);
+
+		if (p == null) {
+			// Failed to place Character -- most likely there was already something there.
+			return null;
+		}
+
+		p.RegisterOnRemovedCallback(OnCharacterRemoved);
+		// Don't Save Dummy building
+		//if (bld.objectType != "DummyBuilding" && bld.objectType != "DummyGoal" )
+		characters.Add(p);
+
+		return p;
+	}
 
 	public Character PlaceCharacter(string chrType, Tile t) {
 
