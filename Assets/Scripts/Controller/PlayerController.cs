@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
 	private Quaternion playerRotateDT;
 	public GameObject playerGO { get; protected set; }
 	private Rigidbody rb;
+	private Animator playerAnim;
 	//[Range(0.01f,1f)]
 	private float moveFT = 0.75f;
 
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
 		
 		playerGO = GameObject.Find("Player");
 		rb = playerGO.GetComponent<Rigidbody>();
+		playerAnim = playerGO.GetComponent<Animator>();
 		playerRotateDT = rb.rotation;
 		joyMoveDT = Vector3.zero;
 		camTransform = camController.transform;
@@ -40,8 +42,9 @@ public class PlayerController : MonoBehaviour
 
 	private void FixedUpdate() {
 		if (WorldController.Instance.gameMode == GameMode.PlayMode) {
-		
-			if (joyMoveDT != Vector3.zero) {
+			
+			// Joystick is moving
+			if (joyMoveDT != Vector3.zero) { 
 				
 				// Adjust jostict direction to camera angle
 				Vector3 newPos = camTransform.rotation * joyMoveDT;
@@ -66,6 +69,20 @@ public class PlayerController : MonoBehaviour
 				// Save data to player character
 				World.player.X = playerGO.transform.position.x;
 				World.player.Z = playerGO.transform.position.z;
+
+				// Set Animation
+				if (joyMoveDT.magnitude > 0.5f) {
+					playerAnim.SetBool("isSplint", true);
+					playerAnim.SetBool("isWalk", false);
+				}else {
+					playerAnim.SetBool("isSplint", false);
+					playerAnim.SetBool("isWalk", true);
+				}
+			} // Joystick not move
+			else {
+				// Set Animation
+				playerAnim.SetBool("isSplint", false);
+				playerAnim.SetBool("isWalk", false);
 			}
 			
 
