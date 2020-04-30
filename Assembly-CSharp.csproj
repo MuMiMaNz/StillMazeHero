@@ -102,6 +102,12 @@
     <Compile Include="Assets\Pack\LeanTween\Framework\LeanTest.cs" />
     <Compile Include="Assets\Pack\LeanTween\Framework\LeanTween.cs" />
     <Compile Include="Assets\Pack\LeanTween\Framework\LeanTweenExt.cs" />
+    <Compile Include="Assets\Pack\ModularRPGHeroesHP\TPController\Scripts\AnimatorMatcher.cs" />
+    <Compile Include="Assets\Pack\ModularRPGHeroesHP\TPController\Scripts\BoolOperator1.cs" />
+    <Compile Include="Assets\Pack\ModularRPGHeroesHP\TPController\Scripts\BoolOperator2.cs" />
+    <Compile Include="Assets\Pack\ModularRPGHeroesHP\TPController\Scripts\CameraManager.cs" />
+    <Compile Include="Assets\Pack\ModularRPGHeroesHP\TPController\Scripts\ControlManager.cs" />
+    <Compile Include="Assets\Pack\ModularRPGHeroesHP\TPController\Scripts\ResetTimer.cs" />
     <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Content\FirstPersonExample\Scripts\API_Demo.cs" />
     <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Content\FirstPersonExample\Scripts\FirstPersonExample.cs" />
     <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Runtime\Attributes\ApplyMethodAttribute.cs" />
@@ -150,6 +156,7 @@
     <None Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Content\FirstPersonExample\ReadMeToo.txt" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\WaterGreen_Shader.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\Magma_Shader.shader" />
+    <None Include="Assets\Pack\ModularRPGHeroesHP\ReadMe.txt" />
     <None Include="Assets\Pack\LeanTween\License.txt" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\Sun_Shader.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\Surface_Shader.shader" />
@@ -161,6 +168,7 @@
     <None Include="Assets\Pack\PolygonMini_Fantasy\Shaders\WorldGradient.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\PlaneWater_Shader.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\Water_Shader.shader" />
+    <None Include="Assets\Pack\ModularRPGHeroesHP\Shader\HPMaskTint.shader" />
     <None Include="Assets\Pack\PolygonMini_Fantasy\Shaders\LocalFog_Overlay.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\Magma_Shader.shader" />
     <None Include="Assets\Pack\Cartoon Castle Building Kit\ReadMe.txt" />

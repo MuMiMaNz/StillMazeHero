@@ -49,19 +49,10 @@ public class PlayerController : MonoBehaviour
 				// Adjust jostict direction to camera angle
 				Vector3 newPos = camTransform.rotation * joyMoveDT;
 				newPos.y = 0f;
-				//Vector3 newPos = Vector3.zero;
-				//if (joyMoveDT.z > 0) newPos += camTransform.forward;
-				//if (joyMoveDT.z == 0) newPos = camTransform.forward;
-				//if (joyMoveDT.z < 0) newPos += -camTransform.forward;
-				//if (joyMoveDT.x > 0) newPos += camTransform.right;
-				//if (joyMoveDT.x == 0) newPos += camTransform.right;
-				//if (joyMoveDT.x < 0) newPos += -camTransform.right;
-
 				// Move position
 				rb.MovePosition(rb.position + newPos * moveFT * Time.fixedDeltaTime);
 
 				// Rotate player
-
 				Quaternion oldRotate = rb.rotation;
 				rb.rotation = Quaternion.Slerp(oldRotate, Quaternion.LookRotation(newPos.normalized), 0.5f);
 
@@ -72,17 +63,17 @@ public class PlayerController : MonoBehaviour
 
 				// Set Animation
 				if (joyMoveDT.magnitude > 0.5f) {
-					playerAnim.SetBool("isSplint", true);
-					playerAnim.SetBool("isWalk", false);
+					playerAnim.SetBool("splint", true);
+					playerAnim.SetBool("walk", false);
 				}else {
-					playerAnim.SetBool("isSplint", false);
-					playerAnim.SetBool("isWalk", true);
+					playerAnim.SetBool("splint", false);
+					playerAnim.SetBool("walk", true);
 				}
 			} // Joystick not move
 			else {
 				// Set Animation
-				playerAnim.SetBool("isSplint", false);
-				playerAnim.SetBool("isWalk", false);
+				playerAnim.SetBool("splint", false);
+				playerAnim.SetBool("walk", false);
 			}
 			
 
