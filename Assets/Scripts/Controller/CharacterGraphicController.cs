@@ -18,11 +18,11 @@ public class CharacterGraphicController : MonoBehaviour {
 		LoadPrefabs();
 		// Register our callback so that our GameObject gets updated whenever
 		// the tile's type changes.
-		World.RegisterCharacterCreated(OnCharacterCreated);
+		World.RegisterEnemyCreated(OnCharacterCreated);
 
 		// Go through any EXISTING character (i.e. from a save that was loaded OnEnable) and call the OnCreated event manually
 		//OnCharacterCreated(World.player);
-		foreach (Character c in World.characters) {
+		foreach (Character c in World.enemies) {
 			OnCharacterCreated(c);
 
 		}

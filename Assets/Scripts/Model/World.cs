@@ -12,7 +12,7 @@ public class World : IXmlSerializable {
 
 	// Array use on Save/Load
 	public List<Building> buildings { get; protected set; }
-	public List<Character> characters { get; protected set; }
+	public List<Enemy> enemies { get; protected set; }
 	public Player player {  get; protected set; }
 
 	// The pathfinding graph used to navigate our world map.
@@ -22,12 +22,14 @@ public class World : IXmlSerializable {
 
     // Store building prototype data
     Dictionary<string, Building> buildingPrototypes;
-	Dictionary<string, Character> characterPrototypes;
+	Dictionary<string, Enemy> enemyPrototypes;
 	Dictionary<string, Player> playerPrototypes;
+	Dictionary<string, Weapon> weaponPrototypes;
 
 	Action<Building> cbBuildingCreated;
-    Action<Character> cbCharacterCreated;
-    Action<Tile> cbTileChanged;
+    Action<Player> cbPlayerCreated;
+	Action<Enemy> cbEnemyCreated;
+	Action<Tile> cbTileChanged;
 
 
     public int Width { get; protected set; }
@@ -59,7 +61,7 @@ public class World : IXmlSerializable {
 		//CreateCharacterPrototypes();
 
 
-		characters = new List<Character>();
+		enemies = new List<Enemy>();
 		buildings = new List<Building>();
     }
 
@@ -109,19 +111,16 @@ public class World : IXmlSerializable {
 		Debug.Log("Player Name : " + player.name);
 		//characters.Add(c);
 
-		if (cbCharacterCreated != null)
-			cbCharacterCreated(p);
+		if (cbPlayerCreated != null)
+			cbPlayerCreated(p);
 
 		return p;
 	}
-
-	//public Character GetPlayer() {
-	//	return player;
-	//}
+	 
 
 	public void Update(float deltaTime) {
-		foreach (Character c in characters) {
-			c.Update(deltaTime);
+		foreach (Enemy e in enemies) {
+			e.Update(deltaTime);
 		}
 
 		foreach (Building b in buildings) {
@@ -243,34 +242,31 @@ public class World : IXmlSerializable {
 			return null;
 		}
 
-		p.RegisterOnRemovedCallback(OnCharacterRemoved);
-		// Don't Save Dummy building
-		//if (bld.objectType != "DummyBuilding" && bld.objectType != "DummyGoal" )
-		characters.Add(p);
+		p.RegisterOnRemovedCallback(OnPlayerRemoved);
 
 		return p;
 	}
 
-	public Character PlaceCharacter(string chrType, Tile t) {
+	public Enemy PlaceEnemy(string chrType, Tile t) {
 
-		if (characterPrototypes.ContainsKey(chrType) == false) {
+		if (enemyPrototypes.ContainsKey(chrType) == false) {
 			Debug.LogError("buildingPrototypes doesn't contain a proto for key: " + chrType);
 			return null;
 		}
 
-		Character c = Character.PlaceCharacter(characterPrototypes[chrType], t);
+		Enemy e = Enemy.PlaceEnemy(enemyPrototypes[chrType], t);
 
-		if (c == null) {
+		if (e == null) {
 			// Failed to place Character -- most likely there was already something there.
 			return null;
 		}
 
-		c.RegisterOnRemovedCallback(OnCharacterRemoved);
+		e.RegisterOnRemovedCallback(OnEnemyRemoved);
 		// Don't Save Dummy building
 		//if (bld.objectType != "DummyBuilding" && bld.objectType != "DummyGoal" )
-		characters.Add(c);
+		enemies.Add(e);
 
-		return c;
+		return e;
 	}
 
     public Building PlaceBuilding(string bldType, Tile t) {
@@ -319,20 +315,24 @@ public class World : IXmlSerializable {
         return bld;
     }
 
-	public void OnCharacterRemoved(Character c) {
-		characters.Remove(c);
+	public void OnPlayerRemoved(Player p) {
+		player = null;
+	}
+
+	public void OnEnemyRemoved(Enemy e) {
+		enemies.Remove(e);
 	}
 
 	public void OnBuildingRemoved(Building bld) {
 		buildings.Remove(bld);
 	}
 
-	public void RegisterCharacterCreated(Action<Character> callbackfunc) {
-		cbCharacterCreated += callbackfunc;
+	public void RegisterEnemyCreated(Action<Enemy> callbackfunc) {
+		cbEnemyCreated += callbackfunc;
 	}
 
-	public void UnregisterCharacterCreated(Action<Character> callbackfunc) {
-		cbCharacterCreated -= callbackfunc;
+	public void UnregisterEnemyCreated(Action<Enemy> callbackfunc) {
+		cbEnemyCreated -= callbackfunc;
 	}
 
 	public void RegisterBuildingCreated(Action<Building> callbackfunc) {
