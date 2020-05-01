@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 
 public class Building : IXmlSerializable {
 
-	public World World { get; protected set; }
+	//public World World { get; protected set; }
 
 	// This represents the BASE tile of the object -- but in practice, large objects may actually occupy
 	// multile tiles.

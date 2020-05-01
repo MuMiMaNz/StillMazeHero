@@ -9,23 +9,20 @@ public class CharacterGraphicController : MonoBehaviour {
 	Dictionary<Player, GameObject> playerGameObjectMap;
 	Dictionary<Enemy, GameObject> enemyGameObjectMap;
 	Dictionary<string, GameObject> characterGOS;
-	
+	Dictionary<string, GameObject> weaponGOS;
+
 	public PlayerController playerController;
 
 	void Start() {
 		playerGameObjectMap = new Dictionary<Player, GameObject>();
 		enemyGameObjectMap = new Dictionary<Enemy, GameObject>();
 
-		LoadPrefabs();
+		LoadCharacterPrefabs();
+		LoadWeaponPrefabs();
 		// Register our callback so that our Character gets created
 		World.RegisterPlayerCreated(OnPlayerCreated);
 		World.RegisterEnemyCreated(OnEnemyCreated);
 
-		// Go through any EXISTING character (i.e. from a save that was loaded OnEnable) and call the OnCreated event manually
-		//OnPlayerCreated(World.player);
-		//foreach (Enemy e in World.enemies) {
-		//	OnEnemyCreated(e);
-		//}
 	}
 	
 	//private void FixedUpdate() {
@@ -49,7 +46,7 @@ public class CharacterGraphicController : MonoBehaviour {
 	//}
 
 	//  Load 3D Game Object Here
-	void LoadPrefabs() {
+	void LoadCharacterPrefabs() {
 		characterGOS = new Dictionary<string, GameObject>();
 		GameObject[] gos = Resources.LoadAll<GameObject>("Prefabs/Characters/");
 
@@ -58,13 +55,17 @@ public class CharacterGraphicController : MonoBehaviour {
 			characterGOS[go.name] = go;
 		}
 	}
+	void LoadWeaponPrefabs() {
+		weaponGOS = new Dictionary<string, GameObject>();
+		GameObject[] gos = Resources.LoadAll<GameObject>("Prefabs/Weapons/");
+
+		foreach (GameObject go in gos) {
+			//Debug.Log("LOADED Weapon:" + go);
+			weaponGOS[go.name] = go;
+		}
+	}
 
 	public void OnPlayerCreated(Player p) {
-		//Debug.Log("OnCharacterCreated");
-		// Create a visual GameObject linked to this data.
-
-		// FIXME: Does not consider multi-tile objects nor rotated objects
-
 		// This creates a new GameObject and adds it to our scene.
 		GameObject p_go = GetGOforCharacter(p);
 
@@ -75,11 +76,21 @@ public class CharacterGraphicController : MonoBehaviour {
 			p_go.name = p.objectType;
 			p_go.transform.position = new Vector3(p.charStartTile.X, -0.5f, p.charStartTile.Z);
 			p_go.transform.SetParent(this.transform.Find(p.parent), true);
-
 			// Register our callback so that our GameObject gets updated whenever
 			// the object's into changes.
-			//c.RegisterOnChangedCallback(OnCharacterChanged);
 			p.RegisterOnRemovedCallback(OnPlayerRemoved);
+
+			// Add Weapon&Armor to Player GO
+			foreach (Weapon w in p.weapons) {
+				if (w.wSlotNO == 0) {
+					GameObject w_go = GetGOforWeapon(w);
+					w_go.name = w.wName;
+					w_go.transform.SetParent(p_go.transform.Find("root/weaponShield_r"), false);
+					w_go.transform.localPosition = new Vector3(0, 0, 0);
+					// Set to Primary weapon
+					w.SetPrimaryWeapon(true);
+				}
+			}
 		}
 	}
 
@@ -163,5 +174,9 @@ public class CharacterGraphicController : MonoBehaviour {
 			return null;
 
 		return Instantiate(characterGOS[c.objectType]);
+	}
+
+	private GameObject GetGOforWeapon(Weapon w) {
+		return Instantiate(weaponGOS[w.objectType]);
 	}
 }

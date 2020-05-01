@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class Player : Character {
 
+	World World {
+		get { return WorldController.Instance.World; }
+	}
+
 	Action<Player> cbPlayerChanged;
 	Action<Player> cbOnRemoved;
 
@@ -12,10 +16,12 @@ public class Player : Character {
 	//public List<Weapon> weapons { get; protected set; }
 	// Use Dictionary to Write/Load data
 	protected Dictionary<int, string> weaponsDict;
+	public List<Weapon> weapons { get; protected set; }
 
 	// Empty constructor is used for serialization
 	public Player() {
 		//weapons = new List<Weapon>();
+		weapons = new List<Weapon>();
 		weaponsDict = new Dictionary<int, string>();
 	}
 
@@ -38,9 +44,18 @@ public class Player : Character {
 		//this.Z = other.Z;
 		this.parent = other.parent;
 
+		weapons = new List<Weapon>();
+
 		if (other.weaponsDict != null) {
 			this.weaponsDict = new Dictionary<int, string>(other.weaponsDict);
-		}else {
+
+			foreach (KeyValuePair<int ,string> ky in weaponsDict) {
+				Weapon w = World.GetWeaponPrototype(ky.Value);
+				w.SetSlotNO(ky.Key);
+				weapons.Add(w);
+			}
+		}
+		else {
 			this.weaponsDict = new Dictionary<int, string>();
 		}
 		//this.bldParamaters = new Dictionary<string, float>(other.bldParamaters);
@@ -57,7 +72,11 @@ public class Player : Character {
 	}
 
 	// Create furniture from parameters -- this will probably ONLY ever be used for prototypes
-	public Player(string objectType, string name, int STR = 1, int INT = 1, int VIT = 1, int DEX = 1, int AGI = 1, int LUK = 1, float HP = 100f, float speed = 1, string parent = "Character") {
+	public Player(string objectType, string name, 
+		Dictionary<int, string> weapon,
+		int STR = 1, int INT = 1, int VIT = 1, 
+		int DEX = 1, int AGI = 1, int LUK = 1, 
+		float HP = 100f, float speed = 1, string parent = "Character") {
 
 		this.name = name;
 		this.objectType = objectType;
@@ -74,9 +93,13 @@ public class Player : Character {
 		//this.Z = charStartTile.Z;
 		this.parent = parent;
 
+		this.weaponsDict = weapon;
 		//weapons = new List<Weapon>();
 
-		//bldParamaters = new Dictionary<string, float>();
+
+		//foreach(string w in weaponsDict.Values) {
+		//	weapons.Add(World.GetWeaponPrototype(w));
+		//}
 	}
 	
 

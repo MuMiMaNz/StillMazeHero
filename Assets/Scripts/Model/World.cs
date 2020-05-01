@@ -58,6 +58,7 @@ public class World : IXmlSerializable {
         }
         Debug.Log("World created with " + (Width * Height) + " tiles.");
         CreateBuildingPrototypes();
+		CreateWeaponPrototypes();
 		//CreateCharacterPrototypes();
 
 
@@ -109,6 +110,7 @@ public class World : IXmlSerializable {
 
 		player = p;
 		Debug.Log("Player Name : " + player.name);
+		Debug.Log("Player's Weapon : " + player.weapons[0].wName);
 
 		if (cbPlayerCreated != null)
 			cbPlayerCreated(p);
@@ -145,18 +147,42 @@ public class World : IXmlSerializable {
     }
 
 
-	// All Character prototypes data
-	//void CreateCharacterPrototypes() {
-	//	characterPrototypes = new Dictionary<string, Character>();
 
-	//	characterPrototypes.Add("Player",
-	//		new Character("Player", // Name
+
+	#region Prototypes
+
+
+
+	// All Enemy prototypes data
+	//void CreateEnemyPrototypes() {
+	//	enemyPrototypes = new Dictionary<string, Enemy>();
+
+	//	enemyPrototypes.Add("Enemy",
+	//		new Enemy("Enemy", // Name
 	//						100f, // HP
 	//						1, //Speed
-	//						"PlayerRoot" // Parent
+	//						"Enemy" // Parent
 	//						)
 	//	);
 	//}
+
+	void CreateWeaponPrototypes() {
+		weaponPrototypes = new Dictionary<string, Weapon>();
+
+		weaponPrototypes.Add("RedTearSword",
+			new Weapon("RedTearSword", // Object type
+				"RedTearSword+2", // Name
+						"You look at this Bad ass sword and cry in blood", // Description
+						10, //ATK
+						0, // mATK
+						5, // ATKspeed
+						0, // DEF
+						0, // mDEF
+						WeaponType.OneHandMelee,
+						1 // Slot
+							)
+		);
+	}
 
 	// All Building prototypes data
 	void CreateBuildingPrototypes() {
@@ -224,6 +250,12 @@ public class World : IXmlSerializable {
         );
     }
 
+	
+
+	#endregion
+
+	#region Place Character&Building
+
 	public Player PlacePlayer( Tile t) {
 		//if (characterPrototypes.ContainsKey(playerType) == false) {
 		//	Debug.LogError("buildingPrototypes doesn't contain a proto for key: " + playerType);
@@ -232,7 +264,9 @@ public class World : IXmlSerializable {
 
 		// TODO: Load Player data and pass it here
 		// This is hard-code Player data
-		Player dummyPlayer = new Player("Player", "MuMiMaN", 10, 6, 8, 4, 4, 2, 500, 2, "PlayerRoot");
+		Dictionary<int, string> weapondict = new Dictionary<int, string>();
+		weapondict.Add(0, "RedTearSword");
+		Player dummyPlayer = new Player("Player", "MuMiMaN", weapondict, 10, 6, 8, 4, 4, 2, 500, 2, "PlayerRoot");
 		Player p = Player.PlacePlayer(dummyPlayer, t);
 
 		if (p == null) {
@@ -313,6 +347,8 @@ public class World : IXmlSerializable {
         return bld;
     }
 
+	#endregion
+
 	public void OnPlayerRemoved(Player p) {
 		player = null;
 	}
@@ -376,7 +412,15 @@ public class World : IXmlSerializable {
         return buildingPrototypes[buildingType].IsValidPosition(t);
     }
 
-    public Building GetBuildingPrototype(string buildingType) {
+	public Weapon GetWeaponPrototype(string weaponType) {
+		if (weaponPrototypes.ContainsKey(weaponType) == false) {
+			Debug.LogError("No Weapon with type: " + weaponType);
+			return null;
+		}
+		return weaponPrototypes[weaponType];
+	}
+
+	public Building GetBuildingPrototype(string buildingType) {
         if (buildingPrototypes.ContainsKey(buildingType) == false) {
             Debug.LogError("No Building with type: " + buildingType);
             return null;
