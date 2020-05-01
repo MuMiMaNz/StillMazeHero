@@ -6,26 +6,26 @@ public class CharacterGraphicController : MonoBehaviour {
 	World World {
 		get { return WorldController.Instance.World; }
 	}
-	Dictionary<Character, GameObject> characterGameObjectMap;
+	Dictionary<Player, GameObject> playerGameObjectMap;
+	Dictionary<Enemy, GameObject> enemyGameObjectMap;
 	Dictionary<string, GameObject> characterGOS;
-
-	//public MovementController movementController;
+	
 	public PlayerController playerController;
 
 	void Start() {
-		characterGameObjectMap = new Dictionary<Character, GameObject>();
+		playerGameObjectMap = new Dictionary<Player, GameObject>();
+		enemyGameObjectMap = new Dictionary<Enemy, GameObject>();
 
 		LoadPrefabs();
-		// Register our callback so that our GameObject gets updated whenever
-		// the tile's type changes.
-		World.RegisterEnemyCreated(OnCharacterCreated);
+		// Register our callback so that our Character gets created
+		World.RegisterPlayerCreated(OnPlayerCreated);
+		World.RegisterEnemyCreated(OnEnemyCreated);
 
 		// Go through any EXISTING character (i.e. from a save that was loaded OnEnable) and call the OnCreated event manually
-		//OnCharacterCreated(World.player);
-		foreach (Character c in World.enemies) {
-			OnCharacterCreated(c);
-
-		}
+		//OnPlayerCreated(World.player);
+		//foreach (Enemy e in World.enemies) {
+		//	OnEnemyCreated(e);
+		//}
 	}
 	
 	//private void FixedUpdate() {
@@ -59,44 +59,75 @@ public class CharacterGraphicController : MonoBehaviour {
 		}
 	}
 
-	public void OnCharacterCreated(Character c) {
+	public void OnPlayerCreated(Player p) {
 		//Debug.Log("OnCharacterCreated");
 		// Create a visual GameObject linked to this data.
 
 		// FIXME: Does not consider multi-tile objects nor rotated objects
 
 		// This creates a new GameObject and adds it to our scene.
-		GameObject c_go = GetGOforCharacter(c);
+		GameObject p_go = GetGOforCharacter(p);
 
-		if (c_go != null) {
+		if (p_go != null) {
 			// Add our tile/GO pair to the dictionary.
-			characterGameObjectMap.Add(c, c_go);
+			playerGameObjectMap.Add(p, p_go);
 
-			if (c.objectType == "Player") {
-				c_go.name = "Player";
-			}else {
-				c_go.name = c.objectType + "_" + c.charStartTile.X + "_" + c.charStartTile.Z;
-			}
-			c_go.transform.position = new Vector3(c.charStartTile.X, -0.5f, c.charStartTile.Z);
-			c_go.transform.SetParent(this.transform.Find(c.parent), true);
+			p_go.name = p.objectType;
+			p_go.transform.position = new Vector3(p.charStartTile.X, -0.5f, p.charStartTile.Z);
+			p_go.transform.SetParent(this.transform.Find(p.parent), true);
 
 			// Register our callback so that our GameObject gets updated whenever
 			// the object's into changes.
 			//c.RegisterOnChangedCallback(OnCharacterChanged);
-			c.RegisterOnRemovedCallback(OnCharacterRemoved);
+			p.RegisterOnRemovedCallback(OnPlayerRemoved);
 		}
-
 	}
 
-	void OnCharacterRemoved(Character c) {
-		if (characterGameObjectMap.ContainsKey(c) == false) {
+	public void OnEnemyCreated(Enemy e) {
+		//Debug.Log("OnCharacterCreated");
+		// Create a visual GameObject linked to this data.
+
+		// FIXME: Does not consider multi-tile objects nor rotated objects
+
+		// This creates a new GameObject and adds it to our scene.
+		GameObject e_go = GetGOforCharacter(e);
+
+		if (e_go != null) {
+			// Add our tile/GO pair to the dictionary.
+			enemyGameObjectMap.Add(e, e_go);
+
+			e_go.name = e.objectType + "_" + e.charStartTile.X + "_" + e.charStartTile.Z;
+			
+			e_go.transform.position = new Vector3(e.charStartTile.X, -0.5f, e.charStartTile.Z);
+			e_go.transform.SetParent(this.transform.Find(e.parent), true);
+
+			// Register our callback so that our GameObject gets updated whenever
+			// the object's into changes.
+			//c.RegisterOnChangedCallback(OnCharacterChanged);
+			e.RegisterOnRemovedCallback(OnEnemyRemoved);
+		}
+	}
+
+	void OnPlayerRemoved(Player p) {
+		if (playerGameObjectMap.ContainsKey(p) == false) {
 			Debug.LogError("OnFurnitureRemoved -- trying to Remove graphic for character not in our map.");
 			return;
 		}
 
-		GameObject c_go = characterGameObjectMap[c];
-		Destroy(c_go);
-		characterGameObjectMap.Remove(c);
+		GameObject p_go = playerGameObjectMap[p];
+		Destroy(p_go);
+		playerGameObjectMap.Remove(p);
+	}
+
+	void OnEnemyRemoved(Enemy e) {
+		if (enemyGameObjectMap.ContainsKey(e) == false) {
+			Debug.LogError("OnFurnitureRemoved -- trying to Remove graphic for character not in our map.");
+			return;
+		}
+
+		GameObject e_go = enemyGameObjectMap[e];
+		Destroy(e_go);
+		enemyGameObjectMap.Remove(e);
 	}
 
 	//void OnCharacterChanged(Character c) {

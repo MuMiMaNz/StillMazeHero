@@ -109,7 +109,6 @@ public class World : IXmlSerializable {
 
 		player = p;
 		Debug.Log("Player Name : " + player.name);
-		//characters.Add(c);
 
 		if (cbPlayerCreated != null)
 			cbPlayerCreated(p);
@@ -226,7 +225,6 @@ public class World : IXmlSerializable {
     }
 
 	public Player PlacePlayer( Tile t) {
-
 		//if (characterPrototypes.ContainsKey(playerType) == false) {
 		//	Debug.LogError("buildingPrototypes doesn't contain a proto for key: " + playerType);
 		//	return null;
@@ -325,6 +323,14 @@ public class World : IXmlSerializable {
 
 	public void OnBuildingRemoved(Building bld) {
 		buildings.Remove(bld);
+	}
+
+	public void RegisterPlayerCreated(Action<Player> callbackfunc) {
+		cbPlayerCreated += callbackfunc;
+	}
+
+	public void UnregisterPlayerCCreated(Action<Player> callbackfunc) {
+		cbPlayerCreated -= callbackfunc;
 	}
 
 	public void RegisterEnemyCreated(Action<Enemy> callbackfunc) {

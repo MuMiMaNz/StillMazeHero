@@ -19,7 +19,10 @@ public class Player : Character {
 		weaponsDict = new Dictionary<int, string>();
 	}
 
+	// Copy Constructor -- don't call this directly, unless we never
+	// do ANY sub-classing. Instead use Clone(), which is more virtual.
 	protected Player(Player other) {
+		this.name = other.name;
 		this.objectType = other.objectType;
 		this.HP = other.HP;
 		this.speed = other.speed;
@@ -35,23 +38,32 @@ public class Player : Character {
 		//this.Z = other.Z;
 		this.parent = other.parent;
 
-		this.weaponsDict = new Dictionary<int, string>(other.weaponsDict);
+		if (other.weaponsDict != null) {
+			this.weaponsDict = new Dictionary<int, string>(other.weaponsDict);
+		}else {
+			this.weaponsDict = new Dictionary<int, string>();
+		}
 		//this.bldParamaters = new Dictionary<string, float>(other.bldParamaters);
 
 		//if (other.updateActions != null)
 		//	this.updateActions = (Action<Building, float>)other.updateActions.Clone();
 	}
 
+	// Make a copy of the current furniture.  Sub-classed should
+	// override this Clone() if a different (sub-classed) copy
+	// constructor should be run.
 	virtual public Player Clone() {
 		return new Player(this);
 	}
 
+	// Create furniture from parameters -- this will probably ONLY ever be used for prototypes
 	public Player(string objectType, string name, int STR = 1, int INT = 1, int VIT = 1, int DEX = 1, int AGI = 1, int LUK = 1, float HP = 100f, float speed = 1, string parent = "Character") {
 
 		this.name = name;
 		this.objectType = objectType;
 		this.HP = HP;
 		this.speed = speed;
+
 		this.STR = STR;
 		this.INT = INT;
 		this.VIT = VIT;
