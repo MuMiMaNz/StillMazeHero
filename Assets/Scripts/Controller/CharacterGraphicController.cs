@@ -82,10 +82,22 @@ public class CharacterGraphicController : MonoBehaviour {
 
 			// Add Weapon&Armor to Player GO
 			foreach (Weapon w in p.weapons) {
-				if (w.wSlotNO == 0) {
+				bool isTwoHandWeapon = false; // Check is Tow-handed weapon?
+
+				if (w.wSlotNO == 0 ) {
 					GameObject w_go = GetGOforWeapon(w);
 					w_go.name = w.wName;
 					w_go.transform.SetParent(p_go.transform.Find("root/weaponShield_r"), false);
+					w_go.transform.localPosition = new Vector3(0, 0, 0);
+					// Set to Primary weapon
+					w.SetPrimaryWeapon(true);
+					if(w.weaponType == WeaponType.TwoHandMelee) {
+						isTwoHandWeapon = true;
+					}
+				}else if (w.wSlotNO == 1 && isTwoHandWeapon==false) {
+					GameObject w_go = GetGOforWeapon(w);
+					w_go.name = w.wName;
+					w_go.transform.SetParent(p_go.transform.Find("root/weaponShield_l"), false);
 					w_go.transform.localPosition = new Vector3(0, 0, 0);
 					// Set to Primary weapon
 					w.SetPrimaryWeapon(true);

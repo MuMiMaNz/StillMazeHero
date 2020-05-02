@@ -171,7 +171,7 @@ public class World : IXmlSerializable {
 
 		weaponPrototypes.Add("RedTearSword",
 			new Weapon("RedTearSword", // Object type
-				"RedTearSword+2", // Name
+				"RedTearSword", // Name
 						"You look at this Bad ass sword and cry in blood", // Description
 						10, //ATK
 						0, // mATK
@@ -179,6 +179,20 @@ public class World : IXmlSerializable {
 						0, // DEF
 						0, // mDEF
 						WeaponType.OneHandMelee,
+						1 // Slot
+							)
+		);
+
+		weaponPrototypes.Add("CrimsonWingShield",
+			new Weapon("CrimsonWingShield", // Object type
+				"CrimsonWingShield", // Name
+						"Original shield color is white, but time to times its cover with enemy blood", // Description
+						0, //ATK
+						0, // mATK
+						5, // ATKspeed
+						10, // DEF
+						4, // mDEF
+						WeaponType.Shield,
 						1 // Slot
 							)
 		);
@@ -266,6 +280,8 @@ public class World : IXmlSerializable {
 		// This is hard-code Player data
 		Dictionary<int, string> weapondict = new Dictionary<int, string>();
 		weapondict.Add(0, "RedTearSword");
+		weapondict.Add(1, "CrimsonWingShield");
+
 		Player dummyPlayer = new Player("Player", "MuMiMaN", weapondict, 10, 6, 8, 4, 4, 2, 500, 2, "PlayerRoot");
 		Player p = Player.PlacePlayer(dummyPlayer, t);
 
