@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnterActionState : StateMachineBehaviour
+public class SMBEnterAction : StateMachineBehaviour
 {
 
     //public string boolName;        

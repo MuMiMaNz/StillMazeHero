@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionState : StateMachineBehaviour
+public class SMBActionState : StateMachineBehaviour
 {
 
     private string boolName = "canMove";
@@ -25,6 +25,7 @@ public class ActionState : StateMachineBehaviour
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+		Debug.Log("Attact anim exit , " + boolName +" : "+  status);
         animator.SetBool(boolName, status);
         
 	}

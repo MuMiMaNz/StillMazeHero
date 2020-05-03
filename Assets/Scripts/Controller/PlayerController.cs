@@ -11,10 +11,15 @@ public class PlayerController : MonoBehaviour
 
 	public Vector3 joyMoveDT { get; protected set; }
 	private Quaternion playerRotateDT;
+	private bool normalAttack;
+
 	public GameObject playerGO { get; protected set; }
 	private Rigidbody rb;
+
 	private Animator playerAnim;
-	
+	private string[] randomAttacks = { "Attact01", "Attack02" };
+
+
 	private float moveFT = 0.75f;
 
 	public void SeekPlayerGO() {
@@ -42,9 +47,13 @@ public class PlayerController : MonoBehaviour
 			joyMoveDT = new Vector3(move.x , 0, move.y );
 			playerAnim.SetFloat("speed", joyMoveDT.magnitude);
 
+			// Check canMove
+			bool canMove = playerAnim.GetBool("canMove");
 			// Get button press
-			if (TCKInput.GetAction("AtkButton", EActionEvent.Down)) {
-				PlayerAttack();
+			normalAttack = TCKInput.GetAction("AtkButton", EActionEvent.Down);
+
+			if (normalAttack && canMove) {
+				PlayerNormalAttack();
 			}
 			//camController.MoveCamOnPlayerMove(move);
 		}
@@ -75,13 +84,18 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	private void PlayerAttack() {
+	private void PlayerNormalAttack() {
 
-		// Make Atk animation 
-		playerAnim.SetBool("canMove", false);
-		//GetCurrentAnimatorStateInfo(0).normalizedTime // Animation end = 1
+		Debug.Log("ATTACK!!");
+
+		//chosing random attack from array.
+		//play the target animation in 0.1 second.
+		playerAnim.CrossFade(randomAttacks[Random.Range(0, randomAttacks.Length)], 0.1f);
+		normalAttack = false;
+
 		// Detect weapon box colider to enemy
+
 		// Calculate damage to enemy
 	}
-
 }
+	
