@@ -14,37 +14,47 @@ public class PlayerController : MonoBehaviour
 	public GameObject playerGO { get; protected set; }
 	private Rigidbody rb;
 	private Animator playerAnim;
-	//[Range(0.01f,1f)]
+	
 	private float moveFT = 0.75f;
 
 	public void SeekPlayerGO() {
-		
-		playerGO = GameObject.Find("Player");
-		rb = playerGO.GetComponent<Rigidbody>();
-		playerAnim = playerGO.GetComponent<Animator>();
-		playerRotateDT = rb.rotation;
-		joyMoveDT = Vector3.zero;
-		camTransform = camController.transform;
+
+		GameObject[] playerTag = GameObject.FindGameObjectsWithTag("Player");
+		if (playerTag.Length != 1) {
+			Debug.LogError("More than 1 Player tag GO");
+		} else {
+			playerGO = playerTag[0];
+			rb = playerGO.GetComponent<Rigidbody>();
+			playerAnim = playerGO.GetComponent<Animator>();
+			playerAnim.SetBool("canMove", true);
+			playerRotateDT = rb.rotation;
+			joyMoveDT = Vector3.zero;
+			camTransform = camController.transform;
+		}
 	}
 
 
 	public void Update() {
+
 		if (WorldController.Instance.gameMode == GameMode.PlayMode) {
-			
+			// Get joystick move and update Animator
 			Vector2 move = TCKInput.GetAxis("Joystick");
-
 			joyMoveDT = new Vector3(move.x , 0, move.y );
-			//Debug.Log(joyMoveDT.x);
+			playerAnim.SetFloat("speed", joyMoveDT.magnitude);
 
+			// Get button press
+			if (TCKInput.GetAction("AtkButton", EActionEvent.Down)) {
+				PlayerAttack();
+			}
 			//camController.MoveCamOnPlayerMove(move);
 		}
 	}
 
 	private void FixedUpdate() {
+
 		if (WorldController.Instance.gameMode == GameMode.PlayMode) {
-			
 			// Joystick is moving
-			if (joyMoveDT != Vector3.zero) { 
+			if (joyMoveDT != Vector3.zero && playerAnim.GetBool("canMove")) { 
 				
 				// Adjust jostict direction to camera angle
 				Vector3 newPos = camTransform.rotation * joyMoveDT;
@@ -55,33 +65,23 @@ public class PlayerController : MonoBehaviour
 				// Rotate player
 				Quaternion oldRotate = rb.rotation;
 				rb.rotation = Quaternion.Slerp(oldRotate, Quaternion.LookRotation(newPos.normalized), 0.5f);
-
 				
 				// Save data to player character
 				World.player.X = playerGO.transform.position.x;
 				World.player.Z = playerGO.transform.position.z;
 
-				// Set Animation
-				if (joyMoveDT.magnitude > 0.5f) {
-					playerAnim.SetBool("splint", true);
-					playerAnim.SetBool("walk", false);
-				}else {
-					playerAnim.SetBool("splint", false);
-					playerAnim.SetBool("walk", true);
-				}
-			} // Joystick not move
-			else {
-				// Set Animation
-				playerAnim.SetBool("splint", false);
-				playerAnim.SetBool("walk", false);
+			
 			}
-			
-
-			//rb.rotation = Quaternion.LookRotation(new Vector3(move.x, 0, move.y).normalized);
-
-			
 		}
 	}
 
+	private void PlayerAttack() {
+
+		// Make Atk animation 
+		playerAnim.SetBool("canMove", false);
+		//GetCurrentAnimatorStateInfo(0).normalizedTime // Animation end = 1
+		// Detect weapon box colider to enemy
+		// Calculate damage to enemy
+	}
 
 }

@@ -121,7 +121,14 @@
     <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Runtime\Controllers\TCKJoystick.cs" />
     <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Runtime\Controllers\TCKTouchpad.cs" />
     <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Runtime\TCKInput.cs" />
+    <Compile Include="Assets\Resources\Prefabs\Characters\Player\Animator\AnimatorMatcher.cs" />
     <Compile Include="Assets\Scripts\API_Demo.cs" />
+    <Compile Include="Assets\Scripts\Animator\AnimatorMatcher.cs" />
+    <Compile Include="Assets\Scripts\Animator\BoolOperator2.cs" />
+    <Compile Include="Assets\Scripts\Animator\CameraManager.cs" />
+    <Compile Include="Assets\Scripts\Animator\ControlManager.cs" />
+    <Compile Include="Assets\Scripts\Animator\EnterActionState.cs" />
+    <Compile Include="Assets\Scripts\Animator\ResetTimer.cs" />
     <Compile Include="Assets\Scripts\Controller\BuildingController.cs" />
     <Compile Include="Assets\Scripts\Controller\BuildingGraphicController.cs" />
     <Compile Include="Assets\Scripts\Controller\BuildingSelectController.cs" />
