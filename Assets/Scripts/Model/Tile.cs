@@ -39,8 +39,8 @@ public class Tile :IXmlSerializable {
         get; protected set;
     }
 
-    // Is this tile in a Pathfinding way
-    public bool isPathway {
+	// Is this tile in a Pathfinding way
+	public bool isPathway {
         get;  set;
     }
 
@@ -93,6 +93,7 @@ public class Tile :IXmlSerializable {
 			Debug.LogError("Trying to assign a Character to a tile that already has one!");
 			return false;
 		}
+
 		character = chrInstance;
 
 		return true;

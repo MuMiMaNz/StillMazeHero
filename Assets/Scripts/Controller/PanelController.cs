@@ -3,70 +3,112 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum BuildMode { Building, Minion, None }
+
 public class PanelController : MonoBehaviour
 {
 	
-	private BuildingController currentSelectBuilding;
+	private PreviewController currentSelectPreivew;
 
 	public GameObject BuildModePanel;
 	public GameObject PlayModePanel;
 
-	public GameObject buildPanelL;
-    public GameObject buildPanelR;
+	public GameObject BuildListPanel;
+	public GameObject MinionListPanel;
+	
+    public GameObject cancelPanelR;
     public GameObject editBuildPanel;
     public Text buildingNameText;
     public Button sellButton;
     public Button moveButton;
     public Button closeEditPanelButton;
 
-    public BuildingSelectController touchController;
+    public SelectController selectController;
+
+	public BuildMode buildMode { get; protected set; }
 
     private bool isOpenBuildpanel;
 
     private void Start() {
-        OpenBuildPanel();
-        editBuildPanel.SetActive(false);
-		SetBuildModePanel(true);
-		SetPlayModePanel(false);
+		BuildingModeOn();
 	}
 
+	public void SetPlayMode() {
+		BuildModePanel.SetActive(false);
+		PlayModePanel.SetActive(true);
+	}
 	
-    public void StartBuild(string objType) {
-        touchController.PreviewBuilding(objType);
-        if (isOpenBuildpanel) { CloseBuildPanel(); }
+
+	public void BuildingModeOn() {
+		BuildModePanel.SetActive(true);
+		PlayModePanel.SetActive(false);
+		buildMode = BuildMode.Building;
+		OpenBuildPanel();
+		MinionListPanel.SetActive(false);
+		editBuildPanel.SetActive(false);
+		BuildListPanel.SetActive(true);
+		
+	}
+
+	public void MinionModeOn() {
+		buildMode = BuildMode.Minion;
+		OpenMinionPanel();
+	}
+
+	public void OpenMinionPanel() {
+		BuildModePanel.SetActive(true);
+		PlayModePanel.SetActive(false);
+
+		MinionListPanel.SetActive(true);
+		BuildListPanel.SetActive(false); ;
+		cancelPanelR.SetActive(false);
+		editBuildPanel.SetActive(false);
+	}
+
+	public void StartBuild(string objType) {
+
+		if (buildMode == BuildMode.Building)
+			selectController.PreviewBuilding(objType);
+
+		else if (buildMode == BuildMode.Minion)
+			selectController.PreviewMinion(objType);
+
+		if (isOpenBuildpanel) { CloseBuildPanel(); }
         else { OpenBuildPanel(); }
     }
-
-	public void SetBuildModePanel(bool _isActive) {
-		BuildModePanel.SetActive(_isActive);
-	}
-	public void SetPlayModePanel(bool _isActive) {
-		PlayModePanel.SetActive(_isActive);
-	}
-
+	
 	public void OpenBuildPanel() {
         isOpenBuildpanel = true;
-        buildPanelL.SetActive(true);
-        buildPanelR.SetActive(false);
-    }
+		if (buildMode == BuildMode.Building) {
+			BuildListPanel.SetActive(true);
+			MinionListPanel.SetActive(false);
+		}
+		else if (buildMode == BuildMode.Minion) {
+			BuildListPanel.SetActive(false);
+			MinionListPanel.SetActive(true);
+		}
+		cancelPanelR.SetActive(false);
+	}
     public void CloseBuildPanel() {
         isOpenBuildpanel = false;
-        buildPanelL.SetActive(false);
-        buildPanelR.SetActive(true);
+
+		BuildListPanel.SetActive(false);
+		MinionListPanel.SetActive(false);
+
+		cancelPanelR.SetActive(true);
     }
 
-
-    public void OpenEditPanel(BuildingController selectBuilding) {
-        currentSelectBuilding = selectBuilding;
-        buildingNameText.text = currentSelectBuilding.GetBuildingType();
+    public void OpenEditPanel(PreviewController selectBuilding) {
+        currentSelectPreivew = selectBuilding;
+        buildingNameText.text = currentSelectPreivew.GetBuildingType();
         SetEditPanel();
         editBuildPanel.SetActive(true);
-        buildPanelR.SetActive(false);
-		buildPanelL.SetActive(false);
+        cancelPanelR.SetActive(false);
+		BuildListPanel.SetActive(false);
     }
     
     private void SetEditPanel( ) {
-        if(currentSelectBuilding.buildingType == "Goal") {
+        if(currentSelectPreivew.previewType == "Goal") {
             sellButton.gameObject.SetActive(false);
         }
         else {
@@ -81,40 +123,43 @@ public class PanelController : MonoBehaviour
     private void CloseEditPanel() {
         editBuildPanel.SetActive(false);
         OpenBuildPanel();
-		touchController.isOpenEditPanel = false;
+		selectController.isOpenEditPanel = false;
     }
 
     private void SellBuilding( ) {
-        if(currentSelectBuilding == null) { return; }
+        if(currentSelectPreivew == null) { return; }
 
-		// Select Building at Pivot point (Left button) and remove for multi tile
-		//Debug.Log("Sell Building At: " + currentSelectBuilding.building.tile.X + "," + currentSelectBuilding.building.tile.Z);
-		Tile t = WorldController.Instance.World.GetTileAt(Mathf.RoundToInt(currentSelectBuilding.transform.position.x), Mathf.RoundToInt(currentSelectBuilding.transform.position.z));
+		// Use RoundToInt for cut point 0.5f
+		Tile t = WorldController.Instance.World.GetTileAt(Mathf.RoundToInt(currentSelectPreivew.transform.position.x), Mathf.RoundToInt(currentSelectPreivew.transform.position.z));
 		t.building.Deconstruct();
 
-		currentSelectBuilding.Destroy();
-        currentSelectBuilding = null;
+		currentSelectPreivew.Destroy();
+        currentSelectPreivew = null;
         editBuildPanel.SetActive(false);
         OpenBuildPanel();
-        buildPanelR.SetActive(false);
-		touchController.isOpenEditPanel = false;
+        cancelPanelR.SetActive(false);
+		selectController.isOpenEditPanel = false;
 	}
 
     private void MoveBuilding() {
-        if (currentSelectBuilding == null) { return; }
-		Debug.Log(currentSelectBuilding.bldPrototype.objectType);
+        if (currentSelectPreivew == null) { return; }
+		Debug.Log(currentSelectPreivew.bldPrototype.objectType);
 		// Destroy building and create new preview
-		Tile t = WorldController.Instance.World.GetTileAt( Mathf.RoundToInt(currentSelectBuilding.transform.position.x), Mathf.RoundToInt(currentSelectBuilding.transform.position.z));
+		Tile t = WorldController.Instance.World.GetTileAt( Mathf.RoundToInt(currentSelectPreivew.transform.position.x), Mathf.RoundToInt(currentSelectPreivew.transform.position.z));
 		Debug.Log("Tile :" + t.X + "," + t.Z);
 		Debug.Log(t.building.objectType);
 		t.building.Deconstruct();
-		touchController.PreviewBuilding(currentSelectBuilding.GetBuildingType());
+		selectController.PreviewBuilding(currentSelectPreivew.GetBuildingType());
 
 
-        currentSelectBuilding.Destroy();
-        currentSelectBuilding = null;
+        currentSelectPreivew.Destroy();
+        currentSelectPreivew = null;
         editBuildPanel.SetActive(false);
-        buildPanelR.SetActive(false);
-		touchController.isOpenEditPanel = false;
+        cancelPanelR.SetActive(false);
+		selectController.isOpenEditPanel = false;
 	}
+
+	
+	
+
 }

@@ -12,7 +12,7 @@ public class World : IXmlSerializable {
 
 	// Array use on Save/Load
 	public List<Building> buildings { get; protected set; }
-	public List<Enemy> enemies { get; protected set; }
+	public List<Minion> minions { get; protected set; }
 	public Player player {  get; protected set; }
 
 	// The pathfinding graph used to navigate our world map.
@@ -22,13 +22,13 @@ public class World : IXmlSerializable {
 
     // Store building prototype data
     Dictionary<string, Building> buildingPrototypes;
-	Dictionary<string, Enemy> enemyPrototypes;
+	Dictionary<string, Minion> minionPrototypes;
 	Dictionary<string, Player> playerPrototypes;
 	Dictionary<string, Weapon> weaponPrototypes;
 
 	Action<Building> cbBuildingCreated;
     Action<Player> cbPlayerCreated;
-	Action<Enemy> cbEnemyCreated;
+	Action<Minion> cbEnemyCreated;
 	Action<Tile> cbTileChanged;
 
 
@@ -59,10 +59,10 @@ public class World : IXmlSerializable {
         Debug.Log("World created with " + (Width * Height) + " tiles.");
         CreateBuildingPrototypes();
 		CreateWeaponPrototypes();
-		//CreateCharacterPrototypes();
+		CreateMinionPrototypes();
 
 
-		enemies = new List<Enemy>();
+		minions = new List<Minion>();
 		buildings = new List<Building>();
     }
 
@@ -120,7 +120,7 @@ public class World : IXmlSerializable {
 	 
 
 	public void Update(float deltaTime) {
-		foreach (Enemy e in enemies) {
+		foreach (Minion e in minions) {
 			e.Update(deltaTime);
 		}
 
@@ -153,18 +153,27 @@ public class World : IXmlSerializable {
 
 
 
-	// All Enemy prototypes data
-	//void CreateEnemyPrototypes() {
-	//	enemyPrototypes = new Dictionary<string, Enemy>();
+	//All Minion prototypes data
+	void CreateMinionPrototypes() {
+		minionPrototypes = new Dictionary<string, Minion>();
 
-	//	enemyPrototypes.Add("Enemy",
-	//		new Enemy("Enemy", // Name
-	//						100f, // HP
-	//						1, //Speed
-	//						"Enemy" // Parent
-	//						)
-	//	);
-	//}
+		minionPrototypes.Add("Yeti",
+			new Minion(	"Yeti", // ObjType
+						"Yeti", // Name
+						"Ancient winter mountain giant", // Description
+						12, // STR
+						3, // INT
+						10, //VIT
+						 4, // DEX
+						 2, // AGI
+						 5, // LUK
+						300f, // HP
+						1, //Speed
+						1, // SpaceNeed
+						"Minion" // Parent
+							)
+		);
+	}
 
 	void CreateWeaponPrototypes() {
 		weaponPrototypes = new Dictionary<string, Weapon>();
@@ -202,13 +211,14 @@ public class World : IXmlSerializable {
 	void CreateBuildingPrototypes() {
         buildingPrototypes = new Dictionary<string, Building>();
 
-        buildingPrototypes.Add("InnerWall",
-            new Building(
-                                "InnerWall",
-                                0,  // Impassable
-                                1,  // Width
-                                1,  // Height
-                                "Buildings", // Parent
+		buildingPrototypes.Add("InnerWall",
+			new Building(
+								"InnerWall",
+								0,  // Impassable
+								1,  // Width
+								1,  // Height
+								"Buildings", // Parent
+								false, // Allow minion on top of building
                                 true // Links to neighbours and "sort of" becomes part of a large object
                             )
         );
@@ -219,7 +229,8 @@ public class World : IXmlSerializable {
                                 1,  // Width
                                 1,  // Height
                                 "OuterWalls",// Parent
-                                true // Links to neighbours and "sort of" becomes part of a large object
+								false, // Allow minion on top of building
+								true // Links to neighbours and "sort of" becomes part of a large object
                             )
         );
         buildingPrototypes.Add("OuterWall_Gate",
@@ -229,7 +240,8 @@ public class World : IXmlSerializable {
                                 3,  // Width
                                 1,  // Height
                                 "OuterWalls",// Parent
-                                false // Links to neighbours and "sort of" becomes part of a large object
+								false, // Allow minion on top of building
+								false // Links to neighbours and "sort of" becomes part of a large object
                             )
         );
         buildingPrototypes.Add("Goal",
@@ -239,7 +251,8 @@ public class World : IXmlSerializable {
                                 1,  // Width
                                 1,  // Height
                                 "Buildings",// Parent
-                                false // Links to neighbours and "sort of" becomes part of a large object
+								false, // Allow minion on top of building
+								false // Links to neighbours and "sort of" becomes part of a large object
                             )
         );
         buildingPrototypes.Add("DummyGoal",
@@ -249,7 +262,8 @@ public class World : IXmlSerializable {
                                 1,  // Width
                                 1,  // Height
                                 "Buildings",// Parent
-                                false // Links to neighbours and "sort of" becomes part of a large object
+								false, // Allow minion on top of building
+								false // Links to neighbours and "sort of" becomes part of a large object
                             )
         );
         buildingPrototypes.Add("DummyBuilding",
@@ -259,12 +273,35 @@ public class World : IXmlSerializable {
                                 1,  // Width
                                 1,  // Height
                                 "Buildings",// Parent
-                                false // Links to neighbours and "sort of" becomes part of a large object
+								false, // Allow minion on top of building
+								false // Links to neighbours and "sort of" becomes part of a large object
                             )
         );
     }
 
-	
+	public Weapon GetWeaponPrototype(string weaponType) {
+		if (weaponPrototypes.ContainsKey(weaponType) == false) {
+			Debug.LogError("No Weapon with type: " + weaponType);
+			return null;
+		}
+		return weaponPrototypes[weaponType];
+	}
+
+	public Minion GetMinionPrototype(string minionType) {
+		if (minionPrototypes.ContainsKey(minionType) == false) {
+			Debug.LogError("No Building with type: " + minionType);
+			return null;
+		}
+		return minionPrototypes[minionType];
+	}
+
+	public Building GetBuildingPrototype(string buildingType) {
+		if (buildingPrototypes.ContainsKey(buildingType) == false) {
+			Debug.LogError("No Building with type: " + buildingType);
+			return null;
+		}
+		return buildingPrototypes[buildingType];
+	}
 
 	#endregion
 
@@ -295,24 +332,24 @@ public class World : IXmlSerializable {
 		return p;
 	}
 
-	public Enemy PlaceEnemy(string chrType, Tile t) {
+	public Minion PlaceMinion(string chrType, Tile t) {
 
-		if (enemyPrototypes.ContainsKey(chrType) == false) {
+		if (minionPrototypes.ContainsKey(chrType) == false) {
 			Debug.LogError("buildingPrototypes doesn't contain a proto for key: " + chrType);
 			return null;
 		}
 
-		Enemy e = Enemy.PlaceEnemy(enemyPrototypes[chrType], t);
+		Minion e = Minion.PlaceMinion(minionPrototypes[chrType], t);
 
 		if (e == null) {
-			// Failed to place Character -- most likely there was already something there.
+			// Failed to place Minion -- most likely there was already something there.
 			return null;
 		}
 
 		e.RegisterOnRemovedCallback(OnEnemyRemoved);
 		// Don't Save Dummy building
 		//if (bld.objectType != "DummyBuilding" && bld.objectType != "DummyGoal" )
-		enemies.Add(e);
+		minions.Add(e);
 
 		return e;
 	}
@@ -369,8 +406,8 @@ public class World : IXmlSerializable {
 		player = null;
 	}
 
-	public void OnEnemyRemoved(Enemy e) {
-		enemies.Remove(e);
+	public void OnEnemyRemoved(Minion e) {
+		minions.Remove(e);
 	}
 
 	public void OnBuildingRemoved(Building bld) {
@@ -385,11 +422,11 @@ public class World : IXmlSerializable {
 		cbPlayerCreated -= callbackfunc;
 	}
 
-	public void RegisterEnemyCreated(Action<Enemy> callbackfunc) {
+	public void RegisterEnemyCreated(Action<Minion> callbackfunc) {
 		cbEnemyCreated += callbackfunc;
 	}
 
-	public void UnregisterEnemyCreated(Action<Enemy> callbackfunc) {
+	public void UnregisterEnemyCreated(Action<Minion> callbackfunc) {
 		cbEnemyCreated -= callbackfunc;
 	}
 
@@ -428,21 +465,7 @@ public class World : IXmlSerializable {
         return buildingPrototypes[buildingType].IsValidPosition(t);
     }
 
-	public Weapon GetWeaponPrototype(string weaponType) {
-		if (weaponPrototypes.ContainsKey(weaponType) == false) {
-			Debug.LogError("No Weapon with type: " + weaponType);
-			return null;
-		}
-		return weaponPrototypes[weaponType];
-	}
-
-	public Building GetBuildingPrototype(string buildingType) {
-        if (buildingPrototypes.ContainsKey(buildingType) == false) {
-            Debug.LogError("No Building with type: " + buildingType);
-            return null;
-        }
-        return buildingPrototypes[buildingType];
-    }
+	
 
     //////////////////////////////////////////////////////////////////////////////////////
     /// 

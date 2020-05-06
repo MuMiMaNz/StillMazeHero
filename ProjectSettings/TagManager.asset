@@ -7,6 +7,7 @@ TagManager:
   - Building
   - GroundCube
   - Wall
+  - Minion
   layers:
   - Default
   - TransparentFX
@@ -17,9 +18,9 @@ TagManager:
   - 
   - 
   - Building
+  - Minion
+  - 
   - Environment
-  - 
-  - 
   - 
   - 
   - 

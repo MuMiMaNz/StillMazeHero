@@ -67,8 +67,7 @@ public class WorldController : MonoBehaviour
 	public void PlayItDude() {
 		World.CreatePlayerAtStart();
 		gameMode = GameMode.PlayMode;
-		panelController.SetBuildModePanel(false);
-		panelController.SetPlayModePanel(true);
+		panelController.SetPlayMode();
 		cameraController.SetPlayModeCam();
 		playerControllerl.SeekPlayerGO();
 		// Change Building to Real physics

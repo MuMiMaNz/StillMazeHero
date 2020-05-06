@@ -24,7 +24,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Temp\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;UNITY_2019_3_0;UNITY_2019_3;UNITY_2019;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;UNITY_INCLUDE_TESTS;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EVENT_QUEUE;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_NATIVE_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;ENABLE_RUNTIME_PERMISSIONS;ENABLE_ENGINE_CODE_STRIPPING;ENABLE_ONSCREEN_KEYBOARD;INCLUDE_DYNAMIC_GI;ENABLE_MONO_BDWGC;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;ENABLE_VIDEO;PLATFORM_ANDROID;UNITY_ANDROID;UNITY_ANDROID_API;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;PLATFORM_SUPPORTS_ADS_ID;UNITY_CAN_SHOW_SPLASH_SCREEN;UNITY_HAS_GOOGLEVR;UNITY_HAS_TANGO;ENABLE_SPATIALTRACKING;UNITY_ASTC_ONLY_DECOMPRESS;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_MONO;NET_STANDARD_2_0;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_VSTU;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_LEGACY_INPUT_MANAGER;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;UNITY_2019_3_0;UNITY_2019_3;UNITY_2019;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2019_1_OR_NEWER;UNITY_2019_2_OR_NEWER;UNITY_2019_3_OR_NEWER;UNITY_INCLUDE_TESTS;ENABLE_AR;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_EVENT_QUEUE;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_TEXTURE_STREAMING;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_VR;ENABLE_WEBCAM;ENABLE_UNITYWEBREQUEST;ENABLE_WWW;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_NATIVE_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;ENABLE_MANAGED_AUDIO_JOBS;ENABLE_RUNTIME_PERMISSIONS;ENABLE_ENGINE_CODE_STRIPPING;ENABLE_ONSCREEN_KEYBOARD;INCLUDE_DYNAMIC_GI;ENABLE_MONO_BDWGC;ENABLE_SCRIPTING_GC_WBARRIERS;PLATFORM_SUPPORTS_MONO;ENABLE_VIDEO;PLATFORM_ANDROID;UNITY_ANDROID;UNITY_ANDROID_API;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;PLATFORM_SUPPORTS_ADS_ID;UNITY_CAN_SHOW_SPLASH_SCREEN;UNITY_HAS_GOOGLEVR;UNITY_HAS_TANGO;ENABLE_SPATIALTRACKING;UNITY_ASTC_ONLY_DECOMPRESS;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_MONO;NET_STANDARD_2_0;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_VSTU;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_DIRECTOR;ENABLE_LOCALIZATION;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_TILEMAP;ENABLE_TIMELINE;ENABLE_LEGACY_INPUT_MANAGER;EMERALD_AI_PRESENT;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
@@ -68,6 +68,57 @@
     <Compile Include="Assets\Old\PlaceableBuilding.cs" />
     <Compile Include="Assets\Old\SpawnBuilding.cs" />
     <Compile Include="Assets\Old\TouchInput.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Character Controller\EmeraldAICharacterController.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Character Controller\EmeraldAICharacterControllerTopDown.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Character Controller\EmeraldAIHideMouse.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Character Controller\EmeraldAIMouseLook.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Character Controller\EmeraldAISmoothFollow.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Components\AnimationProfile.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Components\CombatTextSystem.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Components\EmeraldAIAbility.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Components\EmeraldAIBehaviors.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Components\EmeraldAICombatManager.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Components\EmeraldAICombatTextData.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Components\EmeraldAIDamageOverTime.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Components\EmeraldAIDetection.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Components\EmeraldAIEventsManager.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Components\EmeraldAIFactionData.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Components\EmeraldAIInitializer.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Components\EmeraldAINeedsSystem.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Components\EmeraldAINonAIDamage.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Components\EmeraldAIObjectPool.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Components\EmeraldAIPlayerDamage.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Components\EmeraldAIProjectile.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Components\EmeraldAIProjectileTimeout.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Components\EmeraldAITimedDespawn.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Components\SummonedAIComponent.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Components\VisibilityCheck.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Components\VisibilityCheckDelay.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Example Systems\AISchedule.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Example Systems\CameraShake.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Example Systems\DamageAIByAngle.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Example Systems\DamageAIByCollision.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Example Systems\DebugEvent.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Example Systems\HUDHealthBar.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Example Systems\HUDHealthBarTopDown.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Example Systems\MoveToMousePosition.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Example Systems\NeedsSystemDisplay.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Example Systems\PlayAIsEmote.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Example Systems\RaycastHitAI.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Example Systems\SpawnCompanion.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Example Systems\SpawnObjectEvent.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Example Systems\TameAI.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Example Systems\UpdatePlayerHealthOrbUI.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Example Systems\UpdatePlayerHealthUI.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Player\DamageAISystem.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Player\EmeraldAIPlayerHealth.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Player\PlayerWeapon.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Player\PlayerWeapon3rdPerson.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\Player\SwordAnimation.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\System\EmeraldAISystem.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\UI\CombatText.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\UI\CombatTextAnimator.cs" />
+    <Compile Include="Assets\Pack\Emerald AI\Scripts\UI\EmeraldAIHealthBar.cs" />
     <Compile Include="Assets\Pack\KUBIKOS - World\Scripts\EnableCameraDepthInForward.cs" />
     <Compile Include="Assets\Pack\LeanTween\Examples\Archived\OldGUIExamplesCS.cs" />
     <Compile Include="Assets\Pack\LeanTween\Examples\Archived\TestingPunch.cs" />
@@ -121,7 +172,7 @@
     <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Runtime\Controllers\TCKJoystick.cs" />
     <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Runtime\Controllers\TCKTouchpad.cs" />
     <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Runtime\TCKInput.cs" />
-    <Compile Include="Assets\Resources\Prefabs\Characters\Player\Animator\AnimatorMatcher.cs" />
+    <Compile Include="Assets\Resources\Prefabs\Characters\Player\Player_Animator\AnimatorMatcher.cs" />
     <Compile Include="Assets\Scripts\API_Demo.cs" />
     <Compile Include="Assets\Scripts\Animator\AnimatorMatcher.cs" />
     <Compile Include="Assets\Scripts\Animator\CameraManager.cs" />
@@ -129,19 +180,19 @@
     <Compile Include="Assets\Scripts\Animator\ResetTimer.cs" />
     <Compile Include="Assets\Scripts\Animator\SMBActionState.cs" />
     <Compile Include="Assets\Scripts\Animator\SMBEnterAction.cs" />
-    <Compile Include="Assets\Scripts\Controller\BuildingController.cs" />
     <Compile Include="Assets\Scripts\Controller\BuildingGraphicController.cs" />
-    <Compile Include="Assets\Scripts\Controller\BuildingSelectController.cs" />
     <Compile Include="Assets\Scripts\Controller\CameraController.cs" />
     <Compile Include="Assets\Scripts\Controller\CharacterGraphicController.cs" />
     <Compile Include="Assets\Scripts\Controller\PanelController.cs" />
     <Compile Include="Assets\Scripts\Controller\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\Controller\PreviewController.cs" />
+    <Compile Include="Assets\Scripts\Controller\SelectController.cs" />
     <Compile Include="Assets\Scripts\Controller\TileGraphicController.cs" />
     <Compile Include="Assets\Scripts\Controller\WorldController.cs" />
     <Compile Include="Assets\Scripts\FirstPersonExample1.cs" />
     <Compile Include="Assets\Scripts\Model\Building.cs" />
     <Compile Include="Assets\Scripts\Model\Character\Character.cs" />
-    <Compile Include="Assets\Scripts\Model\Character\Enemy.cs" />
+    <Compile Include="Assets\Scripts\Model\Character\Minion.cs" />
     <Compile Include="Assets\Scripts\Model\Character\Player.cs" />
     <Compile Include="Assets\Scripts\Model\GroundCube.cs" />
     <Compile Include="Assets\Scripts\Model\Tile.cs" />
@@ -156,7 +207,9 @@
     <Compile Include="Assets\Scripts\Utilities\Priority_Queue\Priority Queue\IPriorityQueue.cs" />
     <Compile Include="Assets\Scripts\Utilities\Priority_Queue\Priority Queue\SimplePriorityQueue.cs" />
     <Compile Include="Assets\Scripts\Utilities\SimplePool.cs" />
+    <None Include="Assets\Pack\Emerald AI\Credit\Credit.txt" />
     <None Include="Assets\Pack\PolygonMini_Fantasy\Shaders\LocalFog_Multiply.shader" />
+    <None Include="Assets\Pack\Emerald AI\Demo Source\AI Models\MeshSmith\ToonMonsterII\Toon Demon\Mesh\readMe.txt" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\PlaneWater_Shader.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\Ice_Shader.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\Vertical Fog.shader" />
@@ -169,7 +222,10 @@
     <None Include="Assets\Pack\LeanTween\License.txt" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\Sun_Shader.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\Surface_Shader.shader" />
+    <None Include="Assets\Pack\Emerald AI\Scripts\Shaders\Emerald AI UI +1.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\Ice_Shader.shader" />
+    <None Include="Assets\Pack\Emerald AI\Demo Source\AI Models\MeshSmith\ToonMonsterII\Toon Mouse Spear\Mesh\readMe.txt" />
+    <None Include="Assets\Pack\Emerald AI\Demo Source\AI Models\RainEntertainment\FantasyMonster2\Elf Mage Pack\readMe.txt" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\Cloud_Shader.shader" />
     <None Include="Assets\Pack\PolygonMini_Fantasy\Shaders\DistanceGradient.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\PlaneLava_Shader.shader" />
@@ -177,9 +233,13 @@
     <None Include="Assets\Pack\PolygonMini_Fantasy\Shaders\WorldGradient.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\PlaneWater_Shader.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\Water_Shader.shader" />
+    <None Include="Assets\Pack\Emerald AI\Scripts\Shaders\Emerald AI Outline Shader.shader" />
     <None Include="Assets\Pack\ModularRPGHeroesHP\Shader\HPMaskTint.shader" />
+    <None Include="Assets\Pack\Emerald AI\Demo Source\AI Models\BitGem\Skeleton_Swordsman\Animations\skeleton_swordsman_animation_list.txt" />
+    <None Include="Assets\Pack\Emerald AI\Demo Source\AI Models\MikeMoose\Art\Shaders\SeeThrough.shader" />
     <None Include="Assets\Pack\PolygonMini_Fantasy\Shaders\LocalFog_Overlay.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\Magma_Shader.shader" />
+    <None Include="Assets\Pack\Emerald AI\Demo Source\AI Models\MeshSmith\ToonMonsterII\Toon Rock\Mesh\readMe.txt" />
     <None Include="Assets\Pack\Cartoon Castle Building Kit\ReadMe.txt" />
     <None Include="Assets\Scripts\Utilities\Priority_Queue\LICENSE.txt" />
     <None Include="Assets\Pack\PolygonMini_Fantasy\Shaders\WorldFog.shader" />
@@ -187,6 +247,7 @@
     <None Include="Assets\Pack\LeanTween\Examples\Archived\2dUnlitWithFade.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\CustomStandardSpecular.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\Lava_Shader.shader" />
+    <None Include="Assets\Pack\Emerald AI\Scripts\Shaders\Emerald AI UI.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\PlaneLava_Shader.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\Fog_Shader.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\CustomStandardSpecular.shader" />
@@ -195,6 +256,7 @@
     <None Include="Assets\Scripts\Utilities\Priority_Queue\GITHUB PAGE.txt" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\Lava_Shader.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\Cloud_Shader.shader" />
+    <None Include="Assets\Pack\Emerald AI\Resources\EmeraldAIFactions.txt" />
     <None Include="Assets\Pack\RPG Monster Wave Polyart\Shaders\PolyArtMaskTint.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\Surface_Shader.shader" />
     <Reference Include="Unity.Timeline.Editor">

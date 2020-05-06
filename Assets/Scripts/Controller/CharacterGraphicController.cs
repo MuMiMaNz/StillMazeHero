@@ -7,7 +7,7 @@ public class CharacterGraphicController : MonoBehaviour {
 		get { return WorldController.Instance.World; }
 	}
 	Dictionary<Player, GameObject> playerGameObjectMap;
-	Dictionary<Enemy, GameObject> enemyGameObjectMap;
+	Dictionary<Minion, GameObject> enemyGameObjectMap;
 	Dictionary<string, GameObject> characterGOS;
 	Dictionary<string, GameObject> weaponGOS;
 
@@ -15,7 +15,7 @@ public class CharacterGraphicController : MonoBehaviour {
 
 	void Start() {
 		playerGameObjectMap = new Dictionary<Player, GameObject>();
-		enemyGameObjectMap = new Dictionary<Enemy, GameObject>();
+		enemyGameObjectMap = new Dictionary<Minion, GameObject>();
 
 		LoadCharacterPrefabs();
 		LoadWeaponPrefabs();
@@ -51,7 +51,7 @@ public class CharacterGraphicController : MonoBehaviour {
 		GameObject[] gos = Resources.LoadAll<GameObject>("Prefabs/Characters/");
 
 		foreach (GameObject go in gos) {
-			//Debug.Log("LOADED RESOURCE:" + go);
+			Debug.Log("LOADED Character name:" + go.name);
 			characterGOS[go.name] = go;
 		}
 	}
@@ -106,7 +106,7 @@ public class CharacterGraphicController : MonoBehaviour {
 		}
 	}
 
-	public void OnEnemyCreated(Enemy e) {
+	public void OnEnemyCreated(Minion e) {
 		//Debug.Log("OnCharacterCreated");
 		// Create a visual GameObject linked to this data.
 
@@ -142,7 +142,7 @@ public class CharacterGraphicController : MonoBehaviour {
 		playerGameObjectMap.Remove(p);
 	}
 
-	void OnEnemyRemoved(Enemy e) {
+	void OnEnemyRemoved(Minion e) {
 		if (enemyGameObjectMap.ContainsKey(e) == false) {
 			Debug.LogError("OnFurnitureRemoved -- trying to Remove graphic for character not in our map.");
 			return;
@@ -177,6 +177,7 @@ public class CharacterGraphicController : MonoBehaviour {
 	//}
 
 	public GameObject GetPreviewCharacter(string objectType) {
+		Debug.Log("Preview" + objectType);
 		return Instantiate(characterGOS[objectType]);
 	}
 

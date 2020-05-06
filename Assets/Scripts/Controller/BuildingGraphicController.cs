@@ -10,7 +10,7 @@ public class BuildingGraphicController : MonoBehaviour {
     Dictionary<Building, GameObject> buildingGameObjectMap;
     Dictionary<string, GameObject> buildingGOS;
 
-    public BuildingSelectController touchController;
+    public SelectController touchController;
 
     void Start() {
         

@@ -31,7 +31,12 @@ public class Building : IXmlSerializable {
     public int spaceNeed { get; protected set; }
     public string parent { get; protected set;}
 
-    public bool linksToNeighbour {
+	// Allow minion on top of building
+	public bool allowMinion {
+		get; protected set;
+	}
+	// GO change to same type neighbour
+	public bool linksToNeighbour {
         get; protected set;
     }
 
@@ -51,9 +56,6 @@ public class Building : IXmlSerializable {
 		}
 	}
 
-	// TODO: Implement larger objects
-	// TODO: Implement object rotation
-
 	// Empty constructor is used for serialization
 	public Building() {
         bldParamaters = new Dictionary<string, float>();
@@ -67,6 +69,7 @@ public class Building : IXmlSerializable {
         this.height = other.height;
         this.spaceNeed = other.spaceNeed;
         this.parent = other.parent;
+		this.allowMinion = other.allowMinion;
         this.linksToNeighbour = other.linksToNeighbour;
 
         this.bldParamaters = new Dictionary<string, float>(other.bldParamaters);
@@ -80,14 +83,16 @@ public class Building : IXmlSerializable {
     }
 
     // Create Building from parameters -- this will probably ONLY ever be used for prototypes
-    public Building(string objectType, float movementCost = 1f, int width = 1, int height = 1, string parent = "Buildings", bool linksToNeighbour = false) {
+    public Building(string objectType, float movementCost = 1f, int width = 1, int height = 1, string parent = "Buildings",bool allowMinion = false, bool linksToNeighbour = false) {
         this.objectType = objectType;
         this.movementCost = movementCost;
         this.width = width;
         this.height = height;
         this.spaceNeed = width * height;
         this.parent = parent;
-        this.linksToNeighbour = linksToNeighbour;
+		this.allowMinion = allowMinion;
+
+		this.linksToNeighbour = linksToNeighbour;
 
         this.funcPositionValidation = this.__IsValidPosition;
 
