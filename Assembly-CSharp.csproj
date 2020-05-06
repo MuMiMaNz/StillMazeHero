@@ -195,6 +195,7 @@
     <None Include="Assets\Scripts\Utilities\Priority_Queue\GITHUB PAGE.txt" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\Lava_Shader.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\Cloud_Shader.shader" />
+    <None Include="Assets\Pack\RPG Monster Wave Polyart\Shaders\PolyArtMaskTint.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\Surface_Shader.shader" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Unity_project/StillMazeHero/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

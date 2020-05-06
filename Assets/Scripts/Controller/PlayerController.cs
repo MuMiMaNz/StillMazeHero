@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
 	private Rigidbody rb;
 
 	private Animator playerAnim;
-	private string[] randomAttacks = { "Attact01", "Attack02" };
+	private string[] randomAttacks = { "Attack01", "Attack02" };
 
 
 	private float moveFT = 0.75f;
@@ -85,9 +85,7 @@ public class PlayerController : MonoBehaviour
 	}
 
 	private void PlayerNormalAttack() {
-
-		Debug.Log("ATTACK!!");
-
+		
 		//chosing random attack from array.
 		//play the target animation in 0.1 second.
 		playerAnim.CrossFade(randomAttacks[Random.Range(0, randomAttacks.Length)], 0.1f);

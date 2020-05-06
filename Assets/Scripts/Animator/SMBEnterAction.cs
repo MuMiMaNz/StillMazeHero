@@ -5,8 +5,8 @@ using UnityEngine;
 public class SMBEnterAction : StateMachineBehaviour
 {
 
-    //public string boolName;        
-    //public bool status;
+    public string boolName;        
+    public bool status;
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {        
