@@ -107,7 +107,7 @@ public class CharacterGraphicController : MonoBehaviour {
 	}
 
 	public void OnMinionCreated(Minion e) {
-		//Debug.Log("OnCharacterCreated");
+		Debug.Log("OnMinionCreated");
 		// Create a visual GameObject linked to this data.
 
 		// FIXME: Does not consider multi-tile objects nor rotated objects
@@ -121,13 +121,13 @@ public class CharacterGraphicController : MonoBehaviour {
 
 			e_go.name = e.objectType + "_" + e.charStartTile.X + "_" + e.charStartTile.Z;
 			
-			e_go.transform.position = new Vector3(e.charStartTile.X, -0.5f, e.charStartTile.Z);
+			e_go.transform.position = new Vector3(e.charStartTile.X, 0f, e.charStartTile.Z);
 			e_go.transform.SetParent(this.transform.Find(e.parent), true);
 
 			// Register our callback so that our GameObject gets updated whenever
 			// the object's into changes.
 			//c.RegisterOnChangedCallback(OnCharacterChanged);
-			e.RegisterOnRemovedCallback(OnEnemyRemoved);
+			e.RegisterOnRemovedCallback(OnMinionRemoved);
 		}
 	}
 
@@ -142,7 +142,7 @@ public class CharacterGraphicController : MonoBehaviour {
 		playerGameObjectMap.Remove(p);
 	}
 
-	void OnEnemyRemoved(Minion e) {
+	void OnMinionRemoved(Minion e) {
 		if (minionGameObjectMap.ContainsKey(e) == false) {
 			Debug.LogError("OnFurnitureRemoved -- trying to Remove graphic for character not in our map.");
 			return;

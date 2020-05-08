@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Minion : Character{
 
-	Action<Minion> cbEnemyChanged;
+	Action<Minion> cbMinionChanged;
 	Action<Minion> cbOnRemoved;
 
 	public string name { get; protected set; }
@@ -62,12 +62,12 @@ public class Minion : Character{
 	public void Update(float deltaTime) {
 		//Debug.Log("Character Update");
 
-		if (cbEnemyChanged != null)
-			cbEnemyChanged(this);
+		if (cbMinionChanged != null)
+			cbMinionChanged(this);
 	}
 
-	public void RemoveCharacter() {
-		Debug.Log("Remove Character");
+	public void RemoveMinion() {
+		Debug.Log("Remove Minion");
 
 		charStartTile.RemoveCharacter();
 
@@ -82,11 +82,11 @@ public class Minion : Character{
 	}
 
 	public void RegisterOnChangedCallback(Action<Minion> cb) {
-		cbEnemyChanged += cb;
+		cbMinionChanged += cb;
 	}
 
 	public void UnregisterOnChangedCallback(Action<Minion> cb) {
-		cbEnemyChanged -= cb;
+		cbMinionChanged -= cb;
 	}
 
 	public void RegisterOnRemovedCallback(Action<Minion> callbackFunc) {

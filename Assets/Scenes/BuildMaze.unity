@@ -3984,7 +3984,7 @@ MonoBehaviour:
   cam: {fileID: 963194227}
   notBuildingLayer:
     serializedVersion: 2
-    m_Bits: 567
+    m_Bits: 2615
   buildingLayer:
     serializedVersion: 2
     m_Bits: 256

@@ -1934,9 +1934,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8269181043697839009}
+  - component: {fileID: -4714046908390208955}
   - component: {fileID: 5090382773661925974}
   - component: {fileID: 4090726748855961699}
-  - component: {fileID: -4714046908390208955}
   m_Layer: 9
   m_Name: Yeti
   m_TagString: Minion
@@ -1959,6 +1959,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &-4714046908390208955
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6915106198529149815}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!65 &5090382773661925974
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1970,7 +1986,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.57, y: 0.7, z: 1}
+  m_Size: {x: 0.57, y: 0.7, z: 0.5}
   m_Center: {x: 0, y: -0.21, z: 0}
 --- !u!114 &4090726748855961699
 MonoBehaviour:
@@ -1989,19 +2005,3 @@ MonoBehaviour:
   buildMode: 1
   goodMat: {fileID: 2100000, guid: 9fd91d16699307d449b42117365e2b69, type: 2}
   badMat: {fileID: 2100000, guid: 439a570770679144189b4990afc1a915, type: 2}
---- !u!54 &-4714046908390208955
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6915106198529149815}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
