@@ -115,6 +115,12 @@ public class Player : Character {
 			return null;
 		}
 
+		// Not check is Place tile have Character for make sure that Player can start
+		// BEWARE : Must not have Character/Building on start tile
+		//if (tile.PlaceBuilding(obj) == false) {
+		//	return null;
+		//}
+
 		return p;
 	}
 

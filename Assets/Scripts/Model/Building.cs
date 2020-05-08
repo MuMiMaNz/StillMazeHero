@@ -109,8 +109,13 @@ public class Building : IXmlSerializable {
 
         obj.tile = tile;
 
-        // FIXME: This assumes we are 1x1!
-        if (tile.PlaceBuilding(obj) == false) {
+		if (tile == tile.World.startTile) {
+			Debug.LogError("Can't place building at Start tile !! <('o ')");
+			return null;
+		}
+
+		// FIXME: This assumes we are 1x1!
+		if (tile.PlaceBuilding(obj) == false) {
             // For some reason, we weren't able to place our object in this tile.
             // (Probably it was already occupied.)
 

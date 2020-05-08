@@ -23,6 +23,10 @@ public class CharacterGraphicController : MonoBehaviour {
 		World.RegisterPlayerCreated(OnPlayerCreated);
 		World.RegisterMinionCreated(OnMinionCreated);
 
+		// from a save that was loaded and call the OnCreated 
+		foreach (Minion m in World.minions) {
+			OnMinionCreated(m);
+		}
 	}
 	
 	//private void FixedUpdate() {
@@ -107,7 +111,6 @@ public class CharacterGraphicController : MonoBehaviour {
 	}
 
 	public void OnMinionCreated(Minion e) {
-		Debug.Log("OnMinionCreated");
 		// Create a visual GameObject linked to this data.
 
 		// FIXME: Does not consider multi-tile objects nor rotated objects

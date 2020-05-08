@@ -326,17 +326,17 @@ public class World : IXmlSerializable {
 		}
 
 		p.RegisterOnRemovedCallback(OnPlayerRemoved);
+		player = p;
 
-		if (cbPlayerCreated != null) {
+		if (cbPlayerCreated != null) 
 			cbPlayerCreated(p);
-			player = p;
-		}
+			
 
 		return p;
 	}
 
 	public Minion PlaceMinion(string chrType, Tile t) {
-
+		Debug.Log("Wolrd.PlaceMinion()");
 		if (minionPrototypes.ContainsKey(chrType) == false) {
 			Debug.LogError("buildingPrototypes doesn't contain a proto for key: " + chrType);
 			return null;
@@ -350,11 +350,11 @@ public class World : IXmlSerializable {
 		}
 
 		m.RegisterOnRemovedCallback(OnEnemyRemoved);
+		minions.Add(m);
 
-		if (cbMinionCreated != null) {
+		Debug.Log(cbMinionCreated);
+		if (cbMinionCreated != null) 
 			cbMinionCreated(m);
-			minions.Add(m);
-		}
 
 		return m;
 	}
@@ -510,22 +510,22 @@ public class World : IXmlSerializable {
         }
         writer.WriteEndElement();
 
-        //writer.WriteStartElement("Characters");
-        //foreach (Character c in characters) {
-        //    writer.WriteStartElement("Character");
-        //    c.WriteXml(writer);
-        //    writer.WriteEndElement();
+		writer.WriteStartElement("Minions");
+		foreach (Minion m in minions) {
+			writer.WriteStartElement("Minion");
+			m.WriteXml(writer);
+			writer.WriteEndElement();
 
-        //}
-        //writer.WriteEndElement();
+		}
+		writer.WriteEndElement();
 
-        /*		writer.WriteStartElement("Width");
+		/*		writer.WriteStartElement("Width");
                 writer.WriteValue(Width);
                 writer.WriteEndElement();
         */
 
 
-    }
+	}
 
     public void ReadXml(XmlReader reader) {
         Debug.Log("World::ReadXml");
@@ -544,10 +544,10 @@ public class World : IXmlSerializable {
                 case "Buildings":
                     ReadXml_Buildings(reader);
                     break;
-                //case "Characters":
-                //    ReadXml_Characters(reader);
-                //    break;
-            }
+				case "Minions":
+					ReadXml_Minions(reader);
+					break;
+			}
         }
 
 
@@ -587,16 +587,16 @@ public class World : IXmlSerializable {
 
     }
 
-    //void ReadXml_Characters(XmlReader reader) {
-    //    Debug.Log("ReadXml_Characters");
-    //    if (reader.ReadToDescendant("Character")) {
-    //        do {
-    //            int x = int.Parse(reader.GetAttribute("X"));
-    //            int y = int.Parse(reader.GetAttribute("Y"));
+	void ReadXml_Minions(XmlReader reader) {
+		Debug.Log("ReadXml_Minions");
+		if (reader.ReadToDescendant("Minion")) {
+			do {
+				int x = int.Parse(reader.GetAttribute("X"));
+				int y = int.Parse(reader.GetAttribute("Z"));
 
-    //            Character c = CreateCharacter(tiles[x, y]);
-    //            c.ReadXml(reader);
-    //        } while (reader.ReadToNextSibling("Character"));
-    //    }
-    //}
+				Minion m = PlaceMinion(reader.GetAttribute("objectType"), tiles[x, y]);
+				m.ReadXml(reader);
+			} while (reader.ReadToNextSibling("Minion"));
+		}
+	}
 }
