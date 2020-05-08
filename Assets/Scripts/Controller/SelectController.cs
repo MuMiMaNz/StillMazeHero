@@ -71,7 +71,7 @@ public class SelectController : MonoBehaviour
         preview.transform.SetParent(this.transform, true);
         previewController = preview.GetComponent<PreviewController>();//grab the script that is sitting on the preview
         previewController.isPreviewing = true;
-        isPreviewing = true;//we can now build
+        isPreviewing = true;
 	}
 
     private void StopBuild()
@@ -101,7 +101,7 @@ public class SelectController : MonoBehaviour
 		//grab the script that is sitting on the preview
 		previewController = preview.GetComponent<PreviewController>();
 		previewController.isPreviewing = true;
-		isPreviewing = true;// can now build
+		isPreviewing = true;
 	}
 
 	private void DoRay(Touch touch)

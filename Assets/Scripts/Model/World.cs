@@ -28,7 +28,7 @@ public class World : IXmlSerializable {
 
 	Action<Building> cbBuildingCreated;
     Action<Player> cbPlayerCreated;
-	Action<Minion> cbEnemyCreated;
+	Action<Minion> cbMinionCreated;
 	Action<Tile> cbTileChanged;
 
 
@@ -108,12 +108,10 @@ public class World : IXmlSerializable {
 		Debug.Log("CreatePlayer");
 		Player p = PlacePlayer(startTile);
 
-		player = p;
+		//player = p;
 		Debug.Log("Player Name : " + player.name);
 		Debug.Log("Player's Weapon : " + player.weapons[0].wName);
 
-		if (cbPlayerCreated != null)
-			cbPlayerCreated(p);
 
 		return p;
 	}
@@ -329,6 +327,11 @@ public class World : IXmlSerializable {
 
 		p.RegisterOnRemovedCallback(OnPlayerRemoved);
 
+		if (cbPlayerCreated != null) {
+			cbPlayerCreated(p);
+			player = p;
+		}
+
 		return p;
 	}
 
@@ -339,19 +342,21 @@ public class World : IXmlSerializable {
 			return null;
 		}
 
-		Minion e = Minion.PlaceMinion(minionPrototypes[chrType], t);
+		Minion m = Minion.PlaceMinion(minionPrototypes[chrType], t);
 
-		if (e == null) {
+		if (m == null) {
 			// Failed to place Minion -- most likely there was already something there.
 			return null;
 		}
 
-		e.RegisterOnRemovedCallback(OnEnemyRemoved);
-		// Don't Save Dummy building
-		//if (bld.objectType != "DummyBuilding" && bld.objectType != "DummyGoal" )
-		minions.Add(e);
+		m.RegisterOnRemovedCallback(OnEnemyRemoved);
 
-		return e;
+		if (cbMinionCreated != null) {
+			cbMinionCreated(m);
+			minions.Add(m);
+		}
+
+		return m;
 	}
 
     public Building PlaceBuilding(string bldType, Tile t) {
@@ -422,12 +427,12 @@ public class World : IXmlSerializable {
 		cbPlayerCreated -= callbackfunc;
 	}
 
-	public void RegisterEnemyCreated(Action<Minion> callbackfunc) {
-		cbEnemyCreated += callbackfunc;
+	public void RegisterMinionCreated(Action<Minion> callbackfunc) {
+		cbMinionCreated += callbackfunc;
 	}
 
 	public void UnregisterEnemyCreated(Action<Minion> callbackfunc) {
-		cbEnemyCreated -= callbackfunc;
+		cbMinionCreated -= callbackfunc;
 	}
 
 	public void RegisterBuildingCreated(Action<Building> callbackfunc) {

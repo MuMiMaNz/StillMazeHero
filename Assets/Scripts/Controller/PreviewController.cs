@@ -24,6 +24,7 @@ public class PreviewController : MonoBehaviour {
     //public int numSpaceNeed;
 
     private MeshRenderer[] meshRend;
+	private SkinnedMeshRenderer[] skinMeshRend;
     private bool canBuild = false;
 
     private bool isSelected = false;
@@ -31,18 +32,26 @@ public class PreviewController : MonoBehaviour {
 
     private void OnEnable()
     {
-        //Debug.Log("Building : " + building.objectType);
-        meshRend = this.transform.GetComponentsInChildren<MeshRenderer>();
-        foreach (MeshRenderer mesh in meshRend) {
-            originalMat.Add(mesh.material);
-        }
-        //originalMat = this.transform.Find("3D").GetComponent<MeshRenderer>().material;
-        ChangeColor();
 
-		if (buildMode == BuildMode.Building)
+		if (buildMode == BuildMode.Building) {
 			bldPrototype = World.GetBuildingPrototype(previewType);
-		else if (buildMode == BuildMode.Minion)
+
+			meshRend = this.transform.GetComponentsInChildren<MeshRenderer>();
+			foreach (MeshRenderer mesh in meshRend) {
+				originalMat.Add(mesh.material);
+			}
+		}
+		else if (buildMode == BuildMode.Minion) {
 			mnnPrototype = World.GetMinionPrototype(previewType);
+
+			skinMeshRend = this.transform.GetComponentsInChildren<SkinnedMeshRenderer>();
+			foreach (SkinnedMeshRenderer mesh in skinMeshRend) {
+				originalMat.Add(mesh.material);
+			}
+		}
+
+		ChangeColor();
+		
     }
 
     private void OnTriggerEnter(Collider other)
@@ -50,14 +59,16 @@ public class PreviewController : MonoBehaviour {
 		//hit a building or minion?
 		if (other.CompareTag("Building") || other.CompareTag("Wall") || other.CompareTag("Minion"))
         {
-            gosBumped.Add(other.gameObject);
+			//Debug.Log("Hit "+ other.gameObject.name + "!");
+			gosBumped.Add(other.gameObject);
         }
 		//hit a ground cube?
 		if (other.CompareTag("GroundCube"))
         {
+			//Debug.Log("Hit groundtube!");
             GroundCube gc = other.GetComponent<GroundCube>();
             cubes.Add(gc);
-            if (isPreviewing) {
+            if (isPreviewing && buildMode == BuildMode.Building) {
                 if (gc.tile.isPathway == false) {
                     gc.SetSelection(true);
                 }
@@ -77,56 +88,95 @@ public class PreviewController : MonoBehaviour {
         if (other.CompareTag("GroundCube"))
         {
             GroundCube gc = other.GetComponent<GroundCube>();
-            cubes.Remove(gc);//----removing it from the list
-            if (gc.tile.isPathway == false) {
+            cubes.Remove(gc);
+            if (gc.tile.isPathway == false && buildMode == BuildMode.Building ) {
                 gc.SetSelection(false);
             }
         }
         ChangeColor();
     }
 
-    //Only concerned about the obj list (Buildings and Walls) if there is nothing in that list then we can build, if there is even 
-    // 1 thing in the list then you cant build
+
     public void ChangeColor() {
 
-        //Debug.Log("isBuilding :" + isBuilding);
-        // Check is preview can build
-        if (isPreviewing) {
-			int spaceNeed =0;
-			if (buildMode == BuildMode.Building)
-				spaceNeed = bldPrototype.spaceNeed;
-			else if (buildMode == BuildMode.Minion)
-				spaceNeed = mnnPrototype.spaceNeed;
 
-			if (gosBumped.Count == 0 && spaceNeed <= cubes.Count){
-                foreach (MeshRenderer mesh in meshRend) {
-                    mesh.material = goodMat;
-                    canBuild = true;
-                }
-            }
-            else{
-                foreach (MeshRenderer mesh in meshRend) {
-                    mesh.material = badMat;
-                    canBuild = false;
-                }
-            }
-        }
-        // Check is select Actual building
-        else {
-            if (isSelected) {
-                foreach (MeshRenderer mesh in meshRend) {
-                    mesh.material = goodMat;
-                }
-            }
-            else {
-                for (int i = 0; i < meshRend.Length; i++) {
-                    meshRend[i].material = originalMat[i];
-                }
-            }
-        }
+		//Debug.Log("Change Color preview");
+
+		if (buildMode == BuildMode.Building)
+			ChangeBuildingColor();
+		else if (buildMode == BuildMode.Minion)
+			ChangeMinionColor();
+		
     }
 
-    public void TryBuild(BuildMode buildMode) { 
+	private void ChangeBuildingColor() {
+
+		int spaceNeed = bldPrototype.spaceNeed;
+		if (isPreviewing) {
+			// Is preview can build?
+			if (gosBumped.Count == 0 && spaceNeed <= cubes.Count) {
+
+				foreach (MeshRenderer mesh in meshRend) {
+					mesh.material = goodMat;
+					canBuild = true;
+				}
+			}
+			else {
+				foreach (MeshRenderer mesh in meshRend) {
+					mesh.material = badMat;
+					canBuild = false;
+				}
+			}
+		}
+		// Check is select Actual building
+		else {
+			if (isSelected) {
+				foreach (MeshRenderer mesh in meshRend) {
+					mesh.material = goodMat;
+				}
+			}
+			else {
+				for (int i = 0; i < meshRend.Length; i++) {
+					meshRend[i].material = originalMat[i];
+				}
+			}
+		}
+	}
+
+	private void ChangeMinionColor() {
+
+		int spaceNeed = mnnPrototype.spaceNeed;
+		if (isPreviewing) {
+			if (gosBumped.Count == 0 && spaceNeed <= cubes.Count) {
+
+				foreach (SkinnedMeshRenderer mesh in skinMeshRend) {
+					mesh.material = goodMat;
+					canBuild = true;
+				}
+			}
+			else {
+				foreach (SkinnedMeshRenderer mesh in skinMeshRend) {
+					mesh.material = badMat;
+					canBuild = false;
+				}
+			}
+		}
+		// Check is select Actual building
+		else {
+			if (isSelected) {
+				foreach (SkinnedMeshRenderer mesh in skinMeshRend) {
+					mesh.material = goodMat;
+				}
+			}
+			else {
+				for (int i = 0; i < skinMeshRend.Length; i++) {
+					skinMeshRend[i].material = originalMat[i];
+				}
+			}
+		}
+	}
+
+	public void TryBuild(BuildMode buildMode) { 
 		     
         Tile t = World.GetTileAt((int)transform.position.x , (int)transform.position.z);
 

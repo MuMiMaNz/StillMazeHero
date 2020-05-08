@@ -7,7 +7,7 @@ public class CharacterGraphicController : MonoBehaviour {
 		get { return WorldController.Instance.World; }
 	}
 	Dictionary<Player, GameObject> playerGameObjectMap;
-	Dictionary<Minion, GameObject> enemyGameObjectMap;
+	Dictionary<Minion, GameObject> minionGameObjectMap;
 	Dictionary<string, GameObject> characterGOS;
 	Dictionary<string, GameObject> weaponGOS;
 
@@ -15,13 +15,13 @@ public class CharacterGraphicController : MonoBehaviour {
 
 	void Start() {
 		playerGameObjectMap = new Dictionary<Player, GameObject>();
-		enemyGameObjectMap = new Dictionary<Minion, GameObject>();
+		minionGameObjectMap = new Dictionary<Minion, GameObject>();
 
 		LoadCharacterPrefabs();
 		LoadWeaponPrefabs();
 		// Register our callback so that our Character gets created
 		World.RegisterPlayerCreated(OnPlayerCreated);
-		World.RegisterEnemyCreated(OnEnemyCreated);
+		World.RegisterMinionCreated(OnMinionCreated);
 
 	}
 	
@@ -106,7 +106,7 @@ public class CharacterGraphicController : MonoBehaviour {
 		}
 	}
 
-	public void OnEnemyCreated(Minion e) {
+	public void OnMinionCreated(Minion e) {
 		//Debug.Log("OnCharacterCreated");
 		// Create a visual GameObject linked to this data.
 
@@ -117,7 +117,7 @@ public class CharacterGraphicController : MonoBehaviour {
 
 		if (e_go != null) {
 			// Add our tile/GO pair to the dictionary.
-			enemyGameObjectMap.Add(e, e_go);
+			minionGameObjectMap.Add(e, e_go);
 
 			e_go.name = e.objectType + "_" + e.charStartTile.X + "_" + e.charStartTile.Z;
 			
@@ -143,14 +143,14 @@ public class CharacterGraphicController : MonoBehaviour {
 	}
 
 	void OnEnemyRemoved(Minion e) {
-		if (enemyGameObjectMap.ContainsKey(e) == false) {
+		if (minionGameObjectMap.ContainsKey(e) == false) {
 			Debug.LogError("OnFurnitureRemoved -- trying to Remove graphic for character not in our map.");
 			return;
 		}
 
-		GameObject e_go = enemyGameObjectMap[e];
+		GameObject e_go = minionGameObjectMap[e];
 		Destroy(e_go);
-		enemyGameObjectMap.Remove(e);
+		minionGameObjectMap.Remove(e);
 	}
 
 	//void OnCharacterChanged(Character c) {
@@ -177,7 +177,7 @@ public class CharacterGraphicController : MonoBehaviour {
 	//}
 
 	public GameObject GetPreviewCharacter(string objectType) {
-		Debug.Log("Preview" + objectType);
+		//Debug.Log("Preview" + objectType);
 		return Instantiate(characterGOS[objectType]);
 	}
 
