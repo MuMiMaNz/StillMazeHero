@@ -15,7 +15,8 @@ public class Path_TileGraph {
 
 	public Dictionary<Tile, Path_Node<Tile>> nodes;
 
-	public Path_TileGraph(World world) {
+	// Get World data and if they are limited tile 
+	public Path_TileGraph(int startWidth, int endWidth, int startHeight, int endHeight) {
         
 
 		// Loop through all tiles of the world
@@ -25,20 +26,22 @@ public class Path_TileGraph {
 
 		nodes = new Dictionary<Tile, Path_Node<Tile>>();
 
-		for (int x = 0; x < world.Width; x++) {
-			for (int y = 0; y < world.Height; y++) {
+		// Search space from start -> end  width & height
+			for (int x = startWidth; x <= endWidth; x++) {
+				for (int y = startHeight; y < endHeight; y++) {
 
-				Tile t = world.GetTileAt(x,y);
+					Tile t = WorldController.Instance.World.GetTileAt(x, y);
 
-				if(t.movementCost > 0) {	// Tiles with a move cost of 0 are unwalkable
-					Path_Node<Tile> n = new Path_Node<Tile>();
-					n.data = t;
-					nodes.Add(t, n);
+					if (t.movementCost > 0) {   // Tiles with a move cost of 0 are unwalkable
+						Path_Node<Tile> n = new Path_Node<Tile>();
+						n.data = t;
+						nodes.Add(t, n);
+						//Debug.Log("Nodes have : " + t.X + "," + t.Z);
+					}
+
 				}
-
 			}
-		}
-
+		
 		Debug.Log("Path_TileGraph: Created "+nodes.Count+" nodes.");
 
 
@@ -58,13 +61,14 @@ public class Path_TileGraph {
 			// If neighbour is walkable, create an edge to the relevant node.
 			for (int i = 0; i < neighbours.Length; i++) {
 				if(neighbours[i] != null && neighbours[i].movementCost > 0 
-                    //&& IsClippingCorner( t, neighbours[i] ) == false
-                    ) {
+					// Check for little tile graph not get out of bound neighbour tile
+					&& nodes.ContainsKey(neighbours[i])
+					//&& IsClippingCorner( t, neighbours[i] ) == false
+					) {
 					// This neighbour exists, is walkable, and doesn't requiring clipping a corner --> so create an edge.
-
 					Path_Edge<Tile> e = new Path_Edge<Tile>();
 					e.cost = neighbours[i].movementCost;
-					e.node = nodes[ neighbours[i] ];
+					e.node = nodes[neighbours[i]];
 
 					// Add the edge to our temporary (and growable!) list
 					edges.Add(e);

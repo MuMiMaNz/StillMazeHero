@@ -143,14 +143,12 @@ public class PanelController : MonoBehaviour
 
     private void MoveBuilding() {
         if (currentSelectPreivew == null) { return; }
-		Debug.Log(currentSelectPreivew.bldPrototype.objectType);
+
 		// Destroy building and create new preview
 		Tile t = WorldController.Instance.World.GetTileAt( Mathf.RoundToInt(currentSelectPreivew.transform.position.x), Mathf.RoundToInt(currentSelectPreivew.transform.position.z));
-		Debug.Log("Tile :" + t.X + "," + t.Z);
-		Debug.Log(t.building.objectType);
 		t.building.Deconstruct();
-		selectController.PreviewBuilding(currentSelectPreivew.GetBuildingType());
 
+		selectController.PreviewBuilding(currentSelectPreivew.GetBuildingType());
 
         currentSelectPreivew.Destroy();
         currentSelectPreivew = null;

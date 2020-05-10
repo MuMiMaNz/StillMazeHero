@@ -82,6 +82,7 @@ public class BuildingGraphicController : MonoBehaviour {
 		GameObject bld_go = buildingGameObjectMap[bld];
 		Destroy(bld_go);
 		buildingGameObjectMap.Remove(bld);
+		// Reset Pathfinding from start to goal tile
 		World.InvalidateTileGraph();
 		WorldController.Instance.StartPathfinding();
 	}

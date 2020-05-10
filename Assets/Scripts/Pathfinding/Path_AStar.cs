@@ -7,15 +7,15 @@ public class Path_AStar {
 
 	Queue<Tile> path;
 
-	public Path_AStar(World world, Tile tileStart, Tile tileEnd) {
+	public Path_AStar(Path_TileGraph tileGraph, Tile tileStart, Tile tileEnd, int startWidth, int endWidth, int startHeight, int endHeight) {
 
 		// Check to see if we have a valid tile graph
-		if(world.tileGraph == null) {
-			world.tileGraph = new Path_TileGraph(world);
+		if(tileGraph == null) {
+			tileGraph = new Path_TileGraph(  startWidth,  endWidth,  startHeight,  endHeight);
 		}
 
 		// A dictionary of all valid, walkable nodes.
-		Dictionary<Tile, Path_Node<Tile>> nodes = world.tileGraph.nodes;
+		Dictionary<Tile, Path_Node<Tile>> nodes = tileGraph.nodes;
 
 		// Make sure our start/end tiles are in the list of nodes!
 		if(nodes.ContainsKey(tileStart) == false) {
@@ -24,17 +24,13 @@ public class Path_AStar {
 			return;
 		}
 		if(nodes.ContainsKey(tileEnd) == false) {
-			Debug.LogError("Path_AStar: The ending tile isn't in the list of nodes!");
+			Debug.LogError("Path_AStar: The ending tile"+ tileEnd.X+","+ tileEnd.Z + " isn't in the list of nodes!");
 			return;
 		}
 
 
 		Path_Node<Tile> start = nodes[tileStart];
 		Path_Node<Tile> goal = nodes[tileEnd];
-
-
-		// Mostly following this pseusocode:
-		// https://en.wikipedia.org/wiki/A*_search_algorithm
 
 		List<Path_Node<Tile>> ClosedSet = new List<Path_Node<Tile>>();
 

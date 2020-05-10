@@ -72,6 +72,8 @@ public class WorldController : MonoBehaviour
 		playerControllerl.SeekPlayerGO();
 		// Change Building to Real physics
 		buildingGraphicController.ChangeBuildingPhysic(true);
+		// All Minions start to set Patrol point
+		MinionsSetPatrolPoint();
 	}
 
     public void NewWorld() {
@@ -124,6 +126,7 @@ public class WorldController : MonoBehaviour
 
     }
 
+	// Start Pathfinding from Start to Goal tile
     public bool StartPathfinding() {
         Debug.Log("Start Path Finding");
 
@@ -143,7 +146,7 @@ public class WorldController : MonoBehaviour
              }
          }
         // Generate New pathway
-        pathAStar = new Path_AStar(World, World.startTile, World.goalTile);
+        pathAStar = new Path_AStar(World.tileGraph, World.startTile, World.goalTile,0,World.Width-1,0,World.Height-1);
         if (pathAStar.Length() == 0) {
             // No valid Pathfinding way
             Debug.LogError("Path_AStar returned no path to destination!");
@@ -158,5 +161,11 @@ public class WorldController : MonoBehaviour
             return true;
         }
     }
+
+	private void MinionsSetPatrolPoint() {
+		foreach(Minion m in World.minions) {
+			m.SetValidPatrolPoints(World);
+		}
+	}
 
 }

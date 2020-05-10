@@ -168,6 +168,7 @@ public class World : IXmlSerializable {
 						300f, // HP
 						1, //Speed
 						1, // SpaceNeed
+						 2, // PatrolRange
 						"Minion" // Parent
 							)
 		);
@@ -330,7 +331,6 @@ public class World : IXmlSerializable {
 
 		if (cbPlayerCreated != null) 
 			cbPlayerCreated(p);
-			
 
 		return p;
 	}
@@ -352,7 +352,6 @@ public class World : IXmlSerializable {
 		m.RegisterOnRemovedCallback(OnEnemyRemoved);
 		minions.Add(m);
 
-		Debug.Log(cbMinionCreated);
 		if (cbMinionCreated != null) 
 			cbMinionCreated(m);
 
