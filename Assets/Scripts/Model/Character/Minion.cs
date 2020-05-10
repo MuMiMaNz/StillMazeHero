@@ -112,12 +112,25 @@ public class Minion : Character{
 				//Debug.Log("checkTile : " + x + "," + z);
 				Tile checkT = world.GetTileAt(x, z);
 
-				if (checkT != charStartTile ) {
-					Path_AStar mPathAStar = new Path_AStar(tg, charStartTile, checkT, startW, endW, startH, endH);
+				// Check the farest tile first
+				if (x == startW  || x == endW || z == startH || z == endH) {
 
-					if(mPathAStar.Length() != 0) {
-						Debug.Log("Add tile to patrol point : " + checkT.X + "," + checkT.Z);
-						patrolPoints.Add(checkT);
+					if (checkT != charStartTile) {
+						Path_AStar mPathAStar = new Path_AStar(tg, charStartTile, checkT, startW, endW, startH, endH);
+
+						if (mPathAStar.Length() != 0) {
+							Debug.Log("Add tile to patrol point : " + checkT.X + "," + checkT.Z);
+							patrolPoints.Add(checkT);
+						}
+					}
+				}// If no valid farest tile, then check remain tile
+				else if (patrolPoints.Count == 0) {
+					if (checkT != charStartTile) {
+						Path_AStar mPathAStar = new Path_AStar(tg, charStartTile, checkT, startW, endW, startH, endH);
+						if (mPathAStar.Length() != 0) {
+							Debug.Log("Add tile to patrol point : " + checkT.X + "," + checkT.Z);
+							patrolPoints.Add(checkT);
+						}
 					}
 				}
 			}
