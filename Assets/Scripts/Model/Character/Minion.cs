@@ -5,6 +5,7 @@ using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
+public enum MinionState { Idle, Patrol, Chase}
 
 public class Minion : Character{
 
@@ -107,11 +108,11 @@ public class Minion : Character{
 		 
 		// Loop all the tiles in Patrol range 
 		for (int x = startW; x <= endW; x++) {
-			for (int z = startH; x <= endH; z++) {
-				Debug.Log("checkTile : " + x + "," + z);
+			for (int z = startH; z <= endH; z++) {
+				//Debug.Log("checkTile : " + x + "," + z);
 				Tile checkT = world.GetTileAt(x, z);
 
-				if (checkT.X != charStartTile.X && checkT.Z != charStartTile.Z) {
+				if (checkT != charStartTile ) {
 					Path_AStar mPathAStar = new Path_AStar(tg, charStartTile, checkT, startW, endW, startH, endH);
 
 					if(mPathAStar.Length() != 0) {
@@ -121,7 +122,6 @@ public class Minion : Character{
 				}
 			}
 		}
-
 
 		return patrolPoints;
 

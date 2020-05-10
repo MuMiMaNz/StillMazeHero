@@ -24,7 +24,7 @@ public class Path_AStar {
 			return;
 		}
 		if(nodes.ContainsKey(tileEnd) == false) {
-			Debug.LogError("Path_AStar: The ending tile"+ tileEnd.X+","+ tileEnd.Z + " isn't in the list of nodes!");
+			//Debug.LogError("Path_AStar: The ending tile"+ tileEnd.X+","+ tileEnd.Z + " isn't in the list of nodes!");
 			return;
 		}
 

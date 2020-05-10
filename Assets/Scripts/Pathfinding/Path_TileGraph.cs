@@ -28,7 +28,7 @@ public class Path_TileGraph {
 
 		// Search space from start -> end  width & height
 			for (int x = startWidth; x <= endWidth; x++) {
-				for (int y = startHeight; y < endHeight; y++) {
+				for (int y = startHeight; y <= endHeight; y++) {
 
 					Tile t = WorldController.Instance.World.GetTileAt(x, y);
 
