@@ -105,40 +105,130 @@ public class Minion : Character{
 
 		// Create little Tile Graph
 		Path_TileGraph tg = new Path_TileGraph(startW, endW, startH, endH);
-		 
-		// Loop all the tiles in Patrol range 
+
+		//// Check 4 Quadrant have at least 1 patrol tile?
+		Tile LUtile = null;
+		Tile RUtile = null;
+		Tile LLtile = null;
+		Tile RLtile = null;
+
 		for (int x = startW; x <= endW; x++) {
 			for (int z = startH; z <= endH; z++) {
-				//Debug.Log("checkTile : " + x + "," + z);
+
 				Tile checkT = world.GetTileAt(x, z);
+				//Debug.Log("Check tile : " + checkT.X + "," + checkT.Z);
 
-				// Check the farest tile first
-				if (x == startW  || x == endW || z == startH || z == endH) {
+				// Check the farest tile first and Check it not CharTile
+				if (checkT != charStartTile && (x == startW || x == endW || z == startH || z == endH )) {
 
-					if (checkT != charStartTile) {
+					// Left Upper Q
+					if (LUtile == null && (x >= startW && x < charStartTile.X) && (z >= charStartTile.Z && z <= endH )) {
+
 						Path_AStar mPathAStar = new Path_AStar(tg, charStartTile, checkT, startW, endW, startH, endH);
-
+						// There is valid pathfinder to this tile
 						if (mPathAStar.Length() != 0) {
-							Debug.Log("Add tile to patrol point : " + checkT.X + "," + checkT.Z);
-							patrolPoints.Add(checkT);
+							Debug.Log("Add LUtile to patrol point : " + checkT.X + "," + checkT.Z);
+							LUtile = checkT;
 						}
 					}
-				}// If no valid farest tile, then check remain tile
-				else if (patrolPoints.Count == 0) {
-					if (checkT != charStartTile) {
+					// Right Upper Q
+					if ( RUtile == null && ( x >= charStartTile.X && x <= endW ) && (z >= charStartTile.Z && z <= endH) ) {
+
 						Path_AStar mPathAStar = new Path_AStar(tg, charStartTile, checkT, startW, endW, startH, endH);
+						// There is valid pathfinder to this tile
 						if (mPathAStar.Length() != 0) {
-							Debug.Log("Add tile to patrol point : " + checkT.X + "," + checkT.Z);
-							patrolPoints.Add(checkT);
+							Debug.Log("Add RUtile to patrol point : " + checkT.X + "," + checkT.Z);
+							RUtile = checkT;
+						}
+					}
+					// Left lower Q
+					if  ( LLtile == null && (x >= startW && x < charStartTile.X) && (z >= startH && z < charStartTile.Z)) {
+
+						Path_AStar mPathAStar = new Path_AStar(tg, charStartTile, checkT, startW, endW, startH, endH);
+						// There is valid pathfinder to this tile
+						if (mPathAStar.Length() != 0) {
+							Debug.Log("Add LLtile to patrol point : " + checkT.X + "," + checkT.Z);
+							LLtile = checkT;
+						}
+					}
+					// Right lower Q
+					if ( RLtile == null && ( x >= charStartTile.X && x <= endW ) && (z >= startH && z < charStartTile.Z) ) {
+
+						Path_AStar mPathAStar = new Path_AStar(tg, charStartTile, checkT, startW, endW, startH, endH);
+						// There is valid pathfinder to this tile
+						if (mPathAStar.Length() != 0) {
+							Debug.Log("Add RLtile to patrol point : " + checkT.X + "," + checkT.Z);
+							RLtile = checkT;
 						}
 					}
 				}
 			}
 		}
 
+		for (int x = startW; x < endW; x++) {
+			for (int z = startH; z <= endH; z++) {
+
+				if (x == startW || x == endW || z == startH || z == endH) {
+
+				}
+				else {
+					Tile checkT = world.GetTileAt(x, z);
+					if (checkT != charStartTile) {
+
+						// Left Upper Q
+						if (LUtile == null && (x >= startW && x < charStartTile.X) && (z >= charStartTile.Z && z <= endH)) {
+
+							Path_AStar mPathAStar = new Path_AStar(tg, charStartTile, checkT, startW, endW, startH, endH);
+							// There is valid pathfinder to this tile
+							if (mPathAStar.Length() != 0) {
+								Debug.Log("Add LUtile to patrol point : " + checkT.X + "," + checkT.Z);
+								LUtile = checkT;
+							}
+						}
+						// Right Upper Q
+						if (RUtile == null && (x >= charStartTile.X && x <= endW) && (z >= charStartTile.Z && z <= endH)) {
+
+							Path_AStar mPathAStar = new Path_AStar(tg, charStartTile, checkT, startW, endW, startH, endH);
+							// There is valid pathfinder to this tile
+							if (mPathAStar.Length() != 0) {
+								Debug.Log("Add RUtile to patrol point : " + checkT.X + "," + checkT.Z);
+								RUtile = checkT;
+							}
+						}
+						// Left lower Q
+						if (LLtile == null && (x >= startW && x < charStartTile.X) && (z >= startH && z < charStartTile.Z)) {
+
+							Path_AStar mPathAStar = new Path_AStar(tg, charStartTile, checkT, startW, endW, startH, endH);
+							// There is valid pathfinder to this tile
+							if (mPathAStar.Length() != 0) {
+								Debug.Log("Add LLtile to patrol point : " + checkT.X + "," + checkT.Z);
+								LLtile = checkT;
+							}
+						}
+						// Right lower Q
+						if (RLtile == null && (x >= charStartTile.X && x <= endW) && (z >= startH && z < charStartTile.Z)) {
+
+							Path_AStar mPathAStar = new Path_AStar(tg, charStartTile, checkT, startW, endW, startH, endH);
+							// There is valid pathfinder to this tile
+							if (mPathAStar.Length() != 0) {
+								Debug.Log("Add RLtile to patrol point : " + checkT.X + "," + checkT.Z);
+								RLtile = checkT;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		patrolPoints.Add(LUtile);
+		patrolPoints.Add(RUtile);
+		patrolPoints.Add(LLtile);
+		patrolPoints.Add(RLtile);
+
 		return patrolPoints;
 
 	}
+
 
 	public void Update(float deltaTime) {
 		//Debug.Log("Character Update");
