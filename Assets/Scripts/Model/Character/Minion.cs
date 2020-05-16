@@ -18,13 +18,67 @@ public class Minion : Character{
 	public string description { get; protected set; }
 	public int spaceNeed { get; protected set; }
 
+	public MinionState minionState {get; protected set;}
 	// Maximum tile that minion will patrol
 	public int patrolRange { get; protected set; }
 	// Set of patrol point tiles
 	public List<Tile> patrolPoints { get; protected set; }
+
+	public float X {
+		get {
+			if(nextTile == null)
+				return currTile.X;
+			
+			return Mathf.Lerp( currTile.X, nextTile.X, movementPercentage );
+		}
+		protected set{
+			X = value;
+		}
+	}
+
+	public float Z {
+		get {
+			if(nextTile == null)
+				return currTile.Z;
+			
+			return Mathf.Lerp( currTile.Z, nextTile.Z, movementPercentage );
+		}
+		protected set{
+			Z = value;
+		}
+	}
+		
+	private Tile _currTile;
+	public Tile currTile {
+		get { return _currTile; }
+
+		protected set {
+			//if(_currTile != null) {
+			//	_currTile.characters.Remove(this);
+			//}
+
+			_currTile = value;
+			//_currTile.characters.Add(this);
+		}
+	}
+
+	// If we aren't moving, then destTile = currTile
+	/* Tile _destTile;
+	Tile DestTile {
+		get { return _destTile; }
+		set {
+			if(_destTile != value) {
+				_destTile = value;
+				mPathAStar = null;	// If this is a new destination, then we need to invalidate pathfinding.
+			}
+		}
+	} */
+
+	Tile nextTile;	// The next tile in the pathfinding sequence
+	Path_AStar mPathAStar;
+	Path_TileGraph mTileGraph;
+	float movementPercentage; // Goes from 0 to 1 as we move from currTile to destTile
 	
-
-
 	// Empty constructor is used for serialization
 	public Minion() {
 		bldParamaters = new Dictionary<string, float>();
@@ -90,6 +144,8 @@ public class Minion : Character{
 
 	public List<Tile> SetValidPatrolPoints(World world) {
 
+		minionState = MinionState.Patrol;
+
 		patrolPoints = new List<Tile>();
 
 		if (patrolRange == 0)
@@ -103,8 +159,8 @@ public class Minion : Character{
 		int endH = charStartTile.Z + patrolRange >= world.Height - 1 ? world.Height - 1 : charStartTile.Z + patrolRange;
 		//Debug.Log("StartHeight : " + startH + "EndHeight  : " + endH);
 
-		// Create little Tile Graph
-		Path_TileGraph tg = new Path_TileGraph(startW, endW, startH, endH);
+		// Create Tile Graph within Patrol range
+		mTileGraph = new Path_TileGraph(startW, endW, startH, endH);
 
 		//// Check 4 Quadrant have at least 1 patrol tile?
 		Tile LUtile = null;
@@ -124,7 +180,7 @@ public class Minion : Character{
 					// Left Upper Q
 					if (LUtile == null && (x >= startW && x < charStartTile.X) && (z >= charStartTile.Z && z <= endH )) {
 
-						Path_AStar mPathAStar = new Path_AStar(tg, charStartTile, checkT, startW, endW, startH, endH);
+						mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
 						// There is valid pathfinder to this tile
 						if (mPathAStar.Length() != 0) {
 							Debug.Log("Add LUtile to patrol point : " + checkT.X + "," + checkT.Z);
@@ -134,7 +190,7 @@ public class Minion : Character{
 					// Right Upper Q
 					if ( RUtile == null && ( x >= charStartTile.X && x <= endW ) && (z >= charStartTile.Z && z <= endH) ) {
 
-						Path_AStar mPathAStar = new Path_AStar(tg, charStartTile, checkT, startW, endW, startH, endH);
+						 mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
 						// There is valid pathfinder to this tile
 						if (mPathAStar.Length() != 0) {
 							Debug.Log("Add RUtile to patrol point : " + checkT.X + "," + checkT.Z);
@@ -144,7 +200,7 @@ public class Minion : Character{
 					// Left lower Q
 					if  ( LLtile == null && (x >= startW && x < charStartTile.X) && (z >= startH && z < charStartTile.Z)) {
 
-						Path_AStar mPathAStar = new Path_AStar(tg, charStartTile, checkT, startW, endW, startH, endH);
+						 mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
 						// There is valid pathfinder to this tile
 						if (mPathAStar.Length() != 0) {
 							Debug.Log("Add LLtile to patrol point : " + checkT.X + "," + checkT.Z);
@@ -154,7 +210,7 @@ public class Minion : Character{
 					// Right lower Q
 					if ( RLtile == null && ( x >= charStartTile.X && x <= endW ) && (z >= startH && z < charStartTile.Z) ) {
 
-						Path_AStar mPathAStar = new Path_AStar(tg, charStartTile, checkT, startW, endW, startH, endH);
+						 mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
 						// There is valid pathfinder to this tile
 						if (mPathAStar.Length() != 0) {
 							Debug.Log("Add RLtile to patrol point : " + checkT.X + "," + checkT.Z);
@@ -178,7 +234,7 @@ public class Minion : Character{
 						// Left Upper Q
 						if (LUtile == null && (x >= startW && x < charStartTile.X) && (z >= charStartTile.Z && z <= endH)) {
 
-							Path_AStar mPathAStar = new Path_AStar(tg, charStartTile, checkT, startW, endW, startH, endH);
+							 mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
 							// There is valid pathfinder to this tile
 							if (mPathAStar.Length() != 0) {
 								Debug.Log("Add LUtile to patrol point : " + checkT.X + "," + checkT.Z);
@@ -188,7 +244,7 @@ public class Minion : Character{
 						// Right Upper Q
 						if (RUtile == null && (x >= charStartTile.X && x <= endW) && (z >= charStartTile.Z && z <= endH)) {
 
-							Path_AStar mPathAStar = new Path_AStar(tg, charStartTile, checkT, startW, endW, startH, endH);
+							 mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
 							// There is valid pathfinder to this tile
 							if (mPathAStar.Length() != 0) {
 								Debug.Log("Add RUtile to patrol point : " + checkT.X + "," + checkT.Z);
@@ -198,7 +254,7 @@ public class Minion : Character{
 						// Left lower Q
 						if (LLtile == null && (x >= startW && x < charStartTile.X) && (z >= startH && z < charStartTile.Z)) {
 
-							Path_AStar mPathAStar = new Path_AStar(tg, charStartTile, checkT, startW, endW, startH, endH);
+							 mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
 							// There is valid pathfinder to this tile
 							if (mPathAStar.Length() != 0) {
 								Debug.Log("Add LLtile to patrol point : " + checkT.X + "," + checkT.Z);
@@ -208,7 +264,7 @@ public class Minion : Character{
 						// Right lower Q
 						if (RLtile == null && (x >= charStartTile.X && x <= endW) && (z >= startH && z < charStartTile.Z)) {
 
-							Path_AStar mPathAStar = new Path_AStar(tg, charStartTile, checkT, startW, endW, startH, endH);
+							 mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
 							// There is valid pathfinder to this tile
 							if (mPathAStar.Length() != 0) {
 								Debug.Log("Add RLtile to patrol point : " + checkT.X + "," + checkT.Z);
@@ -229,9 +285,117 @@ public class Minion : Character{
 
 	}
 
+void DoMovement(float deltaTime, Path_TileGraph tg, Tile destTile,int startW,int endW,int startH,int endH) {
+		if(currTile == destTile) {
+			mPathAStar = null;
+			return;	// We're already were we want to be.
+		}
+
+		// currTile = The tile I am currently in (and may be in the process of leaving)
+		// nextTile = The tile I am currently entering
+		// destTile = Our final destination -- we never walk here directly, but instead use it for the pathfinding
+
+		if(nextTile == null || nextTile == currTile) {
+			// Get the next tile from the pathfinder.
+			if(mPathAStar == null || mPathAStar.Length() == 0) {
+				// Generate a path to our destination
+				mPathAStar = new Path_AStar(tg, currTile, destTile, startW, endW, startH, endH);	// This will calculate a path from curr to dest.
+				if(mPathAStar.Length() == 0) {
+					Debug.LogError("Path_AStar returned no path to destination!");
+					return;
+				}
+
+				// Let's ignore the first tile, because that's the tile we're currently in.
+				nextTile = mPathAStar.Dequeue();
+
+			}
+
+
+			// Grab the next waypoint from the pathing system!
+			nextTile = mPathAStar.Dequeue();
+
+			if( nextTile == currTile ) {
+				Debug.LogError("Update_DoMovement - nextTile is currTile?");
+			}
+		}
+
+/*		if(pathAStar.Length() == 1) {
+			return;
+		}
+*/
+		// At this point we should have a valid nextTile to move to.
+
+		// What's the total distance from point A to point B?
+		// We are going to use Euclidean distance FOR NOW...
+		// But when we do the pathfinding system, we'll likely
+		// switch to something like Manhattan or Chebyshev distance
+		float distToTravel = Mathf.Sqrt(
+			Mathf.Pow(currTile.X-nextTile.X, 2) + 
+			Mathf.Pow(currTile.Z-nextTile.Z, 2)
+		);
+
+		/*if(nextTile.IsEnterable() == ENTERABILITY.Never) {
+			// Most likely a wall got built, so we just need to reset our pathfinding information.
+			// FIXME: Ideally, when a wall gets spawned, we should invalidate our path immediately,
+			//		  so that we don't waste a bunch of time walking towards a dead end.
+			//		  To save CPU, maybe we can only check every so often?
+			//		  Or maybe we should register a callback to the OnTileChanged event?
+			Debug.LogError("FIXME: A character was trying to enter an unwalkable tile.");
+			nextTile = null;	// our next tile is a no-go
+			pathAStar = null;	// clearly our pathfinding info is out of date.
+			return;
+		}
+		else if ( nextTile.IsEnterable() == ENTERABILITY.Soon ) {
+			// We can't enter the NOW, but we should be able to in the
+			// future. This is likely a DOOR.
+			// So we DON'T bail on our movement/path, but we do return
+			// now and don't actually process the movement.
+			return;
+		} */
+
+		// How much distance can be travel this Update?
+		float distThisFrame = speed / nextTile.movementCost * deltaTime;
+
+		// How much is that in terms of percentage to our destination?
+		float percThisFrame = distThisFrame / distToTravel;
+
+		// Add that to overall percentage travelled.
+		movementPercentage += percThisFrame;
+
+		if(movementPercentage >= 1) {
+			// We have reached our destination
+
+			// TODO: Get the next tile from the pathfinding system.
+			//       If there are no more tiles, then we have TRULY
+			//       reached our destination.
+
+			currTile = nextTile;
+			movementPercentage = 0;
+			// FIXME?  Do we actually want to retain any overshot movement?
+		}
+	}
+
+	private void PatrolMovement(float deltaTime){
+
+		// Check if current tile in patrol points
+		List<Tile> newPatrolPoints = new List<Tile>();
+		if(patrolPoints.Contains(_currTile)) { 
+			newPatrolPoints = patrolPoints;
+			newPatrolPoints.Remove(_currTile) ;
+		}
+		else { newPatrolPoints = patrolPoints;}
+
+		Tile destPatrolPoint = newPatrolPoints[UnityEngine.Random.Range(0,newPatrolPoints.Count)];
+		Debug.Log("Patrol to :" + destPatrolPoint.X + "," + destPatrolPoint.Z);
+		DoMovement(deltaTime,mTileGraph,destPatrolPoint, 0,0,0,0); // 0 is dummy argument
+	}
 
 	public void Update(float deltaTime) {
 		//Debug.Log("Character Update");
+		if (minionState == MinionState.Patrol){
+			PatrolMovement(deltaTime);
+		}
+		
 
 		if (cbMinionChanged != null)
 			cbMinionChanged(this);

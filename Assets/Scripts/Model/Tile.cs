@@ -28,8 +28,7 @@ public class Tile :IXmlSerializable {
         }
     }
 
-	// Character that stay in this tile ex. Enemy unit.
-	// TODO: make a tile that
+	// Character that occupied this tile in Build mode ex. Enemy unit.
 	public Character character {
 		get; protected set;
 	}

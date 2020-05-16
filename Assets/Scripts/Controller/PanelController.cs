@@ -156,8 +156,4 @@ public class PanelController : MonoBehaviour
         cancelPanelR.SetActive(false);
 		selectController.isOpenEditPanel = false;
 	}
-
-	
-	
-
 }

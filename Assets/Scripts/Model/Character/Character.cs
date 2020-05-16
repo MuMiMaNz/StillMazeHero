@@ -21,8 +21,7 @@ public class Character {
 	public int AGI { get; protected set; }
 	public int LUK { get; protected set; }
 
-	public float X { get;  set; }
-	public float Z { get;  set; }
+	
 
 	public Tile charStartTile { get; protected set; }
 

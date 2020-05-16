@@ -18,6 +18,9 @@ public class Player : Character {
 	protected Dictionary<int, string> weaponsDict;
 	public List<Weapon> weapons { get; protected set; }
 
+	public float X { get;  set; }
+	public float Z { get;  set; }
+
 	// Empty constructor is used for serialization
 	public Player() {
 		//weapons = new List<Weapon>();

@@ -51,15 +51,11 @@ public class SelectController : MonoBehaviour
             //Touch touch = Input.touches[0];
             if ( isPreviewing)//stop build
             {
-				if (panelController.buildMode == BuildMode.Building) {
 					previewController = preview.GetComponent<PreviewController>();
 					foreach (GroundCube cube in previewController.cubes) {
 						cube.SetSelection(false);
 					}
 					StopBuild();
-				}else if (panelController.buildMode == BuildMode.Minion) {
-					// TODO : Cancel Minion preview
-				}
             }
         }
     }
