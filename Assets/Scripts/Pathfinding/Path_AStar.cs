@@ -88,6 +88,9 @@ public class Path_AStar {
 				if(OpenSet.Contains(neighbor) == false) {
 					OpenSet.Enqueue(neighbor, f_score[neighbor]);
 				}
+				else {
+					OpenSet.UpdatePriority(neighbor, f_score[neighbor]);
+				}
 
 			} // foreach neighbour
 		} // while
@@ -163,7 +166,15 @@ public class Path_AStar {
         return path;
     }
 
-    public Tile Dequeue() {
+	public Tile Dequeue() {
+		if (path == null) {
+			Debug.LogError("Attempting to dequeue from an null path.");
+			return null;
+		}
+		if (path.Count <= 0) {
+			Debug.LogError("Path negative length ??");
+			return null;
+		}
 		return path.Dequeue();
 	}
 

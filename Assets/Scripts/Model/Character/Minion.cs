@@ -26,28 +26,27 @@ public class Minion : Character{
 
 	public float X {
 		get {
-			if(nextTile == null)
+			if (nextTile == null)
 				return currTile.X;
-			
-			return Mathf.Lerp( currTile.X, nextTile.X, movementPercentage );
-		}
-		protected set{
-			X = value;
+
+			return Mathf.Lerp(currTile.X, nextTile.X, movementPercentage);
 		}
 	}
-
 	public float Z {
 		get {
-			if(nextTile == null)
+			if (nextTile == null)
 				return currTile.Z;
-			
-			return Mathf.Lerp( currTile.Z, nextTile.Z, movementPercentage );
-		}
-		protected set{
-			Z = value;
+
+			return Mathf.Lerp(currTile.Z, nextTile.Z, movementPercentage);
 		}
 	}
-		
+	public Vector3 directionVector {
+		get {
+			return new Vector3(currTile.X, 0, currTile.Z) - new Vector3(nextTile.X, 0, nextTile.Z);
+		}
+	}
+	private float idleWaitTime = 2f;
+
 	private Tile _currTile;
 	public Tile currTile {
 		get { return _currTile; }
@@ -56,15 +55,13 @@ public class Minion : Character{
 			//if(_currTile != null) {
 			//	_currTile.characters.Remove(this);
 			//}
-
 			_currTile = value;
 			//_currTile.characters.Add(this);
 		}
 	}
-
 	// If we aren't moving, then destTile = currTile
-	/* Tile _destTile;
-	Tile DestTile {
+	private Tile _destTile;
+	public Tile DestTile {
 		get { return _destTile; }
 		set {
 			if(_destTile != value) {
@@ -72,11 +69,11 @@ public class Minion : Character{
 				mPathAStar = null;	// If this is a new destination, then we need to invalidate pathfinding.
 			}
 		}
-	} */
+	}
 
-	Tile nextTile;	// The next tile in the pathfinding sequence
-	Path_AStar mPathAStar;
-	Path_TileGraph mTileGraph;
+	private Tile nextTile;  // The next tile in the pathfinding sequence
+	private Path_AStar mPathAStar;
+	private Path_TileGraph mTileGraph;
 	float movementPercentage; // Goes from 0 to 1 as we move from currTile to destTile
 	
 	// Empty constructor is used for serialization
@@ -111,21 +108,22 @@ public class Minion : Character{
 
 	static public Minion PlaceMinion(Minion proto, Tile t) {
 		//Debug.Log("Minion.PlaceMinion()");
-		Minion e = new Minion(proto.objectType, proto.name,proto.description,
+		Minion m = new Minion(proto.objectType, proto.name,proto.description,
 			proto.STR, proto.INT, proto.VIT, proto.DEX, proto.AGI, proto.LUK,
 			proto.HP, proto.speed,proto.spaceNeed,proto.patrolRange, proto.parent);
 
-		e.charStartTile = t;
-		e.X = t.X;
-		e.Z = t.Z;
-		
+		m.charStartTile = t;
+		m.currTile = t;
+		m.nextTile = t;
+		m.DestTile = t;
+
 		// If it start tile , cannot place minion
 		if (t == t.World.startTile) {
 			Debug.LogError("Can't place minion at Start tile !! <('o ')");
 			return null;
 		}
 
-		if (t.PlaceCharacter(e) == false) {
+		if (t.PlaceCharacter(m) == false) {
 			// For some reason, we weren't able to place our object in this tile.
 			// (Probably it was already occupied.)
 
@@ -139,13 +137,12 @@ public class Minion : Character{
 		//	return null;
 		//}
 
-		return e;
+		return m;
 	}
 
 	public List<Tile> SetValidPatrolPoints(World world) {
 
 		minionState = MinionState.Patrol;
-
 		patrolPoints = new List<Tile>();
 
 		if (patrolRange == 0)
@@ -167,12 +164,15 @@ public class Minion : Character{
 		Tile RUtile = null;
 		Tile LLtile = null;
 		Tile RLtile = null;
-
+		
+		// First loop for farest tiles
 		for (int x = startW; x <= endW; x++) {
 			for (int z = startH; z <= endH; z++) {
-
 				Tile checkT = world.GetTileAt(x, z);
 				//Debug.Log("Check tile : " + checkT.X + "," + checkT.Z);
+
+				// TODO : Compare the Longet tile form startTile to be patrol points?
+				// Maybe it's gonna over-calculated??
 
 				// Check the farest tile first and Check it not CharTile
 				if (checkT != charStartTile && (x == startW || x == endW || z == startH || z == endH )) {
@@ -221,11 +221,12 @@ public class Minion : Character{
 			}
 		}
 
+		// Second loop for inner tiles
 		for (int x = startW; x < endW; x++) {
 			for (int z = startH; z <= endH; z++) {
 
 				if (x == startW || x == endW || z == startH || z == endH) {
-
+					// Do nothing in farest tiles
 				}
 				else {
 					Tile checkT = world.GetTileAt(x, z);
@@ -276,17 +277,50 @@ public class Minion : Character{
 			}
 		}
 
-		patrolPoints.Add(LUtile);
-		patrolPoints.Add(RUtile);
-		patrolPoints.Add(LLtile);
-		patrolPoints.Add(RLtile);
+		if (LUtile != null) patrolPoints.Add(LUtile);
+		if (RUtile != null) patrolPoints.Add(RUtile);
+		if (LLtile != null) patrolPoints.Add(LLtile);
+		if (RLtile != null) patrolPoints.Add(RLtile);
 
 		return patrolPoints;
 
 	}
 
-void DoMovement(float deltaTime, Path_TileGraph tg, Tile destTile,int startW,int endW,int startH,int endH) {
-		if(currTile == destTile) {
+	private void PatrolMovement(float deltaTime) {
+
+		// Check if current tile in patrol points then remove it
+		List<Tile> newPatrolPoints = new List<Tile>(patrolPoints);
+		if (patrolPoints.Contains(currTile)) {
+			newPatrolPoints.Remove(currTile);
+		}
+		// Minion reach patrol destination tile
+		if (currTile == DestTile) {
+			// Set Idle state for 2 seconds
+			minionState = MinionState.Idle;
+			if (!WaitedInSeconds(deltaTime,idleWaitTime)) return;
+
+			// then set new Destination
+			minionState = MinionState.Patrol;
+			DestTile = newPatrolPoints[UnityEngine.Random.Range(0, newPatrolPoints.Count)];
+			Debug.Log("Patrol to :" + DestTile.X + "," + DestTile.Z);
+		}
+	}
+
+	private float timer = 0;
+	private float timerMax = 0;
+	private bool WaitedInSeconds(float deltaTime,float seconds) {
+		timerMax = seconds;
+		timer += deltaTime;
+
+		if (timer >= timerMax) {
+			timer = 0;
+			return true; //max reached - waited x - seconds
+		}
+		return false;
+	}
+
+	void DoMovement(float deltaTime, Path_TileGraph tg,int startW,int endW,int startH,int endH) {
+		if(currTile == DestTile) {
 			mPathAStar = null;
 			return;	// We're already were we want to be.
 		}
@@ -299,22 +333,21 @@ void DoMovement(float deltaTime, Path_TileGraph tg, Tile destTile,int startW,int
 			// Get the next tile from the pathfinder.
 			if(mPathAStar == null || mPathAStar.Length() == 0) {
 				// Generate a path to our destination
-				mPathAStar = new Path_AStar(tg, currTile, destTile, startW, endW, startH, endH);	// This will calculate a path from curr to dest.
+				mPathAStar = new Path_AStar(tg, currTile, DestTile, startW, endW, startH, endH);	// This will calculate a path from curr to dest.
 				if(mPathAStar.Length() == 0) {
 					Debug.LogError("Path_AStar returned no path to destination!");
 					return;
 				}
 
-				// Let's ignore the first tile, because that's the tile we're currently in.
+				// Dump the first tile, because nextTile == currTile
 				nextTile = mPathAStar.Dequeue();
-
 			}
-
 
 			// Grab the next waypoint from the pathing system!
 			nextTile = mPathAStar.Dequeue();
+			//Debug.Log("Next tile is " + nextTile.X + "," + nextTile.Z);
 
-			if( nextTile == currTile ) {
+			if ( nextTile == currTile ) {
 				Debug.LogError("Update_DoMovement - nextTile is currTile?");
 			}
 		}
@@ -375,28 +408,16 @@ void DoMovement(float deltaTime, Path_TileGraph tg, Tile destTile,int startW,int
 		}
 	}
 
-	private void PatrolMovement(float deltaTime){
-
-		// Check if current tile in patrol points
-		List<Tile> newPatrolPoints = new List<Tile>();
-		if(patrolPoints.Contains(_currTile)) { 
-			newPatrolPoints = patrolPoints;
-			newPatrolPoints.Remove(_currTile) ;
-		}
-		else { newPatrolPoints = patrolPoints;}
-
-		Tile destPatrolPoint = newPatrolPoints[UnityEngine.Random.Range(0,newPatrolPoints.Count)];
-		Debug.Log("Patrol to :" + destPatrolPoint.X + "," + destPatrolPoint.Z);
-		DoMovement(deltaTime,mTileGraph,destPatrolPoint, 0,0,0,0); // 0 is dummy argument
-	}
-
 	public void Update(float deltaTime) {
 		//Debug.Log("Character Update");
-		if (minionState == MinionState.Patrol){
+		if (minionState == MinionState.Patrol || minionState == MinionState.Idle) {
 			PatrolMovement(deltaTime);
 		}
-		
 
+		DoMovement(deltaTime, mTileGraph, 0, 0, 0, 0); // 0 is dummy argument
+	}
+
+	public void FixedUpdate(float deltaTime) {
 		if (cbMinionChanged != null)
 			cbMinionChanged(this);
 	}

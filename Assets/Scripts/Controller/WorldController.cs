@@ -51,13 +51,21 @@ public class WorldController : MonoBehaviour
 
 	void Update() {
         // TODO: Add pause/unpause, speed controls, etc...
-        World.Update(Time.deltaTime);
-		//cameraController.Update();
-		//movementController.Update(Time.deltaTime);
+
+		if (gameMode == GameMode.PlayMode)
+			World.UpdateInPlayMode(Time.deltaTime);
+
+		if (gameMode == GameMode.BuildMode)
+			World.UpdateInBuildMode(Time.deltaTime);
 	}
 
-    // Gets the tile at the unity-space coordinates
-    public Tile GetTileAtWorldCoord(Vector3 coord) {
+	private void FixedUpdate() {
+		if (gameMode == GameMode.PlayMode)
+			World.FixedUpdateInPlayMode(Time.deltaTime);
+	}
+
+	// Gets the tile at the unity-space coordinates
+	public Tile GetTileAtWorldCoord(Vector3 coord) {
         int x = Mathf.FloorToInt(coord.x);
         int z = Mathf.FloorToInt(coord.z);
 

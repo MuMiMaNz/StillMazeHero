@@ -115,22 +115,27 @@ public class World : IXmlSerializable {
 
 		return p;
 	}
-	 
-
-	public void Update(float deltaTime) {
-		foreach (Minion e in minions) {
-			e.Update(deltaTime);
+	// Update in Play Mode
+	public void UpdateInPlayMode(float deltaTime) {
+		foreach (Minion m in minions) {
+			m.FixedUpdate(deltaTime);
 		}
+	}
+	public void FixedUpdateInPlayMode(float deltaTime) {
+		foreach (Minion m in minions) {
+			m.Update(deltaTime);
+		}
+	}
+	// Update in Build Mode
+	public void UpdateInBuildMode(float deltaTime) {
 
 		foreach (Building b in buildings) {
-            b.Update(deltaTime);
-        }
+			b.Update(deltaTime);
+		}
+	}
 
-    }
-
-
-    // Set the Goal tile
-    public void SetGoalTile(Tile t) {
+	// Set the Goal tile
+	public void SetGoalTile(Tile t) {
         Debug.Log("Change Goal Tile to" + t.X + "," + t.Z);
         goalTile = t;
     }

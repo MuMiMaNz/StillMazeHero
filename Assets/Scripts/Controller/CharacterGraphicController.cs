@@ -110,28 +110,44 @@ public class CharacterGraphicController : MonoBehaviour {
 		}
 	}
 
-	public void OnMinionCreated(Minion e) {
+	public void OnMinionCreated(Minion m) {
 		// Create a visual GameObject linked to this data.
 
 		// FIXME: Does not consider multi-tile objects nor rotated objects
 
 		// This creates a new GameObject and adds it to our scene.
-		GameObject e_go = GetGOforCharacter(e);
+		GameObject e_go = GetGOforCharacter(m);
 
 		if (e_go != null) {
 			// Add our tile/GO pair to the dictionary.
-			minionGameObjectMap.Add(e, e_go);
+			minionGameObjectMap.Add(m, e_go);
 
-			e_go.name = e.objectType + "_" + e.charStartTile.X + "_" + e.charStartTile.Z;
+			e_go.name = m.objectType + "_" + m.X + "_" + m.Z;
 			
-			e_go.transform.position = new Vector3(e.charStartTile.X, 0f, e.charStartTile.Z);
-			e_go.transform.SetParent(this.transform.Find(e.parent), true);
+			e_go.transform.position = new Vector3(m.X, 0f, m.Z);
+			e_go.transform.SetParent(this.transform.Find(m.parent), true);
 
 			// Register our callback so that our GameObject gets updated whenever
 			// the object's into changes.
-			//c.RegisterOnChangedCallback(OnCharacterChanged);
-			e.RegisterOnRemovedCallback(OnMinionRemoved);
+			m.RegisterOnChangedCallback(OnMinionChanged);
+			m.RegisterOnRemovedCallback(OnMinionRemoved);
 		}
+	}
+
+	void OnMinionChanged(Minion m) {
+		//Debug.Log("OnMinionChanged");
+
+		if (minionGameObjectMap.ContainsKey(m) == false) {
+			Debug.LogError("OnCharacterChanged -- trying to change visuals for Minion not in our map.");
+			return;
+		}
+		GameObject mn_go = minionGameObjectMap[m];
+		// Set position
+		mn_go.transform.position = new Vector3(m.X, 0, m.Z);
+		// Set font rotation
+		if(m.directionVector != Vector3.zero)
+			mn_go.transform.rotation = Quaternion.Slerp(mn_go.transform.rotation,Quaternion.LookRotation(m.directionVector),0.08f);
+		
 	}
 
 	void OnPlayerRemoved(Player p) {
