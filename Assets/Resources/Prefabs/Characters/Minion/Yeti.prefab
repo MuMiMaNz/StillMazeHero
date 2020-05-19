@@ -937,7 +937,7 @@ GameObject:
   - component: {fileID: 6807337884606741681}
   m_Layer: 0
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: Minion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1560,7 +1560,7 @@ GameObject:
   - component: {fileID: 6855995217033546481}
   m_Layer: 0
   m_Name: GolemMaskTint 1
-  m_TagString: Untagged
+  m_TagString: Minion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1707,7 +1707,7 @@ GameObject:
   - component: {fileID: 6886555650781393925}
   m_Layer: 0
   m_Name: Golem
-  m_TagString: Untagged
+  m_TagString: Minion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

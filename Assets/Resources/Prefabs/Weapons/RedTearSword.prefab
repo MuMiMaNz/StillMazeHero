@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5241434804449438886}
   - component: {fileID: 632978723313711398}
+  - component: {fileID: -3957534051988676258}
   m_Layer: 0
-  m_Name: Sword03
+  m_Name: RedTearSword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,6 +46,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 1.95, z: 0.3}
   m_Center: {x: 0, y: -0.96, z: 0}
+--- !u!114 &-3957534051988676258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3161497417686471214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aee9c3e69852c8e40b6cdc6d6449a4d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7476762896147521902
 GameObject:
   m_ObjectHideFlags: 0

@@ -188,6 +188,7 @@
     <Compile Include="Assets\Scripts\Controller\PreviewController.cs" />
     <Compile Include="Assets\Scripts\Controller\SelectController.cs" />
     <Compile Include="Assets\Scripts\Controller\TileGraphicController.cs" />
+    <Compile Include="Assets\Scripts\Controller\WeaponController.cs" />
     <Compile Include="Assets\Scripts\Controller\WorldController.cs" />
     <Compile Include="Assets\Scripts\FirstPersonExample1.cs" />
     <Compile Include="Assets\Scripts\Model\Building.cs" />

@@ -80,8 +80,7 @@ public class CharacterGraphicController : MonoBehaviour {
 			p_go.name = p.objectType;
 			p_go.transform.position = new Vector3(p.charStartTile.X, -0.5f, p.charStartTile.Z);
 			p_go.transform.SetParent(this.transform.Find(p.parent), true);
-			// Register our callback so that our GameObject gets updated whenever
-			// the object's into changes.
+			
 			p.RegisterOnRemovedCallback(OnPlayerRemoved);
 
 			// Add Weapon&Armor to Player GO
@@ -171,29 +170,6 @@ public class CharacterGraphicController : MonoBehaviour {
 		Destroy(e_go);
 		minionGameObjectMap.Remove(e);
 	}
-
-	//void OnCharacterChanged(Character c) {
-	//	//Debug.Log("OnCharacterChanged");
-	//	// Make sure the character's graphics are correct.
-	//	if (characterGameObjectMap.ContainsKey(c) == false) {
-	//		Debug.LogError("OnCharacterChanged -- trying to change visuals for character not in our map.");
-	//		return;
-	//	}
-
-	//	GameObject c_goOld = characterGameObjectMap[c];
-	//	//Debug.Log(c_goOld);
-
-	//	GameObject c_goNew = GetGOforCharacter(c);
-	//	c_goNew.name = c_goOld.name;
-	//	c_goNew.transform.position = c_goOld.transform.position;
-	//	c_goNew.transform.SetParent(this.transform.Find(c.parent), true);
-
-	//	Destroy(c_goOld);
-
-	//	// --- Delete Old and Add New Character game object
-	//	characterGameObjectMap.Remove(c);
-	//	characterGameObjectMap.Add(c, c_goNew);
-	//}
 
 	public GameObject GetPreviewCharacter(string objectType) {
 		//Debug.Log("Preview" + objectType);

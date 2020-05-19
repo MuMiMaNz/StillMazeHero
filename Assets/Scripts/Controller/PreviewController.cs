@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PreviewController : MonoBehaviour {
 
+	// This Script attach to Building and Minion
+
     World World {
         get { return WorldController.Instance.World; }
     }
