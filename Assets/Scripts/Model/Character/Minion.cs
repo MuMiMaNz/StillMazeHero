@@ -324,7 +324,6 @@ public class Minion : Character{
 			mPathAStar = null;
 			return;	// We're already were we want to be.
 		}
-
 		// currTile = The tile I am currently in (and may be in the process of leaving)
 		// nextTile = The tile I am currently entering
 		// destTile = Our final destination -- we never walk here directly, but instead use it for the pathfinding

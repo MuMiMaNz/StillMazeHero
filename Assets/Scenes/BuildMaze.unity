@@ -4766,6 +4766,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camController: {fileID: 963194229}
+  viewRadius: 2
+  viewAngle: 45
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 512
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 2304
+  visibleTargets: []
 --- !u!4 &2077411288
 Transform:
   m_ObjectHideFlags: 0

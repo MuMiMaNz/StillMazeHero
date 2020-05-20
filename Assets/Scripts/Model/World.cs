@@ -171,7 +171,7 @@ public class World : IXmlSerializable {
 						 2, // AGI
 						 5, // LUK
 						300f, // HP
-						1, //Speed
+						0.5f, //Speed
 						1, // SpaceNeed
 						 2, // PatrolRange
 						"Minion" // Parent

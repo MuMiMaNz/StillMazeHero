@@ -1,4 +1,6 @@
-﻿using TouchControlsKit;
+﻿using System.Collections;
+using System.Collections.Generic;
+using TouchControlsKit;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -16,19 +18,35 @@ public class PlayerController : MonoBehaviour
 
 	public GameObject playerGO { get; protected set; }
 	private Rigidbody rb;
-
 	private Animator playerAnim;
+
 	private string[] randomAttacks = { "Attack01", "Attack02" };
 
 	private float moveFT = 0.75f;
 	private Quaternion playerRotateDT;
 
-	public void SeekPlayerGO() {
+	// Field of view
+	public float viewRadius = 1.5f;
+	[Range(0, 360)]
+	public float viewAngle;
 
+	public LayerMask targetMask;
+	public LayerMask obstacleMask;
+
+	[HideInInspector]
+	public List<Transform> visibleTargets = new List<Transform>();
+
+	// Start Play mode
+	public void StartPlayMode() {
+
+		// Find Player gameobject
 		GameObject[] playerTag = GameObject.FindGameObjectsWithTag("Player");
 		if (playerTag.Length != 1) {
 			Debug.LogError("More than 1 Player tag GO");
 		} else {
+			
+			StartCoroutine("FindTargetsWithDelay", .2f);
+
 			playerGO = playerTag[0];
 			rb = playerGO.GetComponent<Rigidbody>();
 			playerAnim = playerGO.GetComponent<Animator>();
@@ -94,5 +112,43 @@ public class PlayerController : MonoBehaviour
 
 		// Calculate damage to enemy
 	}
+
+	//void Start() {
+	//	StartCoroutine("FindTargetsWithDelay", .2f);
+	//}
+
+
+	IEnumerator FindTargetsWithDelay(float delay) {
+		while (true) {
+			yield return new WaitForSeconds(delay);
+			FindVisibleTargets();
+		}
+	}
+
+	void FindVisibleTargets() {
+		visibleTargets.Clear();
+		Collider[] targetsInViewRadius = Physics.OverlapSphere(playerGO.transform.position, viewRadius, targetMask);
+
+		for (int i = 0; i < targetsInViewRadius.Length; i++) {
+			Transform target = targetsInViewRadius[i].transform;
+			Vector3 dirToTarget = (target.position - playerGO.transform.position).normalized;
+			if (Vector3.Angle(playerGO.transform.forward, dirToTarget) < viewAngle / 2) {
+				float dstToTarget = Vector3.Distance(playerGO.transform.position, target.position);
+
+				if (!Physics.Raycast(playerGO.transform.position, dirToTarget, dstToTarget, obstacleMask)) {
+					visibleTargets.Add(target);
+				}
+			}
+		}
+	}
+
+
+	public Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal) {
+		if (!angleIsGlobal) {
+			angleInDegrees += playerGO.transform.eulerAngles.y;
+		}
+		return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
+	}
 }
+
 	

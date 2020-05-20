@@ -77,7 +77,7 @@ public class WorldController : MonoBehaviour
 		gameMode = GameMode.PlayMode;
 		panelController.SetPlayMode();
 		cameraController.SetPlayModeCam();
-		playerControllerl.SeekPlayerGO();
+		playerControllerl.StartPlayMode();
 		// Change Building to Real physics
 		buildingGraphicController.ChangeBuildingPhysic(true);
 		// All Minions start to set Patrol point
