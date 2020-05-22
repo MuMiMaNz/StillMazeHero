@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterGraphicController : MonoBehaviour {
@@ -7,7 +8,7 @@ public class CharacterGraphicController : MonoBehaviour {
 		get { return WorldController.Instance.World; }
 	}
 	Dictionary<Player, GameObject> playerGameObjectMap;
-	Dictionary<Minion, GameObject> minionGameObjectMap;
+	public Dictionary<Minion, GameObject> minionGameObjectMap { get; protected set; }
 	Dictionary<string, GameObject> characterGOS;
 	Dictionary<string, GameObject> weaponGOS;
 
@@ -69,6 +70,8 @@ public class CharacterGraphicController : MonoBehaviour {
 		}
 	}
 
+	#region Player Graphic
+
 	public void OnPlayerCreated(Player p) {
 		// This creates a new GameObject and adds it to our scene.
 		GameObject p_go = GetGOforCharacter(p);
@@ -109,31 +112,44 @@ public class CharacterGraphicController : MonoBehaviour {
 		}
 	}
 
+	private void OnPlayerRemoved(Player p) {
+		if (playerGameObjectMap.ContainsKey(p) == false) {
+			Debug.LogError("OnFurnitureRemoved -- trying to Remove graphic for character not in our map.");
+			return;
+		}
+
+		GameObject p_go = playerGameObjectMap[p];
+		Destroy(p_go);
+		playerGameObjectMap.Remove(p);
+	}
+	#endregion
+
+	#region Minion Graphic
+
 	public void OnMinionCreated(Minion m) {
-		// Create a visual GameObject linked to this data.
 
-		// FIXME: Does not consider multi-tile objects nor rotated objects
+		GameObject m_go = GetGOforCharacter(m);
 
-		// This creates a new GameObject and adds it to our scene.
-		GameObject e_go = GetGOforCharacter(m);
-
-		if (e_go != null) {
+		if (m_go != null) {
 			// Add our tile/GO pair to the dictionary.
-			minionGameObjectMap.Add(m, e_go);
+			minionGameObjectMap.Add(m, m_go);
 
-			e_go.name = m.objectType + "_" + m.X + "_" + m.Z;
+			m_go.name = m.objectType + "_" + m.X + "_" + m.Z;
 			
-			e_go.transform.position = new Vector3(m.X, 0f, m.Z);
-			e_go.transform.SetParent(this.transform.Find(m.parent), true);
+			m_go.transform.position = new Vector3(m.X, 0f, m.Z);
+			m_go.transform.SetParent(this.transform.Find(m.parent), true);
 
 			// Register our callback so that our GameObject gets updated whenever
 			// the object's into changes.
 			m.RegisterOnChangedCallback(OnMinionChanged);
+			//m.RegisterCouroutineCallback(CouroutineMinionFOW);
 			m.RegisterOnRemovedCallback(OnMinionRemoved);
+
+			StartCoroutine("FindTargetsWithDelay", m);
 		}
 	}
 
-	void OnMinionChanged(Minion m) {
+	private void OnMinionChanged(Minion m) {
 		//Debug.Log("OnMinionChanged");
 
 		if (minionGameObjectMap.ContainsKey(m) == false) {
@@ -149,18 +165,107 @@ public class CharacterGraphicController : MonoBehaviour {
 		
 	}
 
-	void OnPlayerRemoved(Player p) {
-		if (playerGameObjectMap.ContainsKey(p) == false) {
-			Debug.LogError("OnFurnitureRemoved -- trying to Remove graphic for character not in our map.");
-			return;
-		}
+	// Minion FOW
 
-		GameObject p_go = playerGameObjectMap[p];
-		Destroy(p_go);
-		playerGameObjectMap.Remove(p);
+	public float viewRadius = 1.5f;
+	[Range(0, 360)]
+	public float viewAngle = 45;
+
+	public LayerMask targetMask;
+	public LayerMask obstacleMask;
+
+	[HideInInspector]
+	public Transform playerTarget;
+
+	//private void CouroutineMinionFOW(Minion m) {
+	//	StartCoroutine("FindTargetsWithDelay", m);
+	//}
+
+	IEnumerator FindTargetsWithDelay(Minion m) {
+		while (true) {
+			yield return new WaitForSeconds(.2f);
+			//Debug.Log("Coroutine FindVisibleTargets");
+			FindVisibleTargets(m);
+		}
 	}
 
-	void OnMinionRemoved(Minion e) {
+	private void FindVisibleTargets(Minion m) {
+
+		GameObject m_go = minionGameObjectMap[m];
+
+		Collider[] overlaps = Physics.OverlapSphere(m_go.transform.position, viewRadius, targetMask);
+
+		if (overlaps.Length <= 0) { m.seePlayer = false; return; }
+
+		for (int i = 0; i < overlaps.Length ; i++) {
+
+			if (overlaps[i] != null) {
+
+				Transform target = overlaps[i].transform;
+
+				Vector3 directionBetween = (target.position - m_go.transform.position).normalized;
+				//directionBetween.y *= 0;
+
+				float angle = Vector3.Angle(m_go.transform.forward, directionBetween);
+
+				if (angle <= viewAngle) {
+
+					Ray ray = new Ray(m_go.transform.position, target.position - m_go.transform.position);
+					//RaycastHit hit;
+
+					//if (Physics.Raycast(ray, out hit, viewRadius)) {
+					//	if (hit.transform == target) {
+					//float dstToTarget = Vector3.Distance(m_go.transform.position, target.position);
+
+					if (!Physics.Raycast(m_go.transform.position, target.position - m_go.transform.position, viewRadius, obstacleMask)) {
+						Debug.Log(m_go.name + "  See Player !");
+							m.seePlayer = true;
+						//return true;
+						//}
+					}else {
+						m.seePlayer = false;
+					}
+				}
+				else {
+					m.seePlayer = false;
+				}
+			}
+		}
+		
+		//return false;
+	}
+
+	//private void FindVisibleTargets(Minion m) {
+
+	//	playerTarget = null;
+
+	//	GameObject m_go = minionGameObjectMap[m];
+
+	//	Collider[] targetsInViewRadius = Physics.OverlapSphere(m_go.transform.position, viewRadius, targetMask);
+
+	//	for (int i = 0; i < targetsInViewRadius.Length; i++) {
+	//		Transform target = targetsInViewRadius[i].transform;
+	//		Vector3 dirToTarget = (target.position - m_go.transform.position).normalized;
+	//		if (Vector3.Angle(m_go.transform.forward, dirToTarget) < viewAngle / 2) {
+	//			float dstToTarget = Vector3.Distance(m_go.transform.position, target.position);
+
+	//			if (!Physics.Raycast(m_go.transform.position, dirToTarget, dstToTarget, obstacleMask)) {
+	//				Debug.Log("Find target! : " + target.name);
+	//				playerTarget = target;
+	//			}
+	//		}
+	//	}
+	//}
+
+
+	//public Vector3 DirFromAngle(float angleInDegrees) {
+
+	//	return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
+	//}
+
+
+
+	private void OnMinionRemoved(Minion e) {
 		if (minionGameObjectMap.ContainsKey(e) == false) {
 			Debug.LogError("OnFurnitureRemoved -- trying to Remove graphic for character not in our map.");
 			return;
@@ -170,6 +275,8 @@ public class CharacterGraphicController : MonoBehaviour {
 		Destroy(e_go);
 		minionGameObjectMap.Remove(e);
 	}
+
+	#endregion
 
 	public GameObject GetPreviewCharacter(string objectType) {
 		//Debug.Log("Preview" + objectType);

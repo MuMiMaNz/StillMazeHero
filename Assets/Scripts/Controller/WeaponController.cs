@@ -14,7 +14,7 @@ public class WeaponController : MonoBehaviour {
 
 	private void OnTriggerEnter(Collider other) {
 
-		Debug.Log(playerController.normalAttack);
+		//Debug.Log(playerController.normalAttack);
 
 		if (other.gameObject.tag == "Minion" && playerController.normalAttack == true) {
 			Debug.Log(this.name + " Hit " + other.gameObject.name);

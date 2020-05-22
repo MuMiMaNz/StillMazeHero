@@ -183,7 +183,7 @@
     <Compile Include="Assets\Scripts\Controller\BuildingGraphicController.cs" />
     <Compile Include="Assets\Scripts\Controller\CameraController.cs" />
     <Compile Include="Assets\Scripts\Controller\CharacterGraphicController.cs" />
-    <Compile Include="Assets\Scripts\Controller\FieldOfViewEditor.cs" />
+    <Compile Include="Assets\Scripts\Controller\FOVDetection.cs" />
     <Compile Include="Assets\Scripts\Controller\PanelController.cs" />
     <Compile Include="Assets\Scripts\Controller\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Controller\PreviewController.cs" />

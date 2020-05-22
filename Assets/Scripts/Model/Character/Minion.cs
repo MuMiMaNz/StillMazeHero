@@ -10,6 +10,7 @@ public enum MinionState { Idle, Patrol, Chase}
 public class Minion : Character{
 
 	Action<Minion> cbMinionChanged;
+	Action<Minion> cbMinionCoroutine;
 	Action<Minion> cbOnRemoved;
 
 	public Dictionary<string, float> bldParamaters;
@@ -23,6 +24,8 @@ public class Minion : Character{
 	public int patrolRange { get; protected set; }
 	// Set of patrol point tiles
 	public List<Tile> patrolPoints { get; protected set; }
+	// See Player ?
+	public bool seePlayer { get;  set; }
 
 	public float X {
 		get {
@@ -42,7 +45,8 @@ public class Minion : Character{
 	}
 	public Vector3 directionVector {
 		get {
-			return new Vector3(currTile.X, 0, currTile.Z) - new Vector3(nextTile.X, 0, nextTile.Z);
+			Vector3 drt = new Vector3(nextTile.X, 0, nextTile.Z) - new Vector3(currTile.X, 0, currTile.Z);
+			return drt.normalized;
 		}
 	}
 	private float idleWaitTime = 2f;
@@ -74,7 +78,7 @@ public class Minion : Character{
 	private Tile nextTile;  // The next tile in the pathfinding sequence
 	private Path_AStar mPathAStar;
 	private Path_TileGraph mTileGraph;
-	float movementPercentage; // Goes from 0 to 1 as we move from currTile to destTile
+	private float movementPercentage; // Goes from 0 to 1 as we move from currTile to destTile
 	
 	// Empty constructor is used for serialization
 	public Minion() {
@@ -102,6 +106,8 @@ public class Minion : Character{
 		this.spaceNeed = spaceNeed;
 		this.patrolRange = patrolRange;
 		this.parent = parent;
+
+		this.seePlayer = false;
 
 		bldParamaters = new Dictionary<string, float>();
 	}
@@ -183,7 +189,7 @@ public class Minion : Character{
 						mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
 						// There is valid pathfinder to this tile
 						if (mPathAStar.Length() != 0) {
-							Debug.Log("Add LUtile to patrol point : " + checkT.X + "," + checkT.Z);
+							//Debug.Log("Add LUtile to patrol point : " + checkT.X + "," + checkT.Z);
 							LUtile = checkT;
 						}
 					}
@@ -193,7 +199,7 @@ public class Minion : Character{
 						 mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
 						// There is valid pathfinder to this tile
 						if (mPathAStar.Length() != 0) {
-							Debug.Log("Add RUtile to patrol point : " + checkT.X + "," + checkT.Z);
+							//Debug.Log("Add RUtile to patrol point : " + checkT.X + "," + checkT.Z);
 							RUtile = checkT;
 						}
 					}
@@ -203,7 +209,7 @@ public class Minion : Character{
 						 mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
 						// There is valid pathfinder to this tile
 						if (mPathAStar.Length() != 0) {
-							Debug.Log("Add LLtile to patrol point : " + checkT.X + "," + checkT.Z);
+							//Debug.Log("Add LLtile to patrol point : " + checkT.X + "," + checkT.Z);
 							LLtile = checkT;
 						}
 					}
@@ -213,7 +219,7 @@ public class Minion : Character{
 						 mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
 						// There is valid pathfinder to this tile
 						if (mPathAStar.Length() != 0) {
-							Debug.Log("Add RLtile to patrol point : " + checkT.X + "," + checkT.Z);
+							//Debug.Log("Add RLtile to patrol point : " + checkT.X + "," + checkT.Z);
 							RLtile = checkT;
 						}
 					}
@@ -238,7 +244,7 @@ public class Minion : Character{
 							 mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
 							// There is valid pathfinder to this tile
 							if (mPathAStar.Length() != 0) {
-								Debug.Log("Add LUtile to patrol point : " + checkT.X + "," + checkT.Z);
+								//Debug.Log("Add LUtile to patrol point : " + checkT.X + "," + checkT.Z);
 								LUtile = checkT;
 							}
 						}
@@ -248,7 +254,7 @@ public class Minion : Character{
 							 mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
 							// There is valid pathfinder to this tile
 							if (mPathAStar.Length() != 0) {
-								Debug.Log("Add RUtile to patrol point : " + checkT.X + "," + checkT.Z);
+								//Debug.Log("Add RUtile to patrol point : " + checkT.X + "," + checkT.Z);
 								RUtile = checkT;
 							}
 						}
@@ -258,7 +264,7 @@ public class Minion : Character{
 							 mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
 							// There is valid pathfinder to this tile
 							if (mPathAStar.Length() != 0) {
-								Debug.Log("Add LLtile to patrol point : " + checkT.X + "," + checkT.Z);
+								//Debug.Log("Add LLtile to patrol point : " + checkT.X + "," + checkT.Z);
 								LLtile = checkT;
 							}
 						}
@@ -268,7 +274,7 @@ public class Minion : Character{
 							 mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
 							// There is valid pathfinder to this tile
 							if (mPathAStar.Length() != 0) {
-								Debug.Log("Add RLtile to patrol point : " + checkT.X + "," + checkT.Z);
+								//Debug.Log("Add RLtile to patrol point : " + checkT.X + "," + checkT.Z);
 								RLtile = checkT;
 							}
 						}
@@ -302,7 +308,7 @@ public class Minion : Character{
 			// then set new Destination
 			minionState = MinionState.Patrol;
 			DestTile = newPatrolPoints[UnityEngine.Random.Range(0, newPatrolPoints.Count)];
-			Debug.Log("Patrol to :" + DestTile.X + "," + DestTile.Z);
+			//Debug.Log("Patrol to :" + DestTile.X + "," + DestTile.Z);
 		}
 	}
 
@@ -421,6 +427,11 @@ public class Minion : Character{
 			cbMinionChanged(this);
 	}
 
+	public void Coroutine() {
+		if (cbMinionCoroutine != null)
+			cbMinionCoroutine(this);
+	}
+
 	public void RemoveMinion() {
 		Debug.Log("Remove Minion");
 
@@ -442,6 +453,14 @@ public class Minion : Character{
 
 	public void UnregisterOnChangedCallback(Action<Minion> cb) {
 		cbMinionChanged -= cb;
+	}
+
+	public void RegisterCouroutineCallback(Action<Minion> cb) {
+		cbMinionCoroutine += cb;
+	}
+
+	public void UnregisterCouroutineCallback(Action<Minion> cb) {
+		cbMinionCoroutine -= cb;
 	}
 
 	public void RegisterOnRemovedCallback(Action<Minion> callbackFunc) {
