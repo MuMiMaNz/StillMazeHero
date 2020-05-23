@@ -229,7 +229,7 @@ public class Minion : Character{
 				mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
 				// There is valid pathfinder to this tile
 				if (mPathAStar.Length() != 0) {
-					Debug.Log("Add LLtile to patrol point : " + checkT.X + "," + checkT.Z);
+					Debug.Log("Add LUtile to patrol point : " + checkT.X + "," + checkT.Z);
 					LUtile = checkT;
 				}
 			}
@@ -247,13 +247,13 @@ public class Minion : Character{
 				mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
 				// There is valid pathfinder to this tile
 				if (mPathAStar.Length() != 0) {
-					Debug.Log("Add LLtile to patrol point : " + checkT.X + "," + checkT.Z);
+					Debug.Log("Add RUtile to patrol point : " + checkT.X + "," + checkT.Z);
 					RUtile = checkT;
 				}
 			}
 		}
 		// Loop the Z axis farest tile
-		for (int z = charStartTile.Z; z >= startH; z--) {
+		for (int z = endH; z >= charStartTile.Z; z--) {
 			int x = endW;
 			Tile checkT = world.GetTileAt(x, z);
 
@@ -262,7 +262,7 @@ public class Minion : Character{
 				mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
 				// There is valid pathfinder to this tile
 				if (mPathAStar.Length() != 0) {
-					Debug.Log("Add LLtile to patrol point : " + checkT.X + "," + checkT.Z);
+					Debug.Log("Add RUtile to patrol point : " + checkT.X + "," + checkT.Z);
 					RUtile = checkT;
 				}
 			}
@@ -280,7 +280,7 @@ public class Minion : Character{
 				mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
 				// There is valid pathfinder to this tile
 				if (mPathAStar.Length() != 0) {
-					Debug.Log("Add LLtile to patrol point : " + checkT.X + "," + checkT.Z);
+					Debug.Log("Add RLtile to patrol point : " + checkT.X + "," + checkT.Z);
 					RLtile = checkT;
 				}
 			}
@@ -295,7 +295,7 @@ public class Minion : Character{
 				mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
 				// There is valid pathfinder to this tile
 				if (mPathAStar.Length() != 0) {
-					Debug.Log("Add LLtile to patrol point : " + checkT.X + "," + checkT.Z);
+					Debug.Log("Add RLtile to patrol point : " + checkT.X + "," + checkT.Z);
 					RLtile = checkT;
 				}
 			}
@@ -352,7 +352,7 @@ public class Minion : Character{
 						mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
 						// There is valid pathfinder to this tile
 						if (mPathAStar.Length() != 0) {
-							Debug.Log("Add LLtile to patrol point : " + checkT.X + "," + checkT.Z);
+							Debug.Log("Add RUtile to patrol point : " + checkT.X + "," + checkT.Z);
 							RUtile = checkT;
 						}
 					}
@@ -373,7 +373,7 @@ public class Minion : Character{
 						mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
 						// There is valid pathfinder to this tile
 						if (mPathAStar.Length() != 0) {
-							Debug.Log("Add LLtile to patrol point : " + checkT.X + "," + checkT.Z);
+							Debug.Log("Add RLtile to patrol point : " + checkT.X + "," + checkT.Z);
 							RLtile = checkT;
 						}
 					}
