@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
 
 	private string[] randomAttacks = { "Attack01", "Attack02" };
 
-	private float moveFT = 0.75f;
+	//private float moveFT = 0.75f;
 	private Quaternion playerRotateDT;
 
 	// Field of view
@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
 				Vector3 newPos = camTransform.rotation * joyMoveDT;
 				newPos.y = 0f;
 				// Move position
-				rb.MovePosition(rb.position + newPos * moveFT * Time.fixedDeltaTime);
+				rb.MovePosition(rb.position + newPos * World.player.speed * Time.fixedDeltaTime);
 
 				// Rotate player
 				Quaternion oldRotate = rb.rotation;
@@ -96,6 +96,7 @@ public class PlayerController : MonoBehaviour
 				// Save data to player character
 				World.player.X = playerGO.transform.position.x;
 				World.player.Z = playerGO.transform.position.z;
+				//Debug.Log(World.player.X + "," + World.player.Z);
 			}
 		}
 	}
