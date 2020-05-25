@@ -7,15 +7,33 @@ public class Path_AStar {
 
 	Queue<Tile> path;
 
-	public Path_AStar(Path_TileGraph tileGraph, Tile tileStart, Tile tileEnd, int startWidth, int endWidth, int startHeight, int endHeight) {
+	public Path_AStar(bool useWorldTG, Tile tileStart, Tile tileEnd ,  Path_TileGraph tileGraph = null,
+		int startWidth = 0, int endWidth = 0, int startHeight = 0, int endHeight = 0) {
 
-		// Check to see if we have a valid tile graph
-		if(tileGraph == null) {
-			tileGraph = new Path_TileGraph(  startWidth,  endWidth,  startHeight,  endHeight);
+		// Use World TileGraph ?
+		if (useWorldTG) {
+			// Check to see if we have a valid tile graph
+			if (WorldController.Instance.World.tileGraph == null) {
+				WorldController.Instance.World.tileGraph = new Path_TileGraph(
+					0, WorldController.Instance.World.Width - 1, 0, WorldController.Instance.World.Height - 1);
+			}
+		}
+		else {
+			// Check to see if we have a valid tile graph
+			if (tileGraph == null) {
+				tileGraph = new Path_TileGraph(startWidth, endWidth, startHeight, endHeight);
+			}
 		}
 
 		// A dictionary of all valid, walkable nodes.
-		Dictionary<Tile, Path_Node<Tile>> nodes = tileGraph.nodes;
+		Dictionary<Tile, Path_Node<Tile>> nodes = new Dictionary<Tile, Path_Node<Tile>>();
+		if (useWorldTG) {
+			nodes = WorldController.Instance.World.tileGraph.nodes;
+		}
+		else {
+			nodes = tileGraph.nodes;
+		}
+			
 
 		// Make sure our start/end tiles are in the list of nodes!
 		if(nodes.ContainsKey(tileStart) == false) {

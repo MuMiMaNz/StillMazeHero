@@ -105,12 +105,11 @@ public class World : IXmlSerializable {
     }
 
 	public Player CreatePlayerAtStart() {
-		Debug.Log("CreatePlayer");
+		//Debug.Log("CreatePlayer");
 		Player p = PlacePlayer(startTile);
 
-		//player = p;
-		Debug.Log("Player Name : " + player.name);
-		Debug.Log("Player's Weapon : " + player.weapons[0].wName);
+		//Debug.Log("Player Name : " + player.name);
+		//Debug.Log("Player's Weapon : " + player.weapons[0].wName);
 
 
 		return p;
@@ -161,20 +160,22 @@ public class World : IXmlSerializable {
 		minionPrototypes = new Dictionary<string, Minion>();
 
 		minionPrototypes.Add("Yeti",
-			new Minion(	"Yeti", // ObjType
-						"Yeti", // Name
-						"Ancient winter mountain giant", // Description
-						12, // STR
-						3, // INT
-						10, //VIT
-						 4, // DEX
-						 2, // AGI
-						 5, // LUK
-						300f, // HP
-						0.5f, //Speed
-						1, // SpaceNeed
-						 2, // PatrolRange
-						"Minion" // Parent
+			new Minion(	objectType: "Yeti", 
+						name: "Yeti", 
+						description: "Ancient winter mountain giant", 
+						STR: 12, 
+						INT: 3, 
+						VIT: 10, 
+						DEX: 4, 
+						AGI: 2, 
+						LUK: 5, 
+						HP: 300f, 
+						speed: 0.5f, 
+						spaceNeed: 1, 
+						patrolRange: 2, 
+						viewRadius: 1.5f,
+						viewAngle: 45f,
+						parent: "Minion" 
 							)
 		);
 	}
@@ -183,30 +184,30 @@ public class World : IXmlSerializable {
 		weaponPrototypes = new Dictionary<string, Weapon>();
 
 		weaponPrototypes.Add("RedTearSword",
-			new Weapon("RedTearSword", // Object type
-				"RedTearSword", // Name
-						"You look at this Bad ass sword and cry in blood", // Description
-						10, //ATK
-						0, // mATK
-						5, // ATKspeed
-						0, // DEF
-						0, // mDEF
-						WeaponType.OneHandMelee,
-						1 // Slot
+			new Weapon( objectType: "RedTearSword", 
+						wName:	"RedTearSword", 
+						wDescription: "You look at this Bad ass sword and cry in blood", 
+						wATK: 10, //ATK
+						wMagicATK: 0, // mATK
+						wATKspeed: 5, // ATKspeed
+						wDEF: 0, // DEF
+						wMagicDEF: 0, // mDEF
+						weaponType: WeaponType.OneHandMelee,
+						wSpace: 1 // Slot
 							)
 		);
 
 		weaponPrototypes.Add("CrimsonWingShield",
-			new Weapon("CrimsonWingShield", // Object type
-				"CrimsonWingShield", // Name
-						"Original shield color is white, but time to times its cover with enemy blood", // Description
-						0, //ATK
-						0, // mATK
-						5, // ATKspeed
-						10, // DEF
-						4, // mDEF
-						WeaponType.Shield,
-						1 // Slot
+			new Weapon( objectType: "CrimsonWingShield", // Object type
+						wName: "CrimsonWingShield", // Name
+						wDescription: "Original shield color is white, but time to times its cover with enemy blood", // Description
+						wATK: 0, //ATK
+						wMagicATK: 0, // mATK
+						wATKspeed: 5, // ATKspeed
+						wDEF: 10, // DEF
+						wMagicDEF: 4, // mDEF
+						weaponType: WeaponType.Shield,
+						wSpace: 1 // Slot
 							)
 		);
 	}
@@ -217,69 +218,69 @@ public class World : IXmlSerializable {
 
 		buildingPrototypes.Add("InnerWall",
 			new Building(
-								"InnerWall",
-								0,  // Impassable
-								1,  // Width
-								1,  // Height
-								"Buildings", // Parent
-								false, // Allow minion on top of building
-                                true // Links to neighbours and "sort of" becomes part of a large object
+								objectType: "InnerWall",
+								movementCost: 0,  // Impassable
+								width: 1,  // Width
+								height: 1,  // Height
+								parent: "Buildings", // Parent
+								allowMinion: false, // Allow minion on top of building
+                                linksToNeighbour: true // Links to neighbours and "sort of" becomes part of a large object
                             )
         );
         buildingPrototypes.Add("OuterWall",
             new Building(
-                                "OuterWall",
-                                0,  // Impassable
-                                1,  // Width
-                                1,  // Height
-                                "OuterWalls",// Parent
-								false, // Allow minion on top of building
-								true // Links to neighbours and "sort of" becomes part of a large object
-                            )
+							   objectType: "OuterWall",
+							   movementCost: 0,  // Impassable
+							   width: 1,  // Width
+							   height: 1,  // Height
+							   parent: "OuterWalls",// Parent
+							   allowMinion: false, // Allow minion on top of building
+							   linksToNeighbour: true // Links to neighbours and "sort of" becomes part of a large object
+							)
         );
         buildingPrototypes.Add("OuterWall_Gate",
            new Building(
-                                "OuterWall_Gate",
-                                0,  // Impassable
-                                3,  // Width
-                                1,  // Height
-                                "OuterWalls",// Parent
-								false, // Allow minion on top of building
-								false // Links to neighbours and "sort of" becomes part of a large object
-                            )
+								objectType: "OuterWall_Gate",
+								movementCost: 0,  // Impassable
+								width: 3,  // Width
+								height: 1,  // Height
+								parent: "OuterWalls",// Parent
+								allowMinion: false, // Allow minion on top of building
+								linksToNeighbour: false // Links to neighbours and "sort of" becomes part of a large object
+							)
         );
         buildingPrototypes.Add("Goal",
             new Building(
-								"Goal",
-                                1,  // passable
-                                1,  // Width
-                                1,  // Height
-                                "Buildings",// Parent
-								false, // Allow minion on top of building
-								false // Links to neighbours and "sort of" becomes part of a large object
-                            )
+								objectType: "Goal",
+								movementCost: 1,  // passable
+								width: 1,  // Width
+								height: 1,  // Height
+								parent: "Buildings",// Parent
+								allowMinion: false, // Allow minion on top of building
+								linksToNeighbour: false // Links to neighbours and "sort of" becomes part of a large object
+							)
         );
         buildingPrototypes.Add("DummyGoal",
             new Building(
-                                "DummyGoal",
-                                1,  // passable
-                                1,  // Width
-                                1,  // Height
-                                "Buildings",// Parent
-								false, // Allow minion on top of building
-								false // Links to neighbours and "sort of" becomes part of a large object
-                            )
+								objectType: "DummyGoal",
+								movementCost: 1,  // passable
+							    width: 1,  // Width
+								height: 1,  // Height
+								parent: "Buildings",// Parent
+								allowMinion: false, // Allow minion on top of building
+								linksToNeighbour: false // Links to neighbours and "sort of" becomes part of a large object
+							)
         );
         buildingPrototypes.Add("DummyBuilding",
            new Building(
-                                "DummyBuilding",
-                                0,  // IMpassable
-                                1,  // Width
-                                1,  // Height
-                                "Buildings",// Parent
-								false, // Allow minion on top of building
-								false // Links to neighbours and "sort of" becomes part of a large object
-                            )
+								objectType: "DummyBuilding",
+								movementCost: 0,  // IMpassable
+								width: 1,  // Width
+								height: 1,  // Height
+								parent: "Buildings",// Parent
+								allowMinion: false, // Allow minion on top of building
+								linksToNeighbour: false // Links to neighbours and "sort of" becomes part of a large object
+							)
         );
     }
 
@@ -293,7 +294,7 @@ public class World : IXmlSerializable {
 
 	public Minion GetMinionPrototype(string minionType) {
 		if (minionPrototypes.ContainsKey(minionType) == false) {
-			Debug.LogError("No Building with type: " + minionType);
+			Debug.LogError("No Minion with type: " + minionType);
 			return null;
 		}
 		return minionPrototypes[minionType];

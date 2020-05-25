@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
 	private Rigidbody rb;
 	private Animator playerAnim;
 
-	private string[] randomAttacks = { "Attack01", "Attack02" };
+	//private string[] randomAttacks = { "Attack01", "Attack02" };
 
 	//private float moveFT = 0.75f;
 	private Quaternion playerRotateDT;
@@ -106,7 +106,8 @@ public class PlayerController : MonoBehaviour
 		//chosing random attack from array.
 		//play the target animation in 0.1 second.
 		normalAttack = true;
-		playerAnim.CrossFade(randomAttacks[Random.Range(0, randomAttacks.Length)], 0.1f);
+		playerAnim.CrossFade("Attack01",0.1f);
+		//playerAnim.CrossFade(randomAttacks[Random.Range(0, randomAttacks.Length)], 0.1f); // Play Random attack animation
 		pressedAttack = false;
 
 		// Detect weapon box colider to enemy

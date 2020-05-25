@@ -5,12 +5,14 @@ using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
-public enum MinionState { Idle, Patrol, Chase}
+public enum MinionState { Chase, ChaseToPatrol ,Patrol,  Idle }
 
 public class Minion : Character{
 
+	World World {get { return WorldController.Instance.World; }}
+
 	Action<Minion> cbMinionChanged;
-	Action<Minion> cbMinionCoroutine;
+	//Action<Minion> cbMinionCoroutine;
 	Action<Minion> cbOnRemoved;
 
 	public Dictionary<string, float> bldParamaters;
@@ -24,8 +26,13 @@ public class Minion : Character{
 	public int patrolRange { get; protected set; }
 	// Set of patrol point tiles
 	public List<Tile> patrolPoints { get; protected set; }
-	// See Player ?
+	// FOV
 	public bool seePlayer { get;  set; }
+	public float viewRadius { get; protected set; }
+	public float viewAngle { get; protected set; }
+
+	public bool canTakeDMG { get; protected set; }
+	private float involuntaryTime = 0.2f;
 
 	public float X {
 		get {
@@ -88,7 +95,7 @@ public class Minion : Character{
 	// Use for create prototype
 	public Minion(string objectType, string name, string description,
 		int STR = 1, int INT = 1, int VIT = 1, int DEX = 1, int AGI = 1, int LUK = 1,
-		float HP = 100f, float speed = 1,int spaceNeed=1 ,int patrolRange = 2, string parent = "Character") {
+		float HP = 100f, float speed = 1,int spaceNeed=1 ,int patrolRange = 2, float viewRadius = 1.5f ,float viewAngle = 45f, string parent = "Character") {
 
 		this.objectType = objectType;
 		this.name = name;
@@ -105,6 +112,9 @@ public class Minion : Character{
 
 		this.spaceNeed = spaceNeed;
 		this.patrolRange = patrolRange;
+		this.viewRadius = viewRadius;
+		this.viewAngle = viewAngle;
+
 		this.parent = parent;
 
 		this.seePlayer = false;
@@ -116,7 +126,8 @@ public class Minion : Character{
 		//Debug.Log("Minion.PlaceMinion()");
 		Minion m = new Minion(proto.objectType, proto.name,proto.description,
 			proto.STR, proto.INT, proto.VIT, proto.DEX, proto.AGI, proto.LUK,
-			proto.HP, proto.speed,proto.spaceNeed,proto.patrolRange, proto.parent);
+			proto.HP, proto.speed,proto.spaceNeed,
+			proto.patrolRange, proto.viewRadius, proto.viewAngle, proto.parent);
 
 		m.charStartTile = t;
 		m.currTile = t;
@@ -138,7 +149,7 @@ public class Minion : Character{
 			return null;
 		}
 
-		// TODO : Check if building allow minion
+		// TODO : Check if building allow minion on top
 		//if (t.PlaceCharacter(e) == false || ) {
 		//	return null;
 		//}
@@ -146,13 +157,14 @@ public class Minion : Character{
 		return m;
 	}
 
-	public List<Tile> SetValidPatrolPoints(World world) {
+	// Set Patrol Point in 4 Quadrant
+	public void SetValidPatrolPoints(World world) {
 
 		minionState = MinionState.Patrol;
 		patrolPoints = new List<Tile>();
 
 		if (patrolRange == 0)
-			return null;
+			return ;
 
 		// Set tile graph width and height
 		int startW = charStartTile.X - patrolRange <=0 ? 0 : charStartTile.X - patrolRange;
@@ -179,7 +191,7 @@ public class Minion : Character{
 			int z = startH;
 			Tile checkT = world.GetTileAt(x, z);
 			if (LLtile == null && checkT != charStartTile) {
-				mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
+				mPathAStar = new Path_AStar(false, charStartTile, checkT, mTileGraph, startW, endW, startH, endH);
 				// There is valid pathfinder to this tile
 				if (mPathAStar.Length() != 0) {
 					Debug.Log("Add LLtile to patrol point : " + checkT.X + "," + checkT.Z);
@@ -195,7 +207,7 @@ public class Minion : Character{
 
 			// Check the farest tile first and Check it not CharTile
 			if (LLtile == null && checkT != charStartTile) {
-				mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
+				mPathAStar = new Path_AStar(false, charStartTile, checkT, mTileGraph, startW, endW, startH, endH);
 				// There is valid pathfinder to this tile
 				if (mPathAStar.Length() != 0) {
 					Debug.Log("Add LLtile to patrol point : " + checkT.X + "," + checkT.Z);
@@ -211,7 +223,7 @@ public class Minion : Character{
 			int z = endH;
 			Tile checkT = world.GetTileAt(x, z);
 			if (LUtile == null  && checkT != charStartTile) {
-				mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
+				mPathAStar = new Path_AStar(false, charStartTile, checkT, mTileGraph, startW, endW, startH, endH);
 				// There is valid pathfinder to this tile
 				if (mPathAStar.Length() != 0) {
 					Debug.Log("Add LUtile to patrol point : " + checkT.X + "," + checkT.Z);
@@ -226,7 +238,7 @@ public class Minion : Character{
 
 			// Check the farest tile first and Check it not CharTile
 			if (LUtile == null && checkT != charStartTile) {
-				mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
+				mPathAStar = new Path_AStar(false, charStartTile, checkT, mTileGraph, startW, endW, startH, endH);
 				// There is valid pathfinder to this tile
 				if (mPathAStar.Length() != 0) {
 					Debug.Log("Add LUtile to patrol point : " + checkT.X + "," + checkT.Z);
@@ -244,7 +256,7 @@ public class Minion : Character{
 
 			// Check the farest tile first and Check it not CharTile
 			if (RUtile == null && checkT != charStartTile) {
-				mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
+				mPathAStar = new Path_AStar(false, charStartTile, checkT, mTileGraph, startW, endW, startH, endH);
 				// There is valid pathfinder to this tile
 				if (mPathAStar.Length() != 0) {
 					Debug.Log("Add RUtile to patrol point : " + checkT.X + "," + checkT.Z);
@@ -259,7 +271,7 @@ public class Minion : Character{
 
 			// Check the farest tile first and Check it not CharTile
 			if (RUtile == null && checkT != charStartTile) {
-				mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
+				mPathAStar = new Path_AStar(false, charStartTile, checkT, mTileGraph, startW, endW, startH, endH);
 				// There is valid pathfinder to this tile
 				if (mPathAStar.Length() != 0) {
 					Debug.Log("Add RUtile to patrol point : " + checkT.X + "," + checkT.Z);
@@ -277,7 +289,7 @@ public class Minion : Character{
 
 			// Check the farest tile first and Check it not CharTile
 			if (RLtile == null && checkT != charStartTile) {
-				mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
+				mPathAStar = new Path_AStar(false, charStartTile, checkT, mTileGraph, startW, endW, startH, endH);
 				// There is valid pathfinder to this tile
 				if (mPathAStar.Length() != 0) {
 					Debug.Log("Add RLtile to patrol point : " + checkT.X + "," + checkT.Z);
@@ -292,7 +304,7 @@ public class Minion : Character{
 
 			// Check the farest tile first and Check it not CharTile
 			if (RLtile == null && checkT != charStartTile) {
-				mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
+				mPathAStar = new Path_AStar(false, charStartTile, checkT, mTileGraph, startW, endW, startH, endH);
 				// There is valid pathfinder to this tile
 				if (mPathAStar.Length() != 0) {
 					Debug.Log("Add RLtile to patrol point : " + checkT.X + "," + checkT.Z);
@@ -310,7 +322,7 @@ public class Minion : Character{
 				for (int z = startH + 1; z < charStartTile.Z; z++) {
 					Tile checkT = world.GetTileAt(x, z);
 					if (LLtile == null && checkT != charStartTile) {
-						mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
+						mPathAStar = new Path_AStar(false, charStartTile, checkT, mTileGraph, startW, endW, startH, endH);
 						// There is valid pathfinder to this tile
 						if (mPathAStar.Length() != 0) {
 							Debug.Log("Add LLtile to patrol point : " + checkT.X + "," + checkT.Z);
@@ -329,7 +341,7 @@ public class Minion : Character{
 				for (int z = endH - 1; z >= charStartTile.Z; z--) {
 					Tile checkT = world.GetTileAt(x, z);
 					if (LUtile == null && checkT != charStartTile) {
-						mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
+						mPathAStar = new Path_AStar(false, charStartTile, checkT, mTileGraph, startW, endW, startH, endH);
 						// There is valid pathfinder to this tile
 						if (mPathAStar.Length() != 0) {
 							Debug.Log("Add LUtile to patrol point : " + checkT.X + "," + checkT.Z);
@@ -349,7 +361,7 @@ public class Minion : Character{
 
 					// Check the farest tile first and Check it not CharTile
 					if (RUtile == null && checkT != charStartTile) {
-						mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
+						mPathAStar = new Path_AStar(false, charStartTile, checkT, mTileGraph, startW, endW, startH, endH);
 						// There is valid pathfinder to this tile
 						if (mPathAStar.Length() != 0) {
 							Debug.Log("Add RUtile to patrol point : " + checkT.X + "," + checkT.Z);
@@ -370,7 +382,7 @@ public class Minion : Character{
 
 					// Check the farest tile first and Check it not CharTile
 					if (RLtile == null && checkT != charStartTile) {
-						mPathAStar = new Path_AStar(mTileGraph, charStartTile, checkT, startW, endW, startH, endH);
+						mPathAStar = new Path_AStar(false, charStartTile, checkT, mTileGraph, startW, endW, startH, endH);
 						// There is valid pathfinder to this tile
 						if (mPathAStar.Length() != 0) {
 							Debug.Log("Add RLtile to patrol point : " + checkT.X + "," + checkT.Z);
@@ -386,8 +398,6 @@ public class Minion : Character{
 		if (RUtile != null) patrolPoints.Add(RUtile);
 		if (LLtile != null) patrolPoints.Add(LLtile);
 		if (RLtile != null) patrolPoints.Add(RLtile);
-
-		return patrolPoints;
 
 	}
 
@@ -424,10 +434,11 @@ public class Minion : Character{
 		return false;
 	}
 
-	void DoMovement(float deltaTime, Path_TileGraph tg,int startW,int endW,int startH,int endH) {
-		if(currTile == DestTile) {
+	void DoMovement(float deltaTime,bool useWorldTG, Path_TileGraph tg = null,int startW = 0,int endW =0,int startH =0,int endH=0) {
+		// We're already were we want to be.
+		if (currTile == DestTile) {
 			mPathAStar = null;
-			return;	// We're already were we want to be.
+			return;	
 		}
 		// currTile = The tile I am currently in (and may be in the process of leaving)
 		// nextTile = The tile I am currently entering
@@ -437,7 +448,13 @@ public class Minion : Character{
 			// Get the next tile from the pathfinder.
 			if(mPathAStar == null || mPathAStar.Length() == 0) {
 				// Generate a path to our destination
-				mPathAStar = new Path_AStar(tg, currTile, DestTile, startW, endW, startH, endH);	// This will calculate a path from curr to dest.
+				if (useWorldTG) {
+					mPathAStar = new Path_AStar(true, currTile, DestTile);
+				}else {
+					mPathAStar = new Path_AStar(false, currTile, DestTile, tg, startW, endW, startH, endH);
+				}
+				
+
 				if(mPathAStar.Length() == 0) {
 					Debug.LogError("Path_AStar returned no path to destination!");
 					return;
@@ -513,12 +530,41 @@ public class Minion : Character{
 	}
 
 	public void Update(float deltaTime) {
-		//Debug.Log("Character Update");
-		if (minionState == MinionState.Patrol || minionState == MinionState.Idle) {
-			PatrolMovement(deltaTime);
+
+
+		// If see Player , Chase him ! do A*pathfinding in all World tile
+		if (seePlayer) {
+			minionState = MinionState.Chase;
+			
+			DestTile = WorldController.Instance.World.GetTileAt(
+				Mathf.RoundToInt(World.player.X),
+				Mathf.RoundToInt(World.player.Z));
+
+			// FIXME : Not generate A* every frame
+			mPathAStar = new Path_AStar(true, currTile, DestTile);
+			DoMovement(deltaTime,true); 
+		}
+		// If not see Player
+		else {
+			// Patrol Mode do A*pathfinding in just Patrol Range tile
+			if (patrolPoints.Count > 0 && (minionState == MinionState.Patrol || minionState == MinionState.Idle)) {
+
+				PatrolMovement(deltaTime);
+
+				DoMovement(deltaTime,false, mTileGraph, 0, 0, 0, 0); // 0 is dummy argument
+			}
+			// If previosly chasing player and then don't see Player, come back to patrol
+			if (minionState == MinionState.Chase) {
+				minionState = MinionState.ChaseToPatrol;
+
+				DestTile = charStartTile;
+				// FIXME : Not generate A* every frame
+				mPathAStar = new Path_AStar(true, currTile, DestTile);
+				DoMovement(deltaTime, true);
+			}
 		}
 
-		DoMovement(deltaTime, mTileGraph, 0, 0, 0, 0); // 0 is dummy argument
+		
 	}
 
 	public void FixedUpdate(float deltaTime) {
@@ -526,10 +572,10 @@ public class Minion : Character{
 			cbMinionChanged(this);
 	}
 
-	public void Coroutine() {
-		if (cbMinionCoroutine != null)
-			cbMinionCoroutine(this);
-	}
+	//public void Coroutine() {
+	//	if (cbMinionCoroutine != null)
+	//		cbMinionCoroutine(this);
+	//}
 
 	public void RemoveMinion() {
 		Debug.Log("Remove Minion");
@@ -538,8 +584,6 @@ public class Minion : Character{
 
 		if (cbOnRemoved != null)
 			cbOnRemoved(this);
-
-		//World.InvalidateTileGraph();
 
 		// At this point, no DATA structures should be pointing to us, so we
 		// should get garbage-collected.
@@ -554,13 +598,13 @@ public class Minion : Character{
 		cbMinionChanged -= cb;
 	}
 
-	public void RegisterCouroutineCallback(Action<Minion> cb) {
-		cbMinionCoroutine += cb;
-	}
+	//public void RegisterCouroutineCallback(Action<Minion> cb) {
+	//	cbMinionCoroutine += cb;
+	//}
 
-	public void UnregisterCouroutineCallback(Action<Minion> cb) {
-		cbMinionCoroutine -= cb;
-	}
+	//public void UnregisterCouroutineCallback(Action<Minion> cb) {
+	//	cbMinionCoroutine -= cb;
+	//}
 
 	public void RegisterOnRemovedCallback(Action<Minion> callbackFunc) {
 		cbOnRemoved += callbackFunc;

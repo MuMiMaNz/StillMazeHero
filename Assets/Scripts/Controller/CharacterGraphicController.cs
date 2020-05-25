@@ -167,15 +167,15 @@ public class CharacterGraphicController : MonoBehaviour {
 
 	// Minion FOW
 
-	public float viewRadius = 1.5f;
-	[Range(0, 360)]
-	public float viewAngle = 45;
+	//public float viewRadius = 1.5f;
+	//[Range(0, 360)]
+	//public float viewAngle = 45;
 
 	public LayerMask targetMask;
 	public LayerMask obstacleMask;
 
-	[HideInInspector]
-	public Transform playerTarget;
+	//[HideInInspector]
+	//public Transform playerTarget;
 
 	//private void CouroutineMinionFOW(Minion m) {
 	//	StartCoroutine("FindTargetsWithDelay", m);
@@ -193,7 +193,7 @@ public class CharacterGraphicController : MonoBehaviour {
 
 		GameObject m_go = minionGameObjectMap[m];
 
-		Collider[] overlaps = Physics.OverlapSphere(m_go.transform.position, viewRadius, targetMask);
+		Collider[] overlaps = Physics.OverlapSphere(m_go.transform.position, m.viewRadius, targetMask);
 
 		if (overlaps.Length <= 0) { m.seePlayer = false; return; }
 
@@ -208,7 +208,7 @@ public class CharacterGraphicController : MonoBehaviour {
 
 				float angle = Vector3.Angle(m_go.transform.forward, directionBetween);
 
-				if (angle <= viewAngle) {
+				if (angle <= m.viewAngle) {
 
 					Ray ray = new Ray(m_go.transform.position, target.position - m_go.transform.position);
 					//RaycastHit hit;
@@ -217,10 +217,10 @@ public class CharacterGraphicController : MonoBehaviour {
 					//	if (hit.transform == target) {
 					//float dstToTarget = Vector3.Distance(m_go.transform.position, target.position);
 
-					if (!Physics.Raycast(m_go.transform.position, target.position - m_go.transform.position, viewRadius, obstacleMask)) {
+					if (!Physics.Raycast(m_go.transform.position, target.position - m_go.transform.position, m.viewRadius, obstacleMask)) {
 						Debug.Log(m_go.name + "  See Player !");
-							m.seePlayer = true;
-						//return true;
+						m.seePlayer = true;
+
 						//}
 					}else {
 						m.seePlayer = false;
@@ -231,8 +231,6 @@ public class CharacterGraphicController : MonoBehaviour {
 				}
 			}
 		}
-		
-		//return false;
 	}
 
 	//private void FindVisibleTargets(Minion m) {

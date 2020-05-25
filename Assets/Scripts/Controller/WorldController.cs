@@ -50,7 +50,8 @@ public class WorldController : MonoBehaviour
     }
 
 	void Update() {
-        // TODO: Add pause/unpause, speed controls, etc...
+		// TODO: Add pause/unpause, speed controls, etc...
+		Debug.Log(World.tileGraph);
 
 		if (gameMode == GameMode.PlayMode)
 			World.UpdateInPlayMode(Time.deltaTime);
@@ -154,7 +155,7 @@ public class WorldController : MonoBehaviour
              }
          }
         // Generate New pathway
-        pathAStar = new Path_AStar(World.tileGraph, World.startTile, World.goalTile,0,World.Width-1,0,World.Height-1);
+        pathAStar = new Path_AStar(true, World.startTile, World.goalTile);
         if (pathAStar.Length() == 0) {
             // No valid Pathfinding way
             Debug.LogError("Path_AStar returned no path to destination!");

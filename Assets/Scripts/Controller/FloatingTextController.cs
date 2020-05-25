@@ -20,7 +20,7 @@ public class FloatingTextController : MonoBehaviour{
 		//new Vector2(location.position.x + Random.Range(-.5f, .5f),
 		//location.position.y + Random.Range(-.5f, .5f)));
 
-		Debug.Log("Screen Position : " + screenPostition.x + "," + screenPostition.y);
+		//Debug.Log("Screen Position : " + screenPostition.x + "," + screenPostition.y);
 		Vector2 stupidPrivotCanvasPos = screenPostition - new Vector2(Screen.width / 2, Screen.height / 2);
 
 		instance.transform.position = stupidPrivotCanvasPos;

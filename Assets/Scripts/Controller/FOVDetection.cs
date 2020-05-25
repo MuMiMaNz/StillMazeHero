@@ -70,11 +70,14 @@ public class FOVDetection : MonoBehaviour {
 
 	private void OnDrawGizmos() {
 		if (WorldController.Instance.gameMode == GameMode.PlayMode) {
-			maxRadius = cgc.viewRadius;
-			maxAngle = cgc.viewAngle;
+			//maxRadius = cgc.viewRadius;
+			//maxAngle = cgc.viewAngle;
 			player = GameObject.Find("Player").transform;
 
 			foreach (Minion m in WorldController.Instance.World.minions) {
+
+				maxRadius = m.viewRadius;
+				maxAngle = m.viewAngle;
 
 				GameObject mn_go = cgc.minionGameObjectMap[m];
 
