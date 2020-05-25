@@ -51,7 +51,7 @@ public class WorldController : MonoBehaviour
 
 	void Update() {
 		// TODO: Add pause/unpause, speed controls, etc...
-		Debug.Log(World.tileGraph);
+		//Debug.Log(World.tileGraph);
 
 		if (gameMode == GameMode.PlayMode)
 			World.UpdateInPlayMode(Time.deltaTime);

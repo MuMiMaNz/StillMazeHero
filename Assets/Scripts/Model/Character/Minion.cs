@@ -434,7 +434,7 @@ public class Minion : Character{
 		return false;
 	}
 
-	void DoMovement(float deltaTime,bool useWorldTG, Path_TileGraph tg = null,int startW = 0,int endW =0,int startH =0,int endH=0) {
+	void DoMovement(float deltaTime,bool useWorldTG, Path_TileGraph tg = null) {
 		// We're already were we want to be.
 		if (currTile == DestTile) {
 			mPathAStar = null;
@@ -448,10 +448,11 @@ public class Minion : Character{
 			// Get the next tile from the pathfinder.
 			if(mPathAStar == null || mPathAStar.Length() == 0) {
 				// Generate a path to our destination
+				// FIXME : Not generate A* every frame
 				if (useWorldTG) {
 					mPathAStar = new Path_AStar(true, currTile, DestTile);
 				}else {
-					mPathAStar = new Path_AStar(false, currTile, DestTile, tg, startW, endW, startH, endH);
+					mPathAStar = new Path_AStar(false, currTile, DestTile, tg);
 				}
 				
 
@@ -540,8 +541,7 @@ public class Minion : Character{
 				Mathf.RoundToInt(World.player.X),
 				Mathf.RoundToInt(World.player.Z));
 
-			// FIXME : Not generate A* every frame
-			mPathAStar = new Path_AStar(true, currTile, DestTile);
+			
 			DoMovement(deltaTime,true); 
 		}
 		// If not see Player
@@ -551,16 +551,22 @@ public class Minion : Character{
 
 				PatrolMovement(deltaTime);
 
-				DoMovement(deltaTime,false, mTileGraph, 0, 0, 0, 0); // 0 is dummy argument
+				DoMovement(deltaTime,false, mTileGraph);
 			}
 			// If previosly chasing player and then don't see Player, come back to patrol
 			if (minionState == MinionState.Chase) {
 				minionState = MinionState.ChaseToPatrol;
 
+				
+			}
+			if(minionState == MinionState.ChaseToPatrol) {
 				DestTile = charStartTile;
-				// FIXME : Not generate A* every frame
-				mPathAStar = new Path_AStar(true, currTile, DestTile);
+				Debug.Log(DestTile.X + "," + DestTile.Z);
 				DoMovement(deltaTime, true);
+
+				if (currTile == DestTile) {
+					minionState = MinionState.Patrol;
+				}
 			}
 		}
 
