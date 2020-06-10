@@ -246,6 +246,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 681f17ab6948aaf4c922df6b5e65655e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boolName: 
+  status: 0
 --- !u!114 &-6061325323579665106
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1016,7 +1018,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SwordShieldNewBU
+  m_Name: SwordShieldLayer
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: speed
@@ -1487,6 +1489,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 681f17ab6948aaf4c922df6b5e65655e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boolName: 
+  status: 0
 --- !u!1102 &3721625264228291834
 AnimatorState:
   serializedVersion: 5
@@ -1603,6 +1607,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22c47e93456a0ba40aa693341e3f6fd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boolName: 
+  status: 0
 --- !u!1101 &4980327506534022047
 AnimatorStateTransition:
   m_ObjectHideFlags: 3
@@ -1768,6 +1774,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22c47e93456a0ba40aa693341e3f6fd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boolName: 
+  status: 0
 --- !u!1101 &6170014283123089520
 AnimatorStateTransition:
   m_ObjectHideFlags: 3

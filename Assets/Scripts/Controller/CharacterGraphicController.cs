@@ -14,6 +14,9 @@ public class CharacterGraphicController : MonoBehaviour {
 
 	public PlayerController playerController;
 	private GameObject playerGO;
+		// Minion FOW
+	public LayerMask targetMask;
+	public LayerMask obstacleMask;
 
 	void Start() {
 		playerGameObjectMap = new Dictionary<Player, GameObject>();
@@ -158,32 +161,44 @@ public class CharacterGraphicController : MonoBehaviour {
 			Debug.LogError("OnCharacterChanged -- trying to change visuals for Minion not in our map.");
 			return;
 		}
-		GameObject mn_go = minionGameObjectMap[m];
+		GameObject m_go = minionGameObjectMap[m];
+		Animator m_anim = m_go.GetComponent<Animator>();
+
 		// Set position
-		mn_go.transform.position = new Vector3(m.X, 0, m.Z);
+		m_go.transform.position = new Vector3(m.X, 0, m.Z);
 		// Set front rotation
 		if(m.directionVector != Vector3.zero)
 			if(m.seePlayer == false)
-				mn_go.transform.rotation = Quaternion.Slerp(mn_go.transform.rotation,Quaternion.LookRotation(m.directionVector),0.08f);
+				m_go.transform.rotation = Quaternion.Slerp(m_go.transform.rotation,Quaternion.LookRotation(m.directionVector),0.08f);
 			else
-				mn_go.transform.LookAt(playerGO.transform);
+				m_go.transform.LookAt(playerGO.transform);
+		
+		switch (m.minionState)
+		{
+			case MinionState.Idle:
+				m_anim.SetBool("isIdle",true);
+				m_anim.SetBool("isWalk",false);
+				m_anim.SetBool("isAttack",false);
+				break ;
+			case MinionState.Patrol:
+				m_anim.SetBool("isIdle",false);
+				m_anim.SetBool("isWalk",true);
+				m_anim.SetBool("isAttack",false);
+				break ;
+			case MinionState.Chase:
+				m_anim.SetBool("isIdle",false);
+				m_anim.SetBool("isWalk",true);
+				m_anim.SetBool("isAttack",false);
+				break ;
+			case MinionState.Attack:
+				m_anim.SetBool("isIdle",false);
+				m_anim.SetBool("isWalk",false);
+				m_anim.SetBool("isAttack",true);
+				break ;
+			default:
+				break;
+		}
 	}
-
-	// Minion FOW
-
-	//public float viewRadius = 1.5f;
-	//[Range(0, 360)]
-	//public float viewAngle = 45;
-
-	public LayerMask targetMask;
-	public LayerMask obstacleMask;
-
-	//[HideInInspector]
-	//public Transform playerTarget;
-
-	//private void CouroutineMinionFOW(Minion m) {
-	//	StartCoroutine("FindTargetsWithDelay", m);
-	//}
 
 	IEnumerator FindTargetsWithDelay(Minion m) {
 		while (true) {
@@ -196,6 +211,7 @@ public class CharacterGraphicController : MonoBehaviour {
 	private void FindVisibleTargets(Minion m) {
 
 		GameObject m_go = minionGameObjectMap[m];
+		Animator m_anim = m_go.GetComponent<Animator>();
 
 		Collider[] overlaps = Physics.OverlapSphere(m_go.transform.position, m.viewRadius, targetMask);
 
@@ -219,13 +235,12 @@ public class CharacterGraphicController : MonoBehaviour {
 					// No obstruction in minion ray to player
 					Ray ray = new Ray(m_go.transform.position, target.position - m_go.transform.position);
 					if (!Physics.Raycast(m_go.transform.position, target.position - m_go.transform.position, m.viewRadius, obstacleMask)) {
-						Debug.Log(m_go.name + "  See Player !");
+						//Debug.Log(m_go.name + "  See Player !");
 						m.seePlayer = true;
 
 						// If Player in ATK range
 						if (distanceBetween < m.ATKRange){
-							Debug.Log(m_go.name + " : Player in ATK Range!");
-							
+							//Debug.Log(m_go.name + " : Player in ATK Range!");
 							m.playerInATKRange = true;
 						}else{
 							m.playerInATKRange = false;
@@ -242,35 +257,6 @@ public class CharacterGraphicController : MonoBehaviour {
 			}
 		}
 	}
-
-	//private void FindVisibleTargets(Minion m) {
-
-	//	playerTarget = null;
-
-	//	GameObject m_go = minionGameObjectMap[m];
-
-	//	Collider[] targetsInViewRadius = Physics.OverlapSphere(m_go.transform.position, viewRadius, targetMask);
-
-	//	for (int i = 0; i < targetsInViewRadius.Length; i++) {
-	//		Transform target = targetsInViewRadius[i].transform;
-	//		Vector3 dirToTarget = (target.position - m_go.transform.position).normalized;
-	//		if (Vector3.Angle(m_go.transform.forward, dirToTarget) < viewAngle / 2) {
-	//			float dstToTarget = Vector3.Distance(m_go.transform.position, target.position);
-
-	//			if (!Physics.Raycast(m_go.transform.position, dirToTarget, dstToTarget, obstacleMask)) {
-	//				Debug.Log("Find target! : " + target.name);
-	//				playerTarget = target;
-	//			}
-	//		}
-	//	}
-	//}
-
-
-	//public Vector3 DirFromAngle(float angleInDegrees) {
-
-	//	return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
-	//}
-
 
 
 	private void OnMinionRemoved(Minion e) {

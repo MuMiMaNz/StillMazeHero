@@ -45,7 +45,6 @@ public class PlayerController : MonoBehaviour
 			Debug.LogError("More than 1 Player tag GameObject");
 		} else {
 			
-			StartCoroutine("FindTargetsWithDelay", .2f);
 
 			playerGO = playerTag[0];
 			rb = playerGO.GetComponent<Rigidbody>();

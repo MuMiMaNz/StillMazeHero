@@ -5,7 +5,7 @@ using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
-public enum MinionState { Chase, ChaseToPatrol ,Patrol,  Idle }
+public enum MinionState { Chase, ChaseToPatrol ,Patrol,  Idle , Attack}
 
 public class Minion : Character{
 
@@ -532,18 +532,21 @@ public class Minion : Character{
 
 	public void Update(float deltaTime) {
 		// If see Player , Chase him ! do A*pathfinding in all World tile
-		if (seePlayer) {
+		if (seePlayer && playerInATKRange == false) {
 			minionState = MinionState.Chase;
 			
 			DestTile = WorldController.Instance.World.GetTileAt(
 				Mathf.RoundToInt(World.player.X),
 				Mathf.RoundToInt(World.player.Z));
 
-			
 			DoMovement(deltaTime,true); 
+
+		}// If see player and in ATK range
+		else if(seePlayer && playerInATKRange){
+			minionState = MinionState.Attack;
 		}
 		// If not see Player
-		else {
+		else if (seePlayer == false){
 			// Patrol Mode do A*pathfinding in just Patrol Range tile
 			if (patrolPoints.Count > 0 && (minionState == MinionState.Patrol || minionState == MinionState.Idle)) {
 
