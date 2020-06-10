@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
 		// Find Player gameobject
 		GameObject[] playerTag = GameObject.FindGameObjectsWithTag("Player");
 		if (playerTag.Length != 1) {
-			Debug.LogError("More than 1 Player tag GO");
+			Debug.LogError("More than 1 Player tag GameObject");
 		} else {
 			
 			StartCoroutine("FindTargetsWithDelay", .2f);
@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
 			joyMoveDT = new Vector3(move.x , 0, move.y );
 			playerAnim.SetFloat("speed", joyMoveDT.magnitude);
 
-			// Check canMove
+			// get canMove from player Animator
 			bool canMove = playerAnim.GetBool("canMove");
 			// Get button press
 			pressedAttack = TCKInput.GetAction("AtkButton", EActionEvent.Down);
@@ -115,42 +115,6 @@ public class PlayerController : MonoBehaviour
 		// Calculate damage to enemy
 	}
 
-	//void Start() {
-	//	StartCoroutine("FindTargetsWithDelay", .2f);
-	//}
-
-
-	IEnumerator FindTargetsWithDelay(float delay) {
-		while (true) {
-			yield return new WaitForSeconds(delay);
-			FindVisibleTargets();
-		}
-	}
-
-	void FindVisibleTargets() {
-		visibleTargets.Clear();
-		Collider[] targetsInViewRadius = Physics.OverlapSphere(playerGO.transform.position, viewRadius, targetMask);
-
-		for (int i = 0; i < targetsInViewRadius.Length; i++) {
-			Transform target = targetsInViewRadius[i].transform;
-			Vector3 dirToTarget = (target.position - playerGO.transform.position).normalized;
-			if (Vector3.Angle(playerGO.transform.forward, dirToTarget) < viewAngle / 2) {
-				float dstToTarget = Vector3.Distance(playerGO.transform.position, target.position);
-
-				if (!Physics.Raycast(playerGO.transform.position, dirToTarget, dstToTarget, obstacleMask)) {
-					visibleTargets.Add(target);
-				}
-			}
-		}
-	}
-
-
-	public Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal) {
-		if (!angleIsGlobal) {
-			angleInDegrees += playerGO.transform.eulerAngles.y;
-		}
-		return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
-	}
 }
 
 	

@@ -7,12 +7,13 @@ public class CharacterGraphicController : MonoBehaviour {
 	World World {
 		get { return WorldController.Instance.World; }
 	}
-	Dictionary<Player, GameObject> playerGameObjectMap;
+	private Dictionary<Player, GameObject> playerGameObjectMap;
 	public Dictionary<Minion, GameObject> minionGameObjectMap { get; protected set; }
-	Dictionary<string, GameObject> characterGOS;
-	Dictionary<string, GameObject> weaponGOS;
+	private Dictionary<string, GameObject> characterGOS;
+	private Dictionary<string, GameObject> weaponGOS;
 
 	public PlayerController playerController;
+	private GameObject playerGO;
 
 	void Start() {
 		playerGameObjectMap = new Dictionary<Player, GameObject>();
@@ -75,6 +76,7 @@ public class CharacterGraphicController : MonoBehaviour {
 	public void OnPlayerCreated(Player p) {
 		// This creates a new GameObject and adds it to our scene.
 		GameObject p_go = GetGOforCharacter(p);
+		playerGO = p_go;
 
 		if (p_go != null) {
 			// Add our tile/GO pair to the dictionary.
@@ -159,10 +161,12 @@ public class CharacterGraphicController : MonoBehaviour {
 		GameObject mn_go = minionGameObjectMap[m];
 		// Set position
 		mn_go.transform.position = new Vector3(m.X, 0, m.Z);
-		// Set font rotation
+		// Set front rotation
 		if(m.directionVector != Vector3.zero)
-			mn_go.transform.rotation = Quaternion.Slerp(mn_go.transform.rotation,Quaternion.LookRotation(m.directionVector),0.08f);
-		
+			if(m.seePlayer == false)
+				mn_go.transform.rotation = Quaternion.Slerp(mn_go.transform.rotation,Quaternion.LookRotation(m.directionVector),0.08f);
+			else
+				mn_go.transform.LookAt(playerGO.transform);
 	}
 
 	// Minion FOW
@@ -205,29 +209,35 @@ public class CharacterGraphicController : MonoBehaviour {
 
 				Vector3 directionBetween = (target.position - m_go.transform.position).normalized;
 				//directionBetween.y *= 0;
+				float distanceBetween = Vector3.Distance(target.position, m_go.transform.position);
 
 				float angle = Vector3.Angle(m_go.transform.forward, directionBetween);
 
+				// If Player is in minion angle FOV
 				if (angle <= m.viewAngle) {
-
+					
+					// No obstruction in minion ray to player
 					Ray ray = new Ray(m_go.transform.position, target.position - m_go.transform.position);
-					//RaycastHit hit;
-
-					//if (Physics.Raycast(ray, out hit, viewRadius)) {
-					//	if (hit.transform == target) {
-					//float dstToTarget = Vector3.Distance(m_go.transform.position, target.position);
-
 					if (!Physics.Raycast(m_go.transform.position, target.position - m_go.transform.position, m.viewRadius, obstacleMask)) {
 						Debug.Log(m_go.name + "  See Player !");
 						m.seePlayer = true;
 
-						//}
+						// If Player in ATK range
+						if (distanceBetween < m.ATKRange){
+							Debug.Log(m_go.name + " : Player in ATK Range!");
+							
+							m.playerInATKRange = true;
+						}else{
+							m.playerInATKRange = false;
+						}
 					}else {
 						m.seePlayer = false;
+						m.playerInATKRange = false;
 					}
 				}
 				else {
 					m.seePlayer = false;
+					m.playerInATKRange = false;
 				}
 			}
 		}
