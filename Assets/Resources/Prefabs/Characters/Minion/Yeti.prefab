@@ -1557,7 +1557,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6807440629294456471}
-  - component: {fileID: 6855995217033546481}
   m_Layer: 0
   m_Name: GolemMaskTint 1
   m_TagString: Minion
@@ -1581,25 +1580,6 @@ Transform:
   m_Father: {fileID: 8269181043697839009}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &6855995217033546481
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6806504848441061299}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: fdd223089abef8e4d919be1b750e3dbc, type: 3}
-  m_Controller: {fileID: 9100000, guid: 0dff641279ea8b0418acb8b12af64271, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6806530037972516449
 GameObject:
   m_ObjectHideFlags: 0
@@ -1937,6 +1917,7 @@ GameObject:
   - component: {fileID: -4714046908390208955}
   - component: {fileID: 5090382773661925974}
   - component: {fileID: 4090726748855961699}
+  - component: {fileID: -6908420707352304677}
   m_Layer: 9
   m_Name: Yeti
   m_TagString: Minion
@@ -2005,3 +1986,22 @@ MonoBehaviour:
   buildMode: 1
   goodMat: {fileID: 2100000, guid: 9fd91d16699307d449b42117365e2b69, type: 2}
   badMat: {fileID: 2100000, guid: 439a570770679144189b4990afc1a915, type: 2}
+--- !u!95 &-6908420707352304677
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6915106198529149815}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: fdd223089abef8e4d919be1b750e3dbc, type: 3}
+  m_Controller: {fileID: 9100000, guid: 1b4aa63bbc4f44c5e9ac7774a971c64d, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

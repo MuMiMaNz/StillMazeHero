@@ -5,7 +5,7 @@ using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
-public enum MinionState { Chase, ChaseToPatrol ,Patrol,  Idle }
+public enum MinionState { Chase, ChaseToPatrol ,Patrol,  Idle , Attack}
 
 public class Minion : Character{
 
@@ -28,8 +28,10 @@ public class Minion : Character{
 	public List<Tile> patrolPoints { get; protected set; }
 	// FOV
 	public bool seePlayer { get;  set; }
+	public bool playerInATKRange { get;  set; }
 	public float viewRadius { get; protected set; }
 	public float viewAngle { get; protected set; }
+	public float ATKRange { get; protected set; }
 
 	public bool canTakeDMG { get; protected set; }
 	private float involuntaryTime = 0.2f;
@@ -95,7 +97,7 @@ public class Minion : Character{
 	// Use for create prototype
 	public Minion(string objectType, string name, string description,
 		int STR = 1, int INT = 1, int VIT = 1, int DEX = 1, int AGI = 1, int LUK = 1,
-		float HP = 100f, float speed = 1,int spaceNeed=1 ,int patrolRange = 2, float viewRadius = 1.5f ,float viewAngle = 45f, string parent = "Character") {
+		float HP = 100f, float speed = 1,int spaceNeed=1 ,int patrolRange = 2, float viewRadius = 1.5f ,float viewAngle = 45f,float ATKRange = 0.5f, string parent = "Character") {
 
 		this.objectType = objectType;
 		this.name = name;
@@ -114,10 +116,12 @@ public class Minion : Character{
 		this.patrolRange = patrolRange;
 		this.viewRadius = viewRadius;
 		this.viewAngle = viewAngle;
+		this.ATKRange = ATKRange;
 
 		this.parent = parent;
 
 		this.seePlayer = false;
+		this.playerInATKRange = false;
 
 		bldParamaters = new Dictionary<string, float>();
 	}
@@ -127,7 +131,7 @@ public class Minion : Character{
 		Minion m = new Minion(proto.objectType, proto.name,proto.description,
 			proto.STR, proto.INT, proto.VIT, proto.DEX, proto.AGI, proto.LUK,
 			proto.HP, proto.speed,proto.spaceNeed,
-			proto.patrolRange, proto.viewRadius, proto.viewAngle, proto.parent);
+			proto.patrolRange, proto.viewRadius, proto.viewAngle,proto.ATKRange, proto.parent);
 
 		m.charStartTile = t;
 		m.currTile = t;
@@ -448,26 +452,22 @@ public class Minion : Character{
 			// Get the next tile from the pathfinder.
 			if(mPathAStar == null || mPathAStar.Length() == 0) {
 				// Generate a path to our destination
-				// FIXME : Not generate A* every frame
 				if (useWorldTG) {
 					mPathAStar = new Path_AStar(true, currTile, DestTile);
 				}else {
 					mPathAStar = new Path_AStar(false, currTile, DestTile, tg);
 				}
-				
-
+			
 				if(mPathAStar.Length() == 0) {
 					Debug.LogError("Path_AStar returned no path to destination!");
 					return;
 				}
-
 				// Dump the first tile, because nextTile == currTile
 				nextTile = mPathAStar.Dequeue();
 			}
 
 			// Grab the next waypoint from the pathing system!
 			nextTile = mPathAStar.Dequeue();
-			//Debug.Log("Next tile is " + nextTile.X + "," + nextTile.Z);
 
 			if ( nextTile == currTile ) {
 				Debug.LogError("Update_DoMovement - nextTile is currTile?");
@@ -531,21 +531,22 @@ public class Minion : Character{
 	}
 
 	public void Update(float deltaTime) {
-
-
 		// If see Player , Chase him ! do A*pathfinding in all World tile
-		if (seePlayer) {
+		if (seePlayer && playerInATKRange == false) {
 			minionState = MinionState.Chase;
 			
 			DestTile = WorldController.Instance.World.GetTileAt(
 				Mathf.RoundToInt(World.player.X),
 				Mathf.RoundToInt(World.player.Z));
 
-			
 			DoMovement(deltaTime,true); 
+
+		}// If see player and in ATK range
+		else if(seePlayer && playerInATKRange){
+			minionState = MinionState.Attack;
 		}
 		// If not see Player
-		else {
+		else if (seePlayer == false){
 			// Patrol Mode do A*pathfinding in just Patrol Range tile
 			if (patrolPoints.Count > 0 && (minionState == MinionState.Patrol || minionState == MinionState.Idle)) {
 
@@ -555,13 +556,15 @@ public class Minion : Character{
 			}
 			// If previosly chasing player and then don't see Player, come back to patrol
 			if (minionState == MinionState.Chase) {
+				// Wait for 2 seconds if really not see player and comeback to patrol
+				Debug.Log("Wait");
+				WaitedInSeconds(deltaTime,2);
 				minionState = MinionState.ChaseToPatrol;
 
-				
 			}
 			if(minionState == MinionState.ChaseToPatrol) {
 				DestTile = charStartTile;
-				Debug.Log(DestTile.X + "," + DestTile.Z);
+				//Debug.Log(DestTile.X + "," + DestTile.Z);
 				DoMovement(deltaTime, true);
 
 				if (currTile == DestTile) {
@@ -577,11 +580,6 @@ public class Minion : Character{
 		if (cbMinionChanged != null)
 			cbMinionChanged(this);
 	}
-
-	//public void Coroutine() {
-	//	if (cbMinionCoroutine != null)
-	//		cbMinionCoroutine(this);
-	//}
 
 	public void RemoveMinion() {
 		Debug.Log("Remove Minion");

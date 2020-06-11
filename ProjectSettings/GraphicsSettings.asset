@@ -54,9 +54,9 @@ GraphicsSettings:
       realtimeGICPUUsage: 25
       useReflectionProbeBoxProjection: 1
       useReflectionProbeBlending: 1
-      useHDR: 1
+      useHDR: 0
       useDetailNormalMap: 1
-      useCascadedShadowMaps: 1
+      useCascadedShadowMaps: 0
       prefer32BitShadowMaps: 0
       enableLPPV: 1
       useDitherMaskForAlphaBlendedShadows: 1
