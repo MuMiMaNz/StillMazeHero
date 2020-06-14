@@ -541,7 +541,7 @@ public class Minion : Character{
 
 			DoMovement(deltaTime,true); 
 
-		}// If see player and in ATK range
+		}// If see player and in ATK range, change to Attack State
 		else if(seePlayer && playerInATKRange){
 			minionState = MinionState.Attack;
 		}
@@ -558,7 +558,7 @@ public class Minion : Character{
 			if (minionState == MinionState.Chase) {
 				// Wait for 2 seconds if really not see player and comeback to patrol
 				Debug.Log("Wait");
-				WaitedInSeconds(deltaTime,2);
+				if (!WaitedInSeconds(deltaTime, 2)) return;
 				minionState = MinionState.ChaseToPatrol;
 
 			}

@@ -62,6 +62,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Network\Scripts\NetworkConnectionManager.cs" />
     <Compile Include="Assets\Old\ActualBuilding.cs" />
     <Compile Include="Assets\Old\BuildingManager.cs" />
     <Compile Include="Assets\Old\BuildingPlacement.cs" />
@@ -172,7 +173,25 @@
     <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Runtime\Controllers\TCKJoystick.cs" />
     <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Runtime\Controllers\TCKTouchpad.cs" />
     <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Runtime\TCKInput.cs" />
-    <Compile Include="Assets\Resources\Prefabs\Characters\Player\Player_Animator\AnimatorMatcher.cs" />
+    <Compile Include="Assets\Resources\Prefabs\Characters\Player\ModularRPGHeroesHP\TPController\Scripts\AnimatorMatcher.cs" />
+    <Compile Include="Assets\Resources\Prefabs\Characters\Player\ModularRPGHeroesHP\TPController\Scripts\BoolOperator1.cs" />
+    <Compile Include="Assets\Resources\Prefabs\Characters\Player\ModularRPGHeroesHP\TPController\Scripts\BoolOperator2.cs" />
+    <Compile Include="Assets\Resources\Prefabs\Characters\Player\ModularRPGHeroesHP\TPController\Scripts\CameraManager.cs" />
+    <Compile Include="Assets\Resources\Prefabs\Characters\Player\ModularRPGHeroesHP\TPController\Scripts\ControlManager.cs" />
+    <Compile Include="Assets\Resources\Prefabs\Characters\Player\ModularRPGHeroesHP\TPController\Scripts\ResetTimer.cs" />
+    <Compile Include="Assets\Resources\VictorsAssets\TouchControlsKit-Lite\Content\FirstPersonExample\Scripts\API_Demo.cs" />
+    <Compile Include="Assets\Resources\VictorsAssets\TouchControlsKit-Lite\Content\FirstPersonExample\Scripts\FirstPersonExample.cs" />
+    <Compile Include="Assets\Resources\VictorsAssets\TouchControlsKit-Lite\Scripts\Runtime\Attributes\ApplyMethodAttribute.cs" />
+    <Compile Include="Assets\Resources\VictorsAssets\TouchControlsKit-Lite\Scripts\Runtime\Attributes\LabelAttribute.cs" />
+    <Compile Include="Assets\Resources\VictorsAssets\TouchControlsKit-Lite\Scripts\Runtime\Attributes\LogicLabelAttribute.cs" />
+    <Compile Include="Assets\Resources\VictorsAssets\TouchControlsKit-Lite\Scripts\Runtime\Camera\GuiCamera.cs" />
+    <Compile Include="Assets\Resources\VictorsAssets\TouchControlsKit-Lite\Scripts\Runtime\Controllers\BaseData\AxesBasedController.cs" />
+    <Compile Include="Assets\Resources\VictorsAssets\TouchControlsKit-Lite\Scripts\Runtime\Controllers\BaseData\ControllerBase.cs" />
+    <Compile Include="Assets\Resources\VictorsAssets\TouchControlsKit-Lite\Scripts\Runtime\Controllers\BaseData\Enums.cs" />
+    <Compile Include="Assets\Resources\VictorsAssets\TouchControlsKit-Lite\Scripts\Runtime\Controllers\TCKButton.cs" />
+    <Compile Include="Assets\Resources\VictorsAssets\TouchControlsKit-Lite\Scripts\Runtime\Controllers\TCKJoystick.cs" />
+    <Compile Include="Assets\Resources\VictorsAssets\TouchControlsKit-Lite\Scripts\Runtime\Controllers\TCKTouchpad.cs" />
+    <Compile Include="Assets\Resources\VictorsAssets\TouchControlsKit-Lite\Scripts\Runtime\TCKInput.cs" />
     <Compile Include="Assets\Scripts\API_Demo.cs" />
     <Compile Include="Assets\Scripts\Animator\AnimatorMatcher.cs" />
     <Compile Include="Assets\Scripts\Animator\CameraManager.cs" />
@@ -212,6 +231,7 @@
     <Compile Include="Assets\Scripts\Utilities\Priority_Queue\Priority Queue\IPriorityQueue.cs" />
     <Compile Include="Assets\Scripts\Utilities\Priority_Queue\Priority Queue\SimplePriorityQueue.cs" />
     <Compile Include="Assets\Scripts\Utilities\SimplePool.cs" />
+    <None Include="Assets\Resources\Prefabs\Characters\Player\ModularRPGHeroesHP\Shader\HPMaskTint.shader" />
     <None Include="Assets\Pack\Emerald AI\Credit\Credit.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
@@ -223,9 +243,11 @@
     <None Include="Assets\Pack\LeanTween\ReadMe.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\WaterGreen_Shader.shader" />
+    <None Include="Assets\Resources\VictorsAssets\TouchControlsKit-Lite\TCK_Changelog.txt" />
     <None Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Content\FirstPersonExample\ReadMeToo.txt" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\WaterGreen_Shader.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\Magma_Shader.shader" />
+    <None Include="Assets\Resources\VictorsAssets\TouchControlsKit-Lite\Content\FirstPersonExample\ReadMeToo.txt" />
     <None Include="Assets\Pack\ModularRPGHeroesHP\ReadMe.txt" />
     <None Include="Assets\Pack\LeanTween\License.txt" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\Sun_Shader.shader" />
@@ -238,6 +260,7 @@
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\Cloud_Shader.shader" />
     <None Include="Assets\Pack\PolygonMini_Fantasy\Shaders\DistanceGradient.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\PlaneLava_Shader.shader" />
+    <None Include="Assets\Resources\Prefabs\Characters\Minion\RPG Monster Wave Polyart\Shaders\PolyArtMaskTint.shader" />
     <None Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\TCK_Changelog.txt" />
     <None Include="Assets\Pack\PolygonMini_Fantasy\Shaders\WorldGradient.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\PlaneWater_Shader.shader" />
@@ -267,6 +290,7 @@
     <None Include="Assets\Pack\Emerald AI\Scripts\Shaders\Emerald AI UI.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\PlaneLava_Shader.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\Resources\Prefabs\Characters\Player\ModularRPGHeroesHP\ReadMe.txt" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\Fog_Shader.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\CustomStandardSpecular.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\Water_Shader.shader" />

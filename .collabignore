@@ -33,4 +33,6 @@ sysinfo.txt
 *.stackdump
 
 [Aa]ssets/[Pp]ack/
+[Aa]ssets/[Ss]cripts/
+[Aa]ssets/[Nn]etwork/
 

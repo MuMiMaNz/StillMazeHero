@@ -175,7 +175,7 @@ public class World : IXmlSerializable {
 						patrolRange: 2, 
 						viewRadius: 1.7f,
 						viewAngle: 60f,
-						ATKRange: 0.85f,
+						ATKRange: 0.8f,
 						parent: "Minion" 
 							)
 		);
