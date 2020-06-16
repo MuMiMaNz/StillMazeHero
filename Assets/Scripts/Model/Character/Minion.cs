@@ -5,7 +5,7 @@ using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
-public enum MinionState { Chase, ChaseToPatrol ,Patrol,  Idle , Attack}
+public enum MinionState { Chase, ChaseToPatrol ,Patrol,  Idle , Attack, Die }
 
 public class Minion : Character{
 
@@ -96,7 +96,8 @@ public class Minion : Character{
 
 	// Use for create prototype
 	public Minion(string objectType, string name, string description,
-		int STR = 1, int INT = 1, int VIT = 1, int DEX = 1, int AGI = 1, int LUK = 1,
+		Stat STR, Stat INT, Stat VIT,
+		Stat DEX, Stat AGI, Stat LUK,
 		float HP = 100f, float speed = 1,int spaceNeed=1 ,int patrolRange = 2, float viewRadius = 1.5f ,float viewAngle = 45f,float ATKRange = 0.5f, string parent = "Character") {
 
 		this.objectType = objectType;
@@ -124,6 +125,19 @@ public class Minion : Character{
 		this.playerInATKRange = false;
 
 		bldParamaters = new Dictionary<string, float>();
+	}
+
+	private float timer = 0;
+	private float timerMax = 0;
+	private bool WaitedInSeconds(float deltaTime, float seconds) {
+		timerMax = seconds;
+		timer += deltaTime;
+
+		if (timer >= timerMax) {
+			timer = 0;
+			return true; //max reached - waited x - seconds
+		}
+		return false;
 	}
 
 	static public Minion PlaceMinion(Minion proto, Tile t) {
@@ -160,6 +174,8 @@ public class Minion : Character{
 
 		return m;
 	}
+
+	#region Minion Movement
 
 	// Set Patrol Point in 4 Quadrant
 	public void SetValidPatrolPoints(World world) {
@@ -425,18 +441,6 @@ public class Minion : Character{
 		}
 	}
 
-	private float timer = 0;
-	private float timerMax = 0;
-	private bool WaitedInSeconds(float deltaTime,float seconds) {
-		timerMax = seconds;
-		timer += deltaTime;
-
-		if (timer >= timerMax) {
-			timer = 0;
-			return true; //max reached - waited x - seconds
-		}
-		return false;
-	}
 
 	void DoMovement(float deltaTime,bool useWorldTG, Path_TileGraph tg = null) {
 		// We're already were we want to be.
@@ -528,6 +532,20 @@ public class Minion : Character{
 			movementPercentage = 0;
 			// FIXME?  Do we actually want to retain any overshot movement?
 		}
+	}
+
+	#endregion
+
+	public void CalAndTakeDamage() {
+		Player p = World.player;
+
+		// Calculate Player Attack Damage
+		// Primarystat + Weapon DMG
+		Stat primStat = p.GetPrimaryStat();
+		float AtkDMG = (primStat.BaseValue + primStat.BuffValue) * 2;
+		
+		if (HP <= 0)
+			minionState = MinionState.Die;
 	}
 
 	public void Update(float deltaTime) {

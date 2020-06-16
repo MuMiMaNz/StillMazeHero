@@ -104,15 +104,13 @@ public class World : IXmlSerializable {
         }
     }
 
-	public Player CreatePlayerAtStart() {
+	public void CreatePlayerAtStart() {
 		//Debug.Log("CreatePlayer");
-		Player p = PlacePlayer(startTile);
+		PlacePlayer(startTile);
 
 		//Debug.Log("Player Name : " + player.name);
 		//Debug.Log("Player's Weapon : " + player.weapons[0].wName);
 
-
-		return p;
 	}
 	// Update in Play Mode
 	public void UpdateInPlayMode(float deltaTime) {
@@ -162,13 +160,13 @@ public class World : IXmlSerializable {
 		minionPrototypes.Add("Yeti",
 			new Minion(	objectType: "Yeti", 
 						name: "Yeti", 
-						description: "Ancient winter mountain giant", 
-						STR: 12, 
-						INT: 3, 
-						VIT: 10, 
-						DEX: 4, 
-						AGI: 2, 
-						LUK: 5, 
+						description: "Ancient winter mountain giant",
+						STR: new Stat(name: "STR", val: 10, isPrimaryStat: true),
+						INT: new Stat(name: "INT", val: 1),
+						VIT: new Stat(name: "VIT", val: 10),
+						DEX: new Stat(name: "DEX", val: 3),
+						AGI: new Stat(name: "AGI", val: 2),
+						LUK: new Stat(name: "LUK", val: 4),
 						HP: 300f, 
 						speed: 0.5f, 
 						spaceNeed: 1, 
@@ -194,6 +192,7 @@ public class World : IXmlSerializable {
 						wDEF: 0, // DEF
 						wMagicDEF: 0, // mDEF
 						weaponType: WeaponType.OneHandMelee,
+						wSide: WeaponSide.Right,
 						wSpace: 1 // Slot
 							)
 		);
@@ -208,6 +207,7 @@ public class World : IXmlSerializable {
 						wDEF: 10, // DEF
 						wMagicDEF: 4, // mDEF
 						weaponType: WeaponType.Shield,
+						wSide: WeaponSide.Left,
 						wSpace: 1 // Slot
 							)
 		);
@@ -313,7 +313,7 @@ public class World : IXmlSerializable {
 
 	#region Place Character&Building
 
-	public Player PlacePlayer( Tile t) {
+	public void PlacePlayer( Tile t) {
 		//if (characterPrototypes.ContainsKey(playerType) == false) {
 		//	Debug.LogError("buildingPrototypes doesn't contain a proto for key: " + playerType);
 		//	return null;
@@ -324,13 +324,25 @@ public class World : IXmlSerializable {
 		Dictionary<int, string> weapondict = new Dictionary<int, string>();
 		weapondict.Add(0, "RedTearSword");
 		weapondict.Add(1, "CrimsonWingShield");
+		List<int> primWeaponSlot = new List<int>();
+		primWeaponSlot.Add(0);
+		primWeaponSlot.Add(1);
 
-		Player dummyPlayer = new Player("Player", "MuMiMaN", weapondict, 10, 6, 8, 4, 4, 2, 500, 2, "PlayerRoot");
+		Player dummyPlayer = new Player("Player", "MuMiMaN", 
+			weapondict, primWeaponSlot,
+			STR: new Stat(name: "STR", val: 5),
+			INT: new Stat(name: "INT", val: 3),
+			VIT: new Stat(name: "VIT", val: 8), 
+			DEX: new Stat(name: "DEX", val: 10,isPrimaryStat: true),
+			AGI: new Stat(name: "AGI", val: 6),
+			LUK: new Stat(name: "LUK", val: 4),
+			HP:500,speed: 2,parent: "PlayerRoot");
+
 		Player p = Player.PlacePlayer(dummyPlayer, t);
 
 		if (p == null) {
 			// Failed to place Character -- most likely there was already something there.
-			return null;
+			return ;
 		}
 
 		p.RegisterOnRemovedCallback(OnPlayerRemoved);
@@ -339,7 +351,6 @@ public class World : IXmlSerializable {
 		if (cbPlayerCreated != null) 
 			cbPlayerCreated(p);
 
-		return p;
 	}
 
 	public Minion PlaceMinion(string chrType, Tile t) {

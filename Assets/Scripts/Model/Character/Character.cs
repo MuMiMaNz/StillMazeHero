@@ -14,16 +14,18 @@ public class Character {
 	public float HP { get; protected set; }
 	public float speed { get; protected set; }
 
-	public int STR { get; protected set; }
-	public int INT { get; protected set; }
-	public int VIT { get; protected set; }
-	public int DEX { get; protected set; }
-	public int AGI { get; protected set; }
-	public int LUK { get; protected set; }
+	public Stat STR { get; protected set; }
+	public Stat INT { get; protected set; }
+	public Stat VIT { get; protected set; }
+	public Stat DEX { get; protected set; }
+	public Stat AGI { get; protected set; }
+	public Stat LUK { get; protected set; }
 
-	
+	public float DEF { get; protected set; }
+	public float mDEF { get; protected set; }
 
 	public Tile charStartTile { get; protected set; }
+
 
 	//public Character() {
 

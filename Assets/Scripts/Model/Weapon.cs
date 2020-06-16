@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum WeaponType { OneHandMelee, TwoHandMelee, Shield, Range }
+public enum WeaponSide { Left, Right }
 
 public class Weapon  {
 
@@ -19,10 +20,12 @@ public class Weapon  {
 	public int wMagicDEF { get; protected set; }
 
 	public WeaponType weaponType { get; protected set; }
-	public int wSlotNO { get; protected set; }
+	public WeaponSide wSide { get; protected set; }
+	//public int wSlotNO { get; protected set; }
 	public int wSpace { get; protected set; }
+	
 
-	public bool primary { get; protected set; }
+	//public bool primary { get; protected set; }
 
 	protected Weapon(Weapon other) {
 		this.objectType = other.objectType;
@@ -37,14 +40,19 @@ public class Weapon  {
 		this.wMagicDEF = other.wMagicDEF;
 
 		this.weaponType = other.weaponType;
+		this.wSide = other.wSide;
 		this.wSpace = other.wSpace;
+
+		//this.primary = false;
 	}
 
 	public virtual Weapon Clone() {
 		return new Weapon(this);
 	}
 
-	public Weapon(string objectType, string wName, string wDescription, int wATK, int wMagicATK,int wATKspeed, int wDEF, int wMagicDEF, WeaponType weaponType,int wSpace) {
+	public Weapon(string objectType, string wName, string wDescription,
+		int wATK, int wMagicATK,int wATKspeed, int wDEF, int wMagicDEF,
+		 WeaponType weaponType,WeaponSide wSide,int wSpace) {
 		this.objectType = objectType;
 		this.wName = wName;
 		this.wDescription = wDescription;
@@ -57,13 +65,16 @@ public class Weapon  {
 		this.wMagicDEF = wMagicDEF;
 
 		this.weaponType = weaponType;
+		this.wSide = wSide;
 		this.wSpace = wSpace;
+
+		//primary = false;
 	}
 
-	public void SetPrimaryWeapon(bool isPrimary) {
-		primary = isPrimary;
-	}
-	public void SetSlotNO(int no) {
-		wSlotNO = no;
-	}
+	//public void SetPrimaryWeapon(bool isPrimary) {
+	//	primary = isPrimary;
+	//}
+	//public void SetSlotNO(int no) {
+	//	wSlotNO = no;
+	//}
 }

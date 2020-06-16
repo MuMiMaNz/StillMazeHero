@@ -75,20 +75,6 @@
     <Compile Include="Assets\Pack\Emerald AI\Scripts\Player\Editor\PlayerWeaponEditor.cs" />
     <Compile Include="Assets\Pack\Emerald AI\Scripts\Player\Editor\PlayerWeaponEditor3rdPerson.cs" />
     <Compile Include="Assets\Pack\LeanTween\Editor\LeanTweenDocumentationEditor.cs" />
-    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\CustomInspectors\Controllers\Base\AxesBasedControllerEditor.cs" />
-    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\CustomInspectors\Controllers\Base\ControllerBaseEditor.cs" />
-    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\CustomInspectors\Controllers\TCKButtonEditor.cs" />
-    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\CustomInspectors\Controllers\TCKJoystickEditor.cs" />
-    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\CustomInspectors\Controllers\TCKTouchpadEditor.cs" />
-    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\Extensions\SerializedPropertyExtensions.cs" />
-    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\Initialize\TCKInitialize.cs" />
-    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\Utils\TCKEditorChangeCheck.cs" />
-    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\Utils\TCKEditorHelper.cs" />
-    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\Utils\TCKEditorLayout.cs" />
-    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\Utils\TCKEditorStyle.cs" />
-    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\Utils\TCKPrefabCreator.cs" />
-    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\Windows\TCKWindow.cs" />
-    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\Windows\Tabs\TCKAboutTab.cs" />
     <Compile Include="Assets\Resources\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\CustomInspectors\Controllers\Base\AxesBasedControllerEditor.cs" />
     <Compile Include="Assets\Resources\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\CustomInspectors\Controllers\Base\ControllerBaseEditor.cs" />
     <Compile Include="Assets\Resources\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\CustomInspectors\Controllers\TCKButtonEditor.cs" />
@@ -708,6 +694,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{BAA39084-CD42-F301-AF3B-D0DC2EA1A2FA}</Project>
+      <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
     <ProjectReference Include="Assembly-CSharp.csproj">
       <Project>{FEE3BD07-82C9-2472-D385-F51B0A47F1AD}</Project>
       <Name>Assembly-CSharp</Name>

@@ -60,7 +60,7 @@ public class CharacterGraphicController : MonoBehaviour {
 		GameObject[] gos = Resources.LoadAll<GameObject>("Prefabs/Characters/");
 
 		foreach (GameObject go in gos) {
-			Debug.Log("LOADED Character name:" + go.name);
+			//Debug.Log("LOADED Character name:" + go.name);
 			characterGOS[go.name] = go;
 		}
 	}
@@ -92,26 +92,24 @@ public class CharacterGraphicController : MonoBehaviour {
 			p.RegisterOnRemovedCallback(OnPlayerRemoved);
 
 			// Add Weapon&Armor to Player GO
-			foreach (Weapon w in p.weapons) {
-				bool isTwoHandWeapon = false; // Check is Tow-handed weapon?
+			foreach (Weapon w in p.primaryWeapons) {
+				bool isTwoHandWeapon = false; // Check is Two-handed weapon?
 
-				if (w.wSlotNO == 0 ) {
+				if (w.wSide == WeaponSide.Right ) {
 					GameObject w_go = GetGOforWeapon(w);
 					w_go.name = w.wName;
 					w_go.transform.SetParent(p_go.transform.Find("root/weaponShield_r"), false);
 					w_go.transform.localPosition = new Vector3(0, 0, 0);
-					// Set to Primary weapon
-					w.SetPrimaryWeapon(true);
-					if(w.weaponType == WeaponType.TwoHandMelee) {
+					
+					if(w.weaponType == WeaponType.TwoHandMelee || w.weaponType == WeaponType.Range) {
 						isTwoHandWeapon = true;
 					}
-				}else if (w.wSlotNO == 1 && isTwoHandWeapon==false) {
+				}else if (w.wSide == WeaponSide.Left && isTwoHandWeapon==false) {
 					GameObject w_go = GetGOforWeapon(w);
 					w_go.name = w.wName;
 					w_go.transform.SetParent(p_go.transform.Find("root/weaponShield_l"), false);
 					w_go.transform.localPosition = new Vector3(0, 0, 0);
-					// Set to Primary weapon
-					w.SetPrimaryWeapon(true);
+					
 				}
 			}
 		}

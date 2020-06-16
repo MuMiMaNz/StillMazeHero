@@ -154,25 +154,6 @@
     <Compile Include="Assets\Pack\LeanTween\Framework\LeanTest.cs" />
     <Compile Include="Assets\Pack\LeanTween\Framework\LeanTween.cs" />
     <Compile Include="Assets\Pack\LeanTween\Framework\LeanTweenExt.cs" />
-    <Compile Include="Assets\Pack\ModularRPGHeroesHP\TPController\Scripts\AnimatorMatcher.cs" />
-    <Compile Include="Assets\Pack\ModularRPGHeroesHP\TPController\Scripts\BoolOperator1.cs" />
-    <Compile Include="Assets\Pack\ModularRPGHeroesHP\TPController\Scripts\BoolOperator2.cs" />
-    <Compile Include="Assets\Pack\ModularRPGHeroesHP\TPController\Scripts\CameraManager.cs" />
-    <Compile Include="Assets\Pack\ModularRPGHeroesHP\TPController\Scripts\ControlManager.cs" />
-    <Compile Include="Assets\Pack\ModularRPGHeroesHP\TPController\Scripts\ResetTimer.cs" />
-    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Content\FirstPersonExample\Scripts\API_Demo.cs" />
-    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Content\FirstPersonExample\Scripts\FirstPersonExample.cs" />
-    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Runtime\Attributes\ApplyMethodAttribute.cs" />
-    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Runtime\Attributes\LabelAttribute.cs" />
-    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Runtime\Attributes\LogicLabelAttribute.cs" />
-    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Runtime\Camera\GuiCamera.cs" />
-    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Runtime\Controllers\BaseData\AxesBasedController.cs" />
-    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Runtime\Controllers\BaseData\ControllerBase.cs" />
-    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Runtime\Controllers\BaseData\Enums.cs" />
-    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Runtime\Controllers\TCKButton.cs" />
-    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Runtime\Controllers\TCKJoystick.cs" />
-    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Runtime\Controllers\TCKTouchpad.cs" />
-    <Compile Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Scripts\Runtime\TCKInput.cs" />
     <Compile Include="Assets\Resources\Prefabs\Characters\Player\ModularRPGHeroesHP\TPController\Scripts\AnimatorMatcher.cs" />
     <Compile Include="Assets\Resources\Prefabs\Characters\Player\ModularRPGHeroesHP\TPController\Scripts\BoolOperator1.cs" />
     <Compile Include="Assets\Resources\Prefabs\Characters\Player\ModularRPGHeroesHP\TPController\Scripts\BoolOperator2.cs" />
@@ -217,7 +198,9 @@
     <Compile Include="Assets\Scripts\Model\Character\Character.cs" />
     <Compile Include="Assets\Scripts\Model\Character\Minion.cs" />
     <Compile Include="Assets\Scripts\Model\Character\Player.cs" />
+    <Compile Include="Assets\Scripts\Model\Character\Stat.cs" />
     <Compile Include="Assets\Scripts\Model\GroundCube.cs" />
+    <Compile Include="Assets\Scripts\Model\IPrototypable.cs" />
     <Compile Include="Assets\Scripts\Model\Tile.cs" />
     <Compile Include="Assets\Scripts\Model\Weapon.cs" />
     <Compile Include="Assets\Scripts\Model\World.cs" />
@@ -244,7 +227,6 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\WaterGreen_Shader.shader" />
     <None Include="Assets\Resources\VictorsAssets\TouchControlsKit-Lite\TCK_Changelog.txt" />
-    <None Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\Content\FirstPersonExample\ReadMeToo.txt" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\WaterGreen_Shader.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\Magma_Shader.shader" />
     <None Include="Assets\Resources\VictorsAssets\TouchControlsKit-Lite\Content\FirstPersonExample\ReadMeToo.txt" />
@@ -261,7 +243,6 @@
     <None Include="Assets\Pack\PolygonMini_Fantasy\Shaders\DistanceGradient.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\PlaneLava_Shader.shader" />
     <None Include="Assets\Resources\Prefabs\Characters\Minion\RPG Monster Wave Polyart\Shaders\PolyArtMaskTint.shader" />
-    <None Include="Assets\Pack\VictorsAssets\TouchControlsKit-Lite\TCK_Changelog.txt" />
     <None Include="Assets\Pack\PolygonMini_Fantasy\Shaders\WorldGradient.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\PlaneWater_Shader.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\Water_Shader.shader" />
@@ -870,6 +851,12 @@
     <Reference Include="Boo.Lang">
       <HintPath>D:/Program Files/Unity/2019.3.0f6/Editor/Data/MonoBleedingEdge/lib/mono/unityscript/Boo.Lang.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{BAA39084-CD42-F301-AF3B-D0DC2EA1A2FA}</Project>
+      <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

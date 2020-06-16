@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+public enum DamageType { Physic, Magic} 
 
 public class Player : Character {
 
@@ -17,6 +18,8 @@ public class Player : Character {
 	// Use Dictionary to Write/Load data
 	protected Dictionary<int, string> weaponsDict;
 	public List<Weapon> weapons { get; protected set; }
+	public List<Weapon> primaryWeapons { get; protected set; }
+	protected List<int> primWeaponSlot;
 
 	public float X { get;  set; }
 	public float Z { get;  set; }
@@ -25,12 +28,15 @@ public class Player : Character {
 	public Player() {
 		//weapons = new List<Weapon>();
 		weapons = new List<Weapon>();
+		primaryWeapons = new List<Weapon>();
+		primWeaponSlot = new List<int>();
 		weaponsDict = new Dictionary<int, string>();
 	}
 
 	// Copy Constructor -- don't call this directly, unless we never
 	// do ANY sub-classing. Instead use Clone(), which is more virtual.
 	protected Player(Player other) {
+		//Debug.Log("Protected Player function");
 		this.name = other.name;
 		this.objectType = other.objectType;
 		this.HP = other.HP;
@@ -48,14 +54,26 @@ public class Player : Character {
 		this.parent = other.parent;
 
 		weapons = new List<Weapon>();
+		primaryWeapons = new List<Weapon>();
+		primWeaponSlot = other.primWeaponSlot;
+		Debug.Log(this.primWeaponSlot.Count);
 
+		// Load weapon to Weapon iventory slot 
 		if (other.weaponsDict != null) {
 			this.weaponsDict = new Dictionary<int, string>(other.weaponsDict);
 
-			foreach (KeyValuePair<int ,string> ky in weaponsDict) {
-				Weapon w = World.GetWeaponPrototype(ky.Value);
-				w.SetSlotNO(ky.Key);
+			foreach (KeyValuePair<int ,string> kv in weaponsDict) {
+				Weapon w = World.GetWeaponPrototype(kv.Value);
 				weapons.Add(w);
+	
+				// Set primary weapon
+				foreach (int ws in primWeaponSlot) {
+					//Debug.Log("Primaray Slot :" + ws);
+					if(ws == kv.Key) {
+						primaryWeapons.Add(w);
+						//Debug.Log("Primary Weapon :" + w.wName);
+					}
+				}
 			}
 		}
 		else {
@@ -74,11 +92,11 @@ public class Player : Character {
 		return new Player(this);
 	}
 
-	// Create furniture from parameters -- this will probably ONLY ever be used for prototypes
+	// Create Player from parameters - used for prototypes
 	public Player(string objectType, string name, 
-		Dictionary<int, string> weapon,
-		int STR = 1, int INT = 1, int VIT = 1, 
-		int DEX = 1, int AGI = 1, int LUK = 1, 
+		Dictionary<int, string> weaponsDict, List<int> primWeaponSlot,
+		Stat STR , Stat INT , Stat VIT,
+		Stat DEX , Stat AGI , Stat LUK , 
 		float HP = 100f, float speed = 1, string parent = "Character") {
 
 		this.name = name;
@@ -92,19 +110,33 @@ public class Player : Character {
 		this.DEX = DEX;
 		this.AGI = AGI;
 		this.LUK = LUK;
+
 		//this.X = charStartTile.X;
 		//this.Z = charStartTile.Z;
 		this.parent = parent;
 
-		this.weaponsDict = weapon;
-		//weapons = new List<Weapon>();
-
-
+		this.weaponsDict = weaponsDict;
+		this.primWeaponSlot = primWeaponSlot;
+		Debug.Log(this.primWeaponSlot.Count);
 		//foreach(string w in weaponsDict.Values) {
 		//	weapons.Add(World.GetWeaponPrototype(w));
 		//}
 	}
 	
+	public Stat GetPrimaryStat() {
+		if (STR.isPrimaryStat) return STR;
+		else if (INT.isPrimaryStat) return INT;
+		else if (VIT.isPrimaryStat) return VIT;
+		else if (DEX.isPrimaryStat) return DEX;
+		else if (AGI.isPrimaryStat) return AGI;
+		else if (LUK.isPrimaryStat) return LUK;
+		else return null;
+	}
+
+	// TODO : Set primary waepon by player click select weapon
+	public void SetPrimaryWeapon() {
+		
+	}
 
 	static public Player PlacePlayer(Player proto, Tile t) {
 
