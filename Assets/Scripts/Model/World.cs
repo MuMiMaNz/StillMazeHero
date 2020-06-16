@@ -167,6 +167,8 @@ public class World : IXmlSerializable {
 						DEX: new Stat(name: "DEX", val: 3),
 						AGI: new Stat(name: "AGI", val: 2),
 						LUK: new Stat(name: "LUK", val: 4),
+						DEF: 20,
+						mDEF: 5,
 						HP: 300f, 
 						speed: 0.5f, 
 						spaceNeed: 1, 

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum DamageType { Physic, Magic} 
-
 public class Player : Character {
 
 	World World {

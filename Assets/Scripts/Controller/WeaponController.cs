@@ -17,9 +17,10 @@ public class WeaponController : MonoBehaviour {
 
 		if (other.gameObject.tag == "Minion" && playerController.normalAttack == true) {
 			//Debug.Log(this.name + " Hit " + other.gameObject.name);
-			FloatingTextController.CreateFloatingDMG("555", other.transform);
+			
 			Minion m = DictionaryHelper.KeyByValue<Minion,GameObject>(cgc.minionGameObjectMap, other.gameObject);
-			Debug.Log(m.name);
+			FloatingTextController.CreateFloatingDMG(m.CalAndTakeDamage().ToString("F0"), other.transform); 
+
 		}
 	}
 

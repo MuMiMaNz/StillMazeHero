@@ -98,6 +98,7 @@ public class Minion : Character{
 	public Minion(string objectType, string name, string description,
 		Stat STR, Stat INT, Stat VIT,
 		Stat DEX, Stat AGI, Stat LUK,
+		float DEF , float mDEF,
 		float HP = 100f, float speed = 1,int spaceNeed=1 ,int patrolRange = 2, float viewRadius = 1.5f ,float viewAngle = 45f,float ATKRange = 0.5f, string parent = "Character") {
 
 		this.objectType = objectType;
@@ -112,6 +113,9 @@ public class Minion : Character{
 		this.DEX = DEX;
 		this.AGI = AGI;
 		this.LUK = LUK;
+
+		this.DEF = DEF;
+		this.mDEF = mDEF;
 
 		this.spaceNeed = spaceNeed;
 		this.patrolRange = patrolRange;
@@ -144,6 +148,7 @@ public class Minion : Character{
 		//Debug.Log("Minion.PlaceMinion()");
 		Minion m = new Minion(proto.objectType, proto.name,proto.description,
 			proto.STR, proto.INT, proto.VIT, proto.DEX, proto.AGI, proto.LUK,
+			proto.DEF, proto.mDEF,
 			proto.HP, proto.speed,proto.spaceNeed,
 			proto.patrolRange, proto.viewRadius, proto.viewAngle,proto.ATKRange, proto.parent);
 
@@ -536,16 +541,27 @@ public class Minion : Character{
 
 	#endregion
 
-	public void CalAndTakeDamage() {
+	public float CalAndTakeDamage() {
 		Player p = World.player;
 
 		// Calculate Player Attack Damage
 		// Primarystat + Weapon DMG
 		Stat primStat = p.GetPrimaryStat();
-		float AtkDMG = (primStat.BaseValue + primStat.BuffValue) * 2;
-		
-		if (HP <= 0)
+		int weaponsATK = 0;
+		foreach(Weapon w in p.primaryWeapons) {
+			weaponsATK += w.wATK;
+		}
+		float AtkDMG = (primStat.BaseValue + primStat.BuffValue) * 2 + weaponsATK;
+
+		float finalDMG = AtkDMG - DEF;
+		HP -= finalDMG;
+		Debug.Log(name + "HP :"+ HP);
+
+		if (HP <= 0) {
 			minionState = MinionState.Die;
+		}
+
+		return finalDMG;
 	}
 
 	public void Update(float deltaTime) {

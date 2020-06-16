@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum WeaponType { OneHandMelee, TwoHandMelee, Shield, Range }
 public enum WeaponSide { Left, Right }
+public enum DamageType { Physic, Magic }
 
 public class Weapon  {
 
