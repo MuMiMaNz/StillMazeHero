@@ -142,6 +142,9 @@ public class CharacterGraphicController : MonoBehaviour {
 			m_go.transform.position = new Vector3(m.X, 0f, m.Z);
 			m_go.transform.SetParent(this.transform.Find(m.parent), true);
 
+			// Create Character mini-canvas
+			CharCanvasController.CreateHealthBar(m_go.transform);
+
 			// Register our callback so that our GameObject gets updated whenever
 			// the object's into changes.
 			m.RegisterOnChangedCallback(OnMinionChanged);
@@ -162,6 +165,10 @@ public class CharacterGraphicController : MonoBehaviour {
 		GameObject m_go = minionGameObjectMap[m];
 		Animator m_anim = m_go.GetComponent<Animator>();
 
+		// Canvas in child
+		GameObject m_canvas = m_go.transform.Find("CharCanvas").gameObject;
+		m_canvas.transform.LookAt(Camera.main.transform);
+
 		// Set position
 		m_go.transform.position = new Vector3(m.X, 0, m.Z);
 		// Set front rotation
@@ -171,6 +178,7 @@ public class CharacterGraphicController : MonoBehaviour {
 			else
 				m_go.transform.LookAt(playerGO.transform);
 		
+		// Set Animator variable
 		switch (m.minionState)
 		{
 			case MinionState.Idle:

@@ -407,7 +407,7 @@ public class World : IXmlSerializable {
         if (bld.objectType == "Goal") {
             goalTile = GetTileAt(t.X, t.Z);
             Debug.Log("Goal Tile at" + goalTile.X + "," + goalTile.Z);
-			Debug.Log(goalTile.building.objectType);
+			
         }
 
         if (cbBuildingCreated != null) {
