@@ -115,7 +115,7 @@ public class Player : Character {
 
 		this.weaponsDict = weaponsDict;
 		this.primWeaponSlot = primWeaponSlot;
-		Debug.Log(this.primWeaponSlot.Count);
+		//Debug.Log(this.primWeaponSlot.Count);
 		//foreach(string w in weaponsDict.Values) {
 		//	weapons.Add(World.GetWeaponPrototype(w));
 		//}

@@ -148,7 +148,7 @@ public class CharacterGraphicController : MonoBehaviour {
 			// Register our callback so that our GameObject gets updated whenever
 			// the object's into changes.
 			m.RegisterOnChangedCallback(OnMinionChanged);
-			//m.RegisterCouroutineCallback(CouroutineMinionFOW);
+			
 			m.RegisterOnRemovedCallback(OnMinionRemoved);
 
 			StartCoroutine("FindTargetsWithDelay", m);
@@ -165,9 +165,14 @@ public class CharacterGraphicController : MonoBehaviour {
 		GameObject m_go = minionGameObjectMap[m];
 		Animator m_anim = m_go.GetComponent<Animator>();
 
-		// Canvas in child
+		// Find Canvas in child
 		GameObject m_canvas = m_go.transform.Find("CharCanvas").gameObject;
-		m_canvas.transform.LookAt(Camera.main.transform);
+		HealthBar hb = m_canvas.GetComponentInChildren<HealthBar>();
+		hb.HealthBarChange(m.HP,m.MaxHP);
+		// Rotate canvas to main camera
+		m_canvas.transform.position = m_go.transform.position + new Vector3(0, 0, 0.5f);
+		m_canvas.transform.rotation = Camera.main.transform.rotation;
+		//m_canvas.transform.rotation = Quaternion.LookRotation(m_canvas.transform.position - Camera.main.transform.position);
 
 		// Set position
 		m_go.transform.position = new Vector3(m.X, 0, m.Z);

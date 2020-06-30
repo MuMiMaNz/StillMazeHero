@@ -11,6 +11,7 @@ public class Character {
 	public string objectType { get; protected set; }
 	public string parent { get; protected set; }
 
+	public float MaxHP { get; protected set; }
 	public float HP { get; protected set; }
 	public float speed { get; protected set; }
 

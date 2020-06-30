@@ -104,7 +104,8 @@ public class Minion : Character{
 		this.objectType = objectType;
 		this.name = name;
 		this.description = description;
-		
+
+		this.MaxHP = HP;
 		this.HP = HP;
 		this.speed = speed;
 		this.STR = STR;
@@ -591,7 +592,6 @@ public class Minion : Character{
 			// If previosly chasing player and then don't see Player, come back to patrol
 			if (minionState == MinionState.Chase) {
 				// Wait for 2 seconds if really not see player and comeback to patrol
-				Debug.Log("Wait");
 				if (!WaitedInSeconds(deltaTime, 2)) return;
 				minionState = MinionState.ChaseToPatrol;
 
