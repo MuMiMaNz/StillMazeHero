@@ -10,8 +10,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{FEE3BD07-82C9-2472-D385-F51B0A47F1AD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -181,7 +180,9 @@
     <Compile Include="Assets\Scripts\Animator\ResetTimer.cs" />
     <Compile Include="Assets\Scripts\Animator\SMBActionState.cs" />
     <Compile Include="Assets\Scripts\Animator\SMBEnterAction.cs" />
+    <Compile Include="Assets\Scripts\Controller\BuildingGraphicController.cs" />
     <Compile Include="Assets\Scripts\Controller\CameraController.cs" />
+    <Compile Include="Assets\Scripts\Controller\CharCanvasController.cs" />
     <Compile Include="Assets\Scripts\Controller\CharacterGraphicController.cs" />
     <Compile Include="Assets\Scripts\Controller\FOVDetection.cs" />
     <Compile Include="Assets\Scripts\Controller\PlayerController.cs" />
@@ -203,8 +204,6 @@
     <Compile Include="Assets\Scripts\Pathfinding\Path_Edge.cs" />
     <Compile Include="Assets\Scripts\Pathfinding\Path_Node.cs" />
     <Compile Include="Assets\Scripts\Pathfinding\Path_TileGraph.cs" />
-    <Compile Include="Assets\Scripts\UI\BuildingGraphicController.cs" />
-    <Compile Include="Assets\Scripts\Controller\CharCanvasController.cs" />
     <Compile Include="Assets\Scripts\UI\FloatingTextController.cs" />
     <Compile Include="Assets\Scripts\UI\Model\FloatingText.cs" />
     <Compile Include="Assets\Scripts\UI\Model\HealthBar.cs" />

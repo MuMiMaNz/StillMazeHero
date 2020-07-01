@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
+using System.Linq;
 
 public class World : IXmlSerializable {
 
@@ -114,12 +115,12 @@ public class World : IXmlSerializable {
 	}
 	// Update in Play Mode
 	public void UpdateInPlayMode(float deltaTime) {
-		foreach (Minion m in minions) {
+		foreach (Minion m in minions.ToList()) {
 			m.FixedUpdate(deltaTime);
 		}
 	}
 	public void FixedUpdateInPlayMode(float deltaTime) {
-		foreach (Minion m in minions) {
+		foreach (Minion m in minions.ToList()) {
 			m.Update(deltaTime);
 		}
 	}
@@ -167,9 +168,9 @@ public class World : IXmlSerializable {
 						DEX: new Stat(name: "DEX", val: 3),
 						AGI: new Stat(name: "AGI", val: 2),
 						LUK: new Stat(name: "LUK", val: 4),
-						DEF: 20,
+						DEF: 10,
 						mDEF: 5,
-						HP: 300f, 
+						HP: 300, 
 						speed: 0.5f, 
 						spaceNeed: 1, 
 						patrolRange: 2, 
@@ -188,7 +189,7 @@ public class World : IXmlSerializable {
 			new Weapon( objectType: "RedTearSword", 
 						wName:	"RedTearSword", 
 						wDescription: "You look at this Bad ass sword and cry in blood", 
-						wATK: 10, //ATK
+						wATK: 100, //ATK
 						wMagicATK: 0, // mATK
 						wATKspeed: 5, // ATKspeed
 						wDEF: 0, // DEF
@@ -450,7 +451,7 @@ public class World : IXmlSerializable {
 		cbMinionCreated += callbackfunc;
 	}
 
-	public void UnregisterEnemyCreated(Action<Minion> callbackfunc) {
+	public void UnregisterMinionCreated(Action<Minion> callbackfunc) {
 		cbMinionCreated -= callbackfunc;
 	}
 

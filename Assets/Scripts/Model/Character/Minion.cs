@@ -98,8 +98,10 @@ public class Minion : Character{
 	public Minion(string objectType, string name, string description,
 		Stat STR, Stat INT, Stat VIT,
 		Stat DEX, Stat AGI, Stat LUK,
-		float DEF , float mDEF,
-		float HP = 100f, float speed = 1,int spaceNeed=1 ,int patrolRange = 2, float viewRadius = 1.5f ,float viewAngle = 45f,float ATKRange = 0.5f, string parent = "Character") {
+		int DEF , int mDEF,
+		int HP = 100, float speed = 1,int spaceNeed=1 ,
+		int patrolRange = 2, float viewRadius = 1.5f ,float viewAngle = 45f,
+		float ATKRange = 0.5f, string parent = "Character") {
 
 		this.objectType = objectType;
 		this.name = name;
@@ -552,15 +554,11 @@ public class Minion : Character{
 		foreach(Weapon w in p.primaryWeapons) {
 			weaponsATK += w.wATK;
 		}
-		float AtkDMG = (primStat.BaseValue + primStat.BuffValue) * 2 + weaponsATK;
 
-		float finalDMG = AtkDMG - DEF;
+		float AtkDMG = ((primStat.BaseValue + primStat.BuffValue) * UnityEngine.Random.Range(0f,2.0f) ) + weaponsATK;
+
+		int finalDMG = Mathf.RoundToInt( AtkDMG - (DEF*2.5f) );
 		HP -= finalDMG;
-		Debug.Log(name + "HP :"+ HP);
-
-		if (HP <= 0) {
-			minionState = MinionState.Die;
-		}
 
 		return finalDMG;
 	}
@@ -607,12 +605,24 @@ public class Minion : Character{
 			}
 		}
 
-		
+		if (HP <= 0) {
+			minionState = MinionState.Die;
+			Death();
+		}
+
 	}
 
 	public void FixedUpdate(float deltaTime) {
 		if (cbMinionChanged != null)
 			cbMinionChanged(this);
+	}
+
+	public void Death() {
+		Debug.Log("Minion Death");
+
+		if (cbOnRemoved != null)
+			cbOnRemoved(this);
+
 	}
 
 	public void RemoveMinion() {
@@ -625,7 +635,6 @@ public class Minion : Character{
 
 		// At this point, no DATA structures should be pointing to us, so we
 		// should get garbage-collected.
-
 	}
 
 	public void RegisterOnChangedCallback(Action<Minion> cb) {

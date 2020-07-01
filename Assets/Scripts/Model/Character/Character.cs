@@ -11,8 +11,8 @@ public class Character {
 	public string objectType { get; protected set; }
 	public string parent { get; protected set; }
 
-	public float MaxHP { get; protected set; }
-	public float HP { get; protected set; }
+	public int MaxHP { get; protected set; }
+	public int HP { get; protected set; }
 	public float speed { get; protected set; }
 
 	public Stat STR { get; protected set; }
@@ -22,8 +22,8 @@ public class Character {
 	public Stat AGI { get; protected set; }
 	public Stat LUK { get; protected set; }
 
-	public float DEF { get; protected set; }
-	public float mDEF { get; protected set; }
+	public int DEF { get; protected set; }
+	public int mDEF { get; protected set; }
 
 	public Tile charStartTile { get; protected set; }
 

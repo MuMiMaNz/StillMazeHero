@@ -33,26 +33,6 @@ public class CharacterGraphicController : MonoBehaviour {
 			OnMinionCreated(m);
 		}
 	}
-	
-	//private void FixedUpdate() {
-
-	//	if (WorldController.Instance.gameMode == GameMode.PlayMode) {
-	//		// Update GO position
-	//		foreach (Character c in World.characters) {
-	//			GameObject c_go = characterGameObjectMap[c];
-	//			if (c.objectType == "Player") {
-
-	//				Rigidbody rb = c_go.GetComponent<Rigidbody>();
-
-	//				rb.MovePosition(rb.position + playerController.playerMoveDT * Time.fixedDeltaTime);
-
-	//				//c_go.GetComponent<Rigidbody>().MovePosition(c_go.GetComponent<Rigidbody>().position + moveDT * Time.deltaTime);
-	//				World.player.X = c_go.transform.position.x;
-	//				World.player.Z = c_go.transform.position.z;
-	//			}
-	//		}
-	//	}
-	//}
 
 	//  Load 3D Game Object Here
 	void LoadCharacterPrefabs() {
@@ -152,6 +132,7 @@ public class CharacterGraphicController : MonoBehaviour {
 			m.RegisterOnRemovedCallback(OnMinionRemoved);
 
 			StartCoroutine("FindTargetsWithDelay", m);
+			//m.RegisterCouroutineCallback(MinionCoroutine);
 		}
 	}
 
@@ -172,7 +153,6 @@ public class CharacterGraphicController : MonoBehaviour {
 		// Rotate canvas to main camera
 		m_canvas.transform.position = m_go.transform.position + new Vector3(0, 0, 0.5f);
 		m_canvas.transform.rotation = Camera.main.transform.rotation;
-		//m_canvas.transform.rotation = Quaternion.LookRotation(m_canvas.transform.position - Camera.main.transform.position);
 
 		// Set position
 		m_go.transform.position = new Vector3(m.X, 0, m.Z);
@@ -211,15 +191,17 @@ public class CharacterGraphicController : MonoBehaviour {
 		}
 	}
 
-	IEnumerator FindTargetsWithDelay(Minion m) {
-		while (true) {
+	private IEnumerator FindTargetsWithDelay(Minion m) {
+		//Debug.Log("Coroutine FindVisibleTargets");
+		while (m.minionState != MinionState.Die) {
 			yield return new WaitForSeconds(.2f);
-			//Debug.Log("Coroutine FindVisibleTargets");
 			FindVisibleTargets(m);
 		}
 	}
 
 	private void FindVisibleTargets(Minion m) {
+
+		if (minionGameObjectMap.ContainsKey(m) == false) { return; }
 
 		GameObject m_go = minionGameObjectMap[m];
 		Animator m_anim = m_go.GetComponent<Animator>();
@@ -270,15 +252,17 @@ public class CharacterGraphicController : MonoBehaviour {
 	}
 
 
-	private void OnMinionRemoved(Minion e) {
-		if (minionGameObjectMap.ContainsKey(e) == false) {
-			Debug.LogError("OnFurnitureRemoved -- trying to Remove graphic for character not in our map.");
+	private void OnMinionRemoved(Minion m) {
+		if (minionGameObjectMap.ContainsKey(m) == false) {
+			Debug.LogError("OnMinionRemoved -- trying to Remove graphic for character not in our map.");
 			return;
 		}
 
-		GameObject e_go = minionGameObjectMap[e];
-		Destroy(e_go);
-		minionGameObjectMap.Remove(e);
+		GameObject m_go = minionGameObjectMap[m];
+		Destroy(m_go);
+		minionGameObjectMap.Remove(m);
+		World.minions.Remove(m);
+		
 	}
 
 	#endregion

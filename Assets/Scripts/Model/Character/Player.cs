@@ -95,7 +95,7 @@ public class Player : Character {
 		Dictionary<int, string> weaponsDict, List<int> primWeaponSlot,
 		Stat STR , Stat INT , Stat VIT,
 		Stat DEX , Stat AGI , Stat LUK , 
-		float HP = 100f, float speed = 1, string parent = "Character") {
+		int HP = 100, float speed = 1, string parent = "Character") {
 
 		this.name = name;
 		this.objectType = objectType;
