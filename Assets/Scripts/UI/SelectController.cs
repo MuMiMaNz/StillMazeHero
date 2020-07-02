@@ -5,14 +5,16 @@ using UnityEngine;
 
 public class SelectController : MonoBehaviour
 {
+	// This Control how to select Minion&Building in build mode
+
 	World World {
 		get { return WorldController.Instance.World; }
 	}
 	public Camera cam;
-    public LayerMask notBuildingLayer;
-    public LayerMask buildingLayer;
+    public LayerMask environmentLayer;
+    public LayerMask buildingMinionLayer;
 
-    public PanelController panelController;
+	public PanelController panelController;
 
     private GameObject preview;
     private PreviewController previewController;
@@ -70,7 +72,17 @@ public class SelectController : MonoBehaviour
         isPreviewing = true;
 	}
 
-    private void StopBuild()
+	public void PreviewMinion(string objType) {
+
+		preview = characterGraphicController.GetPreviewCharacter(objType);
+		preview.transform.SetParent(this.transform, true);
+		//grab the script that is sitting on the preview
+		previewController = preview.GetComponent<PreviewController>();
+		previewController.isPreviewing = true;
+		isPreviewing = true;
+	}
+
+	private void StopBuild()
     {
         previewController.isPreviewing = false;
         Destroy(preview);//get rid of the preview
@@ -90,23 +102,13 @@ public class SelectController : MonoBehaviour
 		
 	}
 
-	public void PreviewMinion(string objType) {
-
-		preview = characterGraphicController.GetPreviewCharacter(objType);
-		preview.transform.SetParent(this.transform, true);
-		//grab the script that is sitting on the preview
-		previewController = preview.GetComponent<PreviewController>();
-		previewController.isPreviewing = true;
-		isPreviewing = true;
-	}
-
 	private void DoRay(Touch touch)
     {
         Ray ray = cam.ScreenPointToRay(touch.position);
         RaycastHit hit;
 
         if (isPreviewing) {
-            if (Physics.Raycast(ray, out hit, notBuildingLayer))
+            if (Physics.Raycast(ray, out hit, environmentLayer))
             {
                 PositionPreviewBuilding(hit.point);
             }
@@ -139,7 +141,7 @@ public class SelectController : MonoBehaviour
 
         if (touch.phase == TouchPhase.Began  ) {
             //Debug.Log("Select :" + buildingController);
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, buildingLayer)) {
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, buildingMinionLayer)) {
                 if (previewController != null) {
                     previewController.SetSelected(false);
                     previewController.ChangeColor();
@@ -155,7 +157,7 @@ public class SelectController : MonoBehaviour
 				isOpenEditPanel = true;
                 
             }
-            else if (Physics.Raycast(ray, out hit, Mathf.Infinity, notBuildingLayer)) {
+			else if (Physics.Raycast(ray, out hit, Mathf.Infinity, environmentLayer)) {
                 if (previewController != null) {
                     previewController.SetSelected(false);
                     previewController.ChangeColor();

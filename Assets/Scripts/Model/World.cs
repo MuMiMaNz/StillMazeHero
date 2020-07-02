@@ -357,7 +357,7 @@ public class World : IXmlSerializable {
 	}
 
 	public Minion PlaceMinion(string chrType, Tile t) {
-		Debug.Log("Wolrd.PlaceMinion()");
+		
 		if (minionPrototypes.ContainsKey(chrType) == false) {
 			Debug.LogError("buildingPrototypes doesn't contain a proto for key: " + chrType);
 			return null;

@@ -27,9 +27,13 @@ public class Tile :IXmlSerializable {
                 cbTileTypeChanged(this);
         }
     }
+	// Player that occupied this tile in Build mode 
+	public Player player {
+		get; protected set;
+	}
 
-	// Character that occupied this tile in Build mode ex. Enemy unit.
-	public Character character {
+	// minion that occupied this tile in Build mode 
+	public Minion minion {
 		get; protected set;
 	}
 
@@ -86,15 +90,23 @@ public class Tile :IXmlSerializable {
         cbTileTypeChanged -= callback;
     }
 
-	public bool PlaceCharacter(Character chrInstance) {
-		
-		if (character != null) {
-			Debug.LogError("Trying to assign a Character to a tile that already has one!");
+	public bool PlacePlayer(Player p) {
+
+		if (player != null) {
+			Debug.LogError("Trying to assign a Player to a tile that already has one!");
 			return false;
 		}
+		player = p;
+		return true;
+	}
 
-		character = chrInstance;
-
+	public bool PlaceMinion(Minion m) {
+		
+		if (minion != null) {
+			Debug.LogError("Trying to assign a Minion to a tile that already has one!");
+			return false;
+		}
+		minion = m;
 		return true;
 	}
 
@@ -135,12 +147,21 @@ public class Tile :IXmlSerializable {
 
 		return true;
 	}
+	public bool RemovePlayer() {
+		if (player == null) {
+			return false;
+		}
+		else {
+			player = null;
+			return true;
+		}
+	}
 
-	public bool RemoveCharacter() {
-		if (character == null) {
+	public bool RemoveMinion() {
+		if (minion == null) {
 			return false;
 		}else {
-			character = null;
+			minion = null;
 			return true;
 		}
 	}

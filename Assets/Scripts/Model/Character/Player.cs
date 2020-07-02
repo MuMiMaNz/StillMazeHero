@@ -144,7 +144,7 @@ public class Player : Character {
 		p.X = t.X;
 		p.Z = t.Z;
 
-		if (t.PlaceCharacter(p) == false) {
+		if (t.PlacePlayer(p) == false) {
 			return null;
 		}
 

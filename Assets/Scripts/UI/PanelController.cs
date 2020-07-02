@@ -18,7 +18,7 @@ public class PanelController : MonoBehaviour
 	
     public GameObject cancelPanelR;
     public GameObject editBuildPanel;
-    public Text buildingNameText;
+    public Text nameText;
     public Button sellButton;
     public Button moveButton;
     public Button closeEditPanelButton;
@@ -100,7 +100,7 @@ public class PanelController : MonoBehaviour
 
     public void OpenEditPanel(PreviewController selectBuilding) {
         currentSelectPreivew = selectBuilding;
-        buildingNameText.text = currentSelectPreivew.GetBuildingType();
+        nameText.text = currentSelectPreivew.GetPreviewType();
         SetEditPanel();
         editBuildPanel.SetActive(true);
         cancelPanelR.SetActive(false);
@@ -131,7 +131,12 @@ public class PanelController : MonoBehaviour
 
 		// Use RoundToInt for cut point 0.5f
 		Tile t = WorldController.Instance.World.GetTileAt(Mathf.RoundToInt(currentSelectPreivew.transform.position.x), Mathf.RoundToInt(currentSelectPreivew.transform.position.z));
-		t.building.Deconstruct();
+
+		if (currentSelectPreivew.buildMode == BuildMode.Building) {
+			t.building.Deconstruct();
+		} else if (currentSelectPreivew.buildMode == BuildMode.Minion) {
+			t.minion.RemoveMinion();
+		}
 
 		currentSelectPreivew.Destroy();
         currentSelectPreivew = null;
@@ -146,9 +151,15 @@ public class PanelController : MonoBehaviour
 
 		// Destroy building and create new preview
 		Tile t = WorldController.Instance.World.GetTileAt( Mathf.RoundToInt(currentSelectPreivew.transform.position.x), Mathf.RoundToInt(currentSelectPreivew.transform.position.z));
-		t.building.Deconstruct();
 
-		selectController.PreviewBuilding(currentSelectPreivew.GetBuildingType());
+		if (currentSelectPreivew.buildMode == BuildMode.Building) {
+			t.building.Deconstruct();
+			selectController.PreviewBuilding(currentSelectPreivew.GetPreviewType());
+		}
+		else if (currentSelectPreivew.buildMode == BuildMode.Minion) {
+			t.minion.RemoveMinion();
+			selectController.PreviewMinion(currentSelectPreivew.GetPreviewType());
+		}
 
         currentSelectPreivew.Destroy();
         currentSelectPreivew = null;

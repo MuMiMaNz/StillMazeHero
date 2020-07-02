@@ -166,7 +166,7 @@ public class Minion : Character{
 			return null;
 		}
 
-		if (t.PlaceCharacter(m) == false) {
+		if (t.PlaceMinion(m) == false) {
 			// For some reason, we weren't able to place our object in this tile.
 			// (Probably it was already occupied.)
 
@@ -626,9 +626,8 @@ public class Minion : Character{
 	}
 
 	public void RemoveMinion() {
-		Debug.Log("Remove Minion");
 
-		charStartTile.RemoveCharacter();
+		charStartTile.RemoveMinion();
 
 		if (cbOnRemoved != null)
 			cbOnRemoved(this);

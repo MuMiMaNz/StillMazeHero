@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 22042234}
   - component: {fileID: 22042235}
   m_Layer: 5
-  m_Name: BuildingName
+  m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3496,7 +3496,7 @@ MonoBehaviour:
   MinionListPanel: {fileID: 582868800}
   cancelPanelR: {fileID: 95175297}
   editBuildPanel: {fileID: 827250809}
-  buildingNameText: {fileID: 22042235}
+  nameText: {fileID: 22042235}
   sellButton: {fileID: 995358741}
   moveButton: {fileID: 547589073}
   closeEditPanelButton: {fileID: 221176383}
@@ -3982,12 +3982,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 963194227}
-  notBuildingLayer:
+  environmentLayer:
     serializedVersion: 2
-    m_Bits: 2615
-  buildingLayer:
+    m_Bits: 2103
+  buildingMinionLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 768
   panelController: {fileID: 1340144065}
   buildingGraphicCntroller: {fileID: 678056890}
   characterGraphicController: {fileID: 1977449482}

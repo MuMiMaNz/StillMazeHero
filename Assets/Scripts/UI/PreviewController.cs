@@ -56,6 +56,8 @@ public class PreviewController : MonoBehaviour {
 		
     }
 
+	
+
     private void OnTriggerEnter(Collider other)
     {
 		//hit a building or minion?
@@ -227,7 +229,7 @@ public class PreviewController : MonoBehaviour {
         isSelected = select;
     }
 
-    public string GetBuildingType() {
+    public string GetPreviewType() {
         return previewType;
     }
 
