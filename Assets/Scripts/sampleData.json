@@ -1,0 +1,304 @@
+{
+   "Width":10,
+   "Height":10,
+   "buildingsSaveObject":[
+      {
+         "X":0,
+         "Z":0,
+         "objectType":"OuterWall",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":0,
+         "Z":1,
+         "objectType":"OuterWall",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":0,
+         "Z":2,
+         "objectType":"OuterWall",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":0,
+         "Z":3,
+         "objectType":"OuterWall",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":0,
+         "Z":4,
+         "objectType":"OuterWall",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":0,
+         "Z":5,
+         "objectType":"OuterWall",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":0,
+         "Z":6,
+         "objectType":"OuterWall",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":0,
+         "Z":7,
+         "objectType":"OuterWall",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":0,
+         "Z":8,
+         "objectType":"OuterWall",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":0,
+         "Z":9,
+         "objectType":"OuterWall",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":1,
+         "Z":0,
+         "objectType":"OuterWall",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":1,
+         "Z":9,
+         "objectType":"OuterWall",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":2,
+         "Z":0,
+         "objectType":"OuterWall",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":2,
+         "Z":9,
+         "objectType":"OuterWall",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":3,
+         "Z":0,
+         "objectType":"OuterWall",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":3,
+         "Z":9,
+         "objectType":"OuterWall",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":4,
+         "Z":9,
+         "objectType":"OuterWall",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":5,
+         "Z":0,
+         "objectType":"OuterWall_Gate",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":5,
+         "Z":7,
+         "objectType":"Goal",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":5,
+         "Z":9,
+         "objectType":"OuterWall",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":6,
+         "Z":9,
+         "objectType":"OuterWall",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":7,
+         "Z":0,
+         "objectType":"OuterWall",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":7,
+         "Z":9,
+         "objectType":"OuterWall",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":8,
+         "Z":0,
+         "objectType":"OuterWall",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":8,
+         "Z":9,
+         "objectType":"OuterWall",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":9,
+         "Z":0,
+         "objectType":"OuterWall",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":9,
+         "Z":1,
+         "objectType":"OuterWall",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":9,
+         "Z":2,
+         "objectType":"OuterWall",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":9,
+         "Z":3,
+         "objectType":"OuterWall",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":9,
+         "Z":4,
+         "objectType":"OuterWall",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":9,
+         "Z":5,
+         "objectType":"OuterWall",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":9,
+         "Z":6,
+         "objectType":"OuterWall",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":9,
+         "Z":7,
+         "objectType":"OuterWall",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":9,
+         "Z":8,
+         "objectType":"OuterWall",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":9,
+         "Z":9,
+         "objectType":"OuterWall",
+         "bldParamaters":{
+
+         }
+      },
+      {
+         "X":5,
+         "Z":3,
+         "objectType":"InnerWall",
+         "bldParamaters":{
+
+         }
+      }
+   ],
+   "minionsSaveObject":[
+      {
+         "X":3,
+         "Z":2,
+         "objectType":"Yeti",
+         "minionParamaters":{
+
+         }
+      }
+   ]
+}

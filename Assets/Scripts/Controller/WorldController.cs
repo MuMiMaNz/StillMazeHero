@@ -97,14 +97,16 @@ public class WorldController : MonoBehaviour
     public void SaveWorld() {
         Debug.Log("SaveWorld button was clicked.");
 
-        XmlSerializer serializer = new XmlSerializer(typeof(World));
-        TextWriter writer = new StringWriter();
-        serializer.Serialize(writer, World);
-        writer.Close();
+		World.SaveJSON();
 
-        Debug.Log(writer.ToString());
+        //XmlSerializer serializer = new XmlSerializer(typeof(World));
+        //TextWriter writer = new StringWriter();
+        //serializer.Serialize(writer, World);
+        //writer.Close();
 
-        PlayerPrefs.SetString("SaveGame00", writer.ToString());
+        //Debug.Log(writer.ToString());
+
+        //PlayerPrefs.SetString("SaveGame00", writer.ToString());
 
     }
 

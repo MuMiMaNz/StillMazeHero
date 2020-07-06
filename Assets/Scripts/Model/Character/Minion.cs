@@ -7,28 +7,28 @@ using System.Xml.Serialization;
 
 public enum MinionState { Chase, ChaseToPatrol ,Patrol,  Idle , Attack, Die }
 
-public class Minion : Character{
+public class Minion : Character {
 
-	World World {get { return WorldController.Instance.World; }}
+	World World { get { return WorldController.Instance.World; } }
 
 	Action<Minion> cbMinionChanged;
 	//Action<Minion> cbMinionCoroutine;
 	Action<Minion> cbOnRemoved;
 
-	public Dictionary<string, float> bldParamaters;
+	public Dictionary<string, float> minionParamaters;
 
 	public string name { get; protected set; }
 	public string description { get; protected set; }
 	public int spaceNeed { get; protected set; }
 
-	public MinionState minionState {get; protected set;}
+	public MinionState minionState { get; protected set; }
 	// Maximum tile that minion will patrol
 	public int patrolRange { get; protected set; }
 	// Set of patrol point tiles
 	public List<Tile> patrolPoints { get; protected set; }
 	// FOV
-	public bool seePlayer { get;  set; }
-	public bool playerInATKRange { get;  set; }
+	public bool seePlayer { get; set; }
+	public bool playerInATKRange { get; set; }
 	public float viewRadius { get; protected set; }
 	public float viewAngle { get; protected set; }
 	public float ATKRange { get; protected set; }
@@ -77,9 +77,9 @@ public class Minion : Character{
 	public Tile DestTile {
 		get { return _destTile; }
 		set {
-			if(_destTile != value) {
+			if (_destTile != value) {
 				_destTile = value;
-				mPathAStar = null;	// If this is a new destination, then we need to invalidate pathfinding.
+				mPathAStar = null;  // If this is a new destination, then we need to invalidate pathfinding.
 			}
 		}
 	}
@@ -88,19 +88,19 @@ public class Minion : Character{
 	private Path_AStar mPathAStar;
 	private Path_TileGraph mTileGraph;
 	private float movementPercentage; // Goes from 0 to 1 as we move from currTile to destTile
-	
+
 	// Empty constructor is used for serialization
 	public Minion() {
-		bldParamaters = new Dictionary<string, float>();
+		minionParamaters = new Dictionary<string, float>();
 	}
 
 	// Use for create prototype
 	public Minion(string objectType, string name, string description,
 		Stat STR, Stat INT, Stat VIT,
 		Stat DEX, Stat AGI, Stat LUK,
-		int DEF , int mDEF,
-		int HP = 100, float speed = 1,int spaceNeed=1 ,
-		int patrolRange = 2, float viewRadius = 1.5f ,float viewAngle = 45f,
+		int DEF, int mDEF,
+		int HP = 100, float speed = 1, int spaceNeed = 1,
+		int patrolRange = 2, float viewRadius = 1.5f, float viewAngle = 45f,
 		float ATKRange = 0.5f, string parent = "Character") {
 
 		this.objectType = objectType;
@@ -131,7 +131,7 @@ public class Minion : Character{
 		this.seePlayer = false;
 		this.playerInATKRange = false;
 
-		bldParamaters = new Dictionary<string, float>();
+		minionParamaters = new Dictionary<string, float>();
 	}
 
 	private float timer = 0;
@@ -149,11 +149,11 @@ public class Minion : Character{
 
 	static public Minion PlaceMinion(Minion proto, Tile t) {
 		//Debug.Log("Minion.PlaceMinion()");
-		Minion m = new Minion(proto.objectType, proto.name,proto.description,
+		Minion m = new Minion(proto.objectType, proto.name, proto.description,
 			proto.STR, proto.INT, proto.VIT, proto.DEX, proto.AGI, proto.LUK,
 			proto.DEF, proto.mDEF,
-			proto.HP, proto.speed,proto.spaceNeed,
-			proto.patrolRange, proto.viewRadius, proto.viewAngle,proto.ATKRange, proto.parent);
+			proto.HP, proto.speed, proto.spaceNeed,
+			proto.patrolRange, proto.viewRadius, proto.viewAngle, proto.ATKRange, proto.parent);
 
 		m.charStartTile = t;
 		m.currTile = t;
@@ -192,11 +192,11 @@ public class Minion : Character{
 		patrolPoints = new List<Tile>();
 
 		if (patrolRange == 0)
-			return ;
+			return;
 
 		// Set tile graph width and height
-		int startW = charStartTile.X - patrolRange <=0 ? 0 : charStartTile.X - patrolRange;
-		int endW = charStartTile.X + patrolRange >= world.Width-1 ? world.Width - 1 : charStartTile.X + patrolRange;
+		int startW = charStartTile.X - patrolRange <= 0 ? 0 : charStartTile.X - patrolRange;
+		int endW = charStartTile.X + patrolRange >= world.Width - 1 ? world.Width - 1 : charStartTile.X + patrolRange;
 		//Debug.Log("StartWidth : " + startW + "EndWidth : " + endW);
 		int startH = charStartTile.Z - patrolRange <= 0 ? 0 : charStartTile.Z - patrolRange;
 		int endH = charStartTile.Z + patrolRange >= world.Height - 1 ? world.Height - 1 : charStartTile.Z + patrolRange;
@@ -250,7 +250,7 @@ public class Minion : Character{
 		for (int x = startW; x <= charStartTile.X; x++) {
 			int z = endH;
 			Tile checkT = world.GetTileAt(x, z);
-			if (LUtile == null  && checkT != charStartTile) {
+			if (LUtile == null && checkT != charStartTile) {
 				mPathAStar = new Path_AStar(false, charStartTile, checkT, mTileGraph, startW, endW, startH, endH);
 				// There is valid pathfinder to this tile
 				if (mPathAStar.Length() != 0) {
@@ -260,7 +260,7 @@ public class Minion : Character{
 			}
 		}
 		// Loop the Z axis farest tile
-		for (int z = endH ; z >= charStartTile.Z ; z--) {
+		for (int z = endH; z >= charStartTile.Z; z--) {
 			int x = startW;
 			Tile checkT = world.GetTileAt(x, z);
 
@@ -404,7 +404,7 @@ public class Minion : Character{
 		// Right-Lower Q ,X(max > min),Z(min > max)
 		// Loop the X axis farest tile
 		if (RLtile == null) {
-			for (int x = endW -1; x >= charStartTile.X; x--) {
+			for (int x = endW - 1; x >= charStartTile.X; x--) {
 				for (int z = startH + 1; z < charStartTile.Z; z++) {
 					Tile checkT = world.GetTileAt(x, z);
 
@@ -440,7 +440,7 @@ public class Minion : Character{
 		if (currTile == DestTile) {
 			// Set Idle state for 2 seconds
 			minionState = MinionState.Idle;
-			if (!WaitedInSeconds(deltaTime,idleWaitTime)) return;
+			if (!WaitedInSeconds(deltaTime, idleWaitTime)) return;
 
 			// then set new Destination
 			minionState = MinionState.Patrol;
@@ -450,27 +450,28 @@ public class Minion : Character{
 	}
 
 
-	void DoMovement(float deltaTime,bool useWorldTG, Path_TileGraph tg = null) {
+	void DoMovement(float deltaTime, bool useWorldTG, Path_TileGraph tg = null) {
 		// We're already were we want to be.
 		if (currTile == DestTile) {
 			mPathAStar = null;
-			return;	
+			return;
 		}
 		// currTile = The tile I am currently in (and may be in the process of leaving)
 		// nextTile = The tile I am currently entering
 		// destTile = Our final destination -- we never walk here directly, but instead use it for the pathfinding
 
-		if(nextTile == null || nextTile == currTile) {
+		if (nextTile == null || nextTile == currTile) {
 			// Get the next tile from the pathfinder.
-			if(mPathAStar == null || mPathAStar.Length() == 0) {
+			if (mPathAStar == null || mPathAStar.Length() == 0) {
 				// Generate a path to our destination
 				if (useWorldTG) {
 					mPathAStar = new Path_AStar(true, currTile, DestTile);
-				}else {
+				}
+				else {
 					mPathAStar = new Path_AStar(false, currTile, DestTile, tg);
 				}
-			
-				if(mPathAStar.Length() == 0) {
+
+				if (mPathAStar.Length() == 0) {
 					Debug.LogError("Path_AStar returned no path to destination!");
 					return;
 				}
@@ -481,15 +482,15 @@ public class Minion : Character{
 			// Grab the next waypoint from the pathing system!
 			nextTile = mPathAStar.Dequeue();
 
-			if ( nextTile == currTile ) {
+			if (nextTile == currTile) {
 				Debug.LogError("Update_DoMovement - nextTile is currTile?");
 			}
 		}
 
-/*		if(pathAStar.Length() == 1) {
-			return;
-		}
-*/
+		/*		if(pathAStar.Length() == 1) {
+					return;
+				}
+		*/
 		// At this point we should have a valid nextTile to move to.
 
 		// What's the total distance from point A to point B?
@@ -497,8 +498,8 @@ public class Minion : Character{
 		// But when we do the pathfinding system, we'll likely
 		// switch to something like Manhattan or Chebyshev distance
 		float distToTravel = Mathf.Sqrt(
-			Mathf.Pow(currTile.X-nextTile.X, 2) + 
-			Mathf.Pow(currTile.Z-nextTile.Z, 2)
+			Mathf.Pow(currTile.X - nextTile.X, 2) +
+			Mathf.Pow(currTile.Z - nextTile.Z, 2)
 		);
 
 		/*if(nextTile.IsEnterable() == ENTERABILITY.Never) {
@@ -529,7 +530,7 @@ public class Minion : Character{
 		// Add that to overall percentage travelled.
 		movementPercentage += percThisFrame;
 
-		if(movementPercentage >= 1) {
+		if (movementPercentage >= 1) {
 			// We have reached our destination
 
 			// TODO: Get the next tile from the pathfinding system.
@@ -551,13 +552,13 @@ public class Minion : Character{
 		// Primarystat + Weapon DMG
 		Stat primStat = p.GetPrimaryStat();
 		int weaponsATK = 0;
-		foreach(Weapon w in p.primaryWeapons) {
+		foreach (Weapon w in p.primaryWeapons) {
 			weaponsATK += w.wATK;
 		}
 
-		float AtkDMG = ((primStat.BaseValue + primStat.BuffValue) * UnityEngine.Random.Range(0f,2.0f) ) + weaponsATK;
+		float AtkDMG = ((primStat.BaseValue + primStat.BuffValue) * UnityEngine.Random.Range(0f, 2.0f)) + weaponsATK;
 
-		int finalDMG = Mathf.RoundToInt( AtkDMG - (DEF*2.5f) );
+		int finalDMG = Mathf.RoundToInt(AtkDMG - (DEF * 2.5f));
 		HP -= finalDMG;
 
 		return finalDMG;
@@ -567,25 +568,25 @@ public class Minion : Character{
 		// If see Player , Chase him ! do A*pathfinding in all World tile
 		if (seePlayer && playerInATKRange == false) {
 			minionState = MinionState.Chase;
-			
+
 			DestTile = WorldController.Instance.World.GetTileAt(
 				Mathf.RoundToInt(World.player.X),
 				Mathf.RoundToInt(World.player.Z));
 
-			DoMovement(deltaTime,true); 
+			DoMovement(deltaTime, true);
 
 		}// If see player and in ATK range, change to Attack State
-		else if(seePlayer && playerInATKRange){
+		else if (seePlayer && playerInATKRange) {
 			minionState = MinionState.Attack;
 		}
 		// If not see Player
-		else if (seePlayer == false){
+		else if (seePlayer == false) {
 			// Patrol Mode do A*pathfinding in just Patrol Range tile
 			if (patrolPoints.Count > 0 && (minionState == MinionState.Patrol || minionState == MinionState.Idle)) {
 
 				PatrolMovement(deltaTime);
 
-				DoMovement(deltaTime,false, mTileGraph);
+				DoMovement(deltaTime, false, mTileGraph);
 			}
 			// If previosly chasing player and then don't see Player, come back to patrol
 			if (minionState == MinionState.Chase) {
@@ -594,7 +595,7 @@ public class Minion : Character{
 				minionState = MinionState.ChaseToPatrol;
 
 			}
-			if(minionState == MinionState.ChaseToPatrol) {
+			if (minionState == MinionState.ChaseToPatrol) {
 				DestTile = charStartTile;
 				//Debug.Log(DestTile.X + "," + DestTile.Z);
 				DoMovement(deltaTime, true);
@@ -662,38 +663,59 @@ public class Minion : Character{
 
 	// ----- Save Data --------
 
-	public XmlSchema GetSchema() {
-		return null;
+	public MinionSaveObject SaveMinion() {
+
+		MinionSaveObject saveObject = new MinionSaveObject {
+			X = charStartTile.X,
+			Z = charStartTile.Z,
+			objectType = objectType,
+			minionParamaters = minionParamaters
+		};
+		//string json = JsonUtility.ToJson(saveObject);
+		return saveObject;
 	}
-
-	public void WriteXml(XmlWriter writer) {
-		writer.WriteAttributeString("X", charStartTile.X.ToString());
-		writer.WriteAttributeString("Z", charStartTile.Z.ToString());
-		writer.WriteAttributeString("objectType", objectType);
-		//writer.WriteAttributeString( "movementCost", movementCost.ToString() );
-
-		foreach (string k in bldParamaters.Keys) {
-			writer.WriteStartElement("Param");
-			writer.WriteAttributeString("name", k);
-			writer.WriteAttributeString("value", bldParamaters[k].ToString());
-			writer.WriteEndElement();
-		}
-
-	}
-
-	public void ReadXml(XmlReader reader) {
-		// X, Y, and objectType have already been set, and we should already
-		// be assigned to a tile.  So just read extra data.
-
-		//movementCost = int.Parse( reader.GetAttribute("movementCost") );
-
-		if (reader.ReadToDescendant("Param")) {
-			do {
-				string k = reader.GetAttribute("name");
-				float v = float.Parse(reader.GetAttribute("value"));
-				bldParamaters[k] = v;
-			} while (reader.ReadToNextSibling("Param"));
-		}
-	}
-
 }
+
+[Serializable]
+public class MinionSaveObject {
+	public int X;
+	public int Z;
+	public string objectType;
+
+	public Dictionary<string, float> minionParamaters = new Dictionary<string, float>();
+}
+//	public XmlSchema GetSchema() {
+//		return null;
+//	}
+
+//	public void WriteXml(XmlWriter writer) {
+//		writer.WriteAttributeString("X", charStartTile.X.ToString());
+//		writer.WriteAttributeString("Z", charStartTile.Z.ToString());
+//		writer.WriteAttributeString("objectType", objectType);
+//		//writer.WriteAttributeString( "movementCost", movementCost.ToString() );
+
+//		foreach (string k in bldParamaters.Keys) {
+//			writer.WriteStartElement("Param");
+//			writer.WriteAttributeString("name", k);
+//			writer.WriteAttributeString("value", bldParamaters[k].ToString());
+//			writer.WriteEndElement();
+//		}
+
+//	}
+
+//	public void ReadXml(XmlReader reader) {
+//		// X, Y, and objectType have already been set, and we should already
+//		// be assigned to a tile.  So just read extra data.
+
+//		//movementCost = int.Parse( reader.GetAttribute("movementCost") );
+
+//		if (reader.ReadToDescendant("Param")) {
+//			do {
+//				string k = reader.GetAttribute("name");
+//				float v = float.Parse(reader.GetAttribute("value"));
+//				bldParamaters[k] = v;
+//			} while (reader.ReadToNextSibling("Param"));
+//		}
+//	}
+
+//}

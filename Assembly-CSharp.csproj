@@ -240,6 +240,7 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\Ice_Shader.shader" />
     <None Include="Assets\Pack\Emerald AI\Demo Source\AI Models\MeshSmith\ToonMonsterII\Toon Mouse Spear\Mesh\readMe.txt" />
+    <None Include="Assets\JsonDotNet\link.xml" />
     <None Include="Assets\Pack\Emerald AI\Demo Source\AI Models\RainEntertainment\FantasyMonster2\Elf Mage Pack\readMe.txt" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\Cloud_Shader.shader" />
     <None Include="Assets\Pack\PolygonMini_Fantasy\Shaders\DistanceGradient.shader" />
@@ -498,6 +499,9 @@
     </Reference>
     <Reference Include="UnityEngine.XRModule">
       <HintPath>D:/Program Files/Unity/2019.3.0f6/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>D:/Unity_project/StillMazeHero/Assets/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>D:/Program Files/Unity/2019.3.0f6/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>

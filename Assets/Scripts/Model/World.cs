@@ -5,8 +5,9 @@ using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 using System.Linq;
+using Newtonsoft.Json;
 
-public class World : IXmlSerializable {
+public class World  {
 
     // A two-dimensional array to hold our tile data.
     Tile[,] tiles;
@@ -490,133 +491,169 @@ public class World : IXmlSerializable {
         return buildingPrototypes[buildingType].IsValidPosition(t);
     }
 
-	
 
-    //////////////////////////////////////////////////////////////////////////////////////
-    /// 
-    /// 						SAVING & LOADING
-    /// 
-    //////////////////////////////////////////////////////////////////////////////////////
 
-    public World() {
+	//////////////////////////////////////////////////////////////////////////////////////
+	/// 
+	/// 						SAVING & LOADING
+	/// 
+	//////////////////////////////////////////////////////////////////////////////////////
+	[Serializable]
+	private class WorldSaveObject {
+		public int Width;
+		public int Height;
 
-    }
+		public List<BuildingSaveObject> buildingsSaveObject;
+		public List<MinionSaveObject> minionsSaveObject;
+	}
 
-    public XmlSchema GetSchema() {
-        return null;
-    }
+	public void SaveJSON() {
 
-    public void WriteXml(XmlWriter writer) {
-        // Save info here
-        writer.WriteAttributeString("Width", Width.ToString());
-        writer.WriteAttributeString("Height", Height.ToString());
+		List<BuildingSaveObject> bsList = new List<BuildingSaveObject>();
+		List<MinionSaveObject> msList = new List<MinionSaveObject>();
 
-        writer.WriteStartElement("Tiles");
-        for (int x = 0; x < Width; x++) {
-            for (int y = 0; y < Height; y++) {
-                writer.WriteStartElement("Tile");
-                tiles[x, y].WriteXml(writer);
-                writer.WriteEndElement();
-            }
-        }
-        writer.WriteEndElement();
-
-        writer.WriteStartElement("Buildings");
-        foreach (Building bld in buildings) {
-            writer.WriteStartElement("Building");
-            bld.WriteXml(writer);
-            writer.WriteEndElement();
-
-        }
-        writer.WriteEndElement();
-
-		writer.WriteStartElement("Minions");
+		foreach (Building bld in buildings) {
+			bsList.Add(bld.SaveBuilding());
+		}
 		foreach (Minion m in minions) {
-			writer.WriteStartElement("Minion");
-			m.WriteXml(writer);
-			writer.WriteEndElement();
-
+			msList.Add(m.SaveMinion());
 		}
-		writer.WriteEndElement();
 
-		/*		writer.WriteStartElement("Width");
-                writer.WriteValue(Width);
-                writer.WriteEndElement();
-        */
+		WorldSaveObject worldSaveObject = new WorldSaveObject {
+			Width = Width,
+			Height = Height,
+			buildingsSaveObject = bsList,
+			minionsSaveObject = msList
+		};
 
+
+		string json = JsonConvert.SerializeObject(worldSaveObject);
+		Debug.Log(json);
 
 	}
 
-    public void ReadXml(XmlReader reader) {
-        Debug.Log("World::ReadXml");
-        // Load info here
+	// Old XML File structure
 
-        Width = int.Parse(reader.GetAttribute("Width"));
-        Height = int.Parse(reader.GetAttribute("Height"));
+	//   public World() {
 
-        SetupWorld(Width, Height);
-
-        while (reader.Read()) {
-            switch (reader.Name) {
-                case "Tiles":
-                    ReadXml_Tiles(reader);
-                    break;
-                case "Buildings":
-                    ReadXml_Buildings(reader);
-                    break;
-				case "Minions":
-					ReadXml_Minions(reader);
-					break;
-			}
-        }
+	//   }
 
 
-    }
+	//   public XmlSchema GetSchema() {
+	//       return null;
+	//   }
 
-    void ReadXml_Tiles(XmlReader reader) {
-        Debug.Log("ReadXml_Tiles");
-        // We are in the "Tiles" element, so read elements until
-        // we run out of "Tile" nodes.
+	//   public void WriteXml(XmlWriter writer) {
+	//       // Save info here
+	//       writer.WriteAttributeString("Width", Width.ToString());
+	//       writer.WriteAttributeString("Height", Height.ToString());
 
-        if (reader.ReadToDescendant("Tile")) {
-            // We have at least one tile, so do something with it.
+	//       writer.WriteStartElement("Tiles");
+	//       for (int x = 0; x < Width; x++) {
+	//           for (int y = 0; y < Height; y++) {
+	//               writer.WriteStartElement("Tile");
+	//               tiles[x, y].WriteXml(writer);
+	//               writer.WriteEndElement();
+	//           }
+	//       }
+	//       writer.WriteEndElement();
 
-            do {
-                int x = int.Parse(reader.GetAttribute("X"));
-                int z = int.Parse(reader.GetAttribute("Z"));
-                tiles[x, z].ReadXml(reader);
-            } while (reader.ReadToNextSibling("Tile"));
+	//       writer.WriteStartElement("Buildings");
+	//       foreach (Building bld in buildings) {
+	//           writer.WriteStartElement("Building");
+	//           bld.WriteXml(writer);
+	//           writer.WriteEndElement();
 
-        }
+	//       }
+	//       writer.WriteEndElement();
 
-    }
+	//	writer.WriteStartElement("Minions");
+	//	foreach (Minion m in minions) {
+	//		writer.WriteStartElement("Minion");
+	//		m.WriteXml(writer);
+	//		writer.WriteEndElement();
 
-    void ReadXml_Buildings(XmlReader reader) {
-        Debug.Log("ReadXml_Buildings");
+	//	}
+	//	writer.WriteEndElement();
 
-        if (reader.ReadToDescendant("Building")) {
-            do {
-                int x = int.Parse(reader.GetAttribute("X"));
-                int z = int.Parse(reader.GetAttribute("Z"));
+	//	/*		writer.WriteStartElement("Width");
+	//               writer.WriteValue(Width);
+	//               writer.WriteEndElement();
+	//       */
 
-                Building bld = PlaceBuilding(reader.GetAttribute("objectType"), tiles[x, z]);
-                //Debug.Log(bld.objectType);
-                bld.ReadXml(reader);
-            } while (reader.ReadToNextSibling("Building"));
-        }
 
-    }
+	//}
 
-	void ReadXml_Minions(XmlReader reader) {
-		Debug.Log("ReadXml_Minions");
-		if (reader.ReadToDescendant("Minion")) {
-			do {
-				int x = int.Parse(reader.GetAttribute("X"));
-				int y = int.Parse(reader.GetAttribute("Z"));
+	//   public void ReadXml(XmlReader reader) {
+	//       Debug.Log("World::ReadXml");
+	//       // Load info here
 
-				Minion m = PlaceMinion(reader.GetAttribute("objectType"), tiles[x, y]);
-				m.ReadXml(reader);
-			} while (reader.ReadToNextSibling("Minion"));
-		}
-	}
+	//       Width = int.Parse(reader.GetAttribute("Width"));
+	//       Height = int.Parse(reader.GetAttribute("Height"));
+
+	//       SetupWorld(Width, Height);
+
+	//       while (reader.Read()) {
+	//           switch (reader.Name) {
+	//               case "Tiles":
+	//                   ReadXml_Tiles(reader);
+	//                   break;
+	//               case "Buildings":
+	//                   ReadXml_Buildings(reader);
+	//                   break;
+	//			case "Minions":
+	//				ReadXml_Minions(reader);
+	//				break;
+	//		}
+	//       }
+
+
+	//   }
+
+	//   void ReadXml_Tiles(XmlReader reader) {
+	//       Debug.Log("ReadXml_Tiles");
+	//       // We are in the "Tiles" element, so read elements until
+	//       // we run out of "Tile" nodes.
+
+	//       if (reader.ReadToDescendant("Tile")) {
+	//           // We have at least one tile, so do something with it.
+
+	//           do {
+	//               int x = int.Parse(reader.GetAttribute("X"));
+	//               int z = int.Parse(reader.GetAttribute("Z"));
+	//               tiles[x, z].ReadXml(reader);
+	//           } while (reader.ReadToNextSibling("Tile"));
+
+	//       }
+
+	//   }
+
+	//   void ReadXml_Buildings(XmlReader reader) {
+	//       Debug.Log("ReadXml_Buildings");
+
+	//       if (reader.ReadToDescendant("Building")) {
+	//           do {
+	//               int x = int.Parse(reader.GetAttribute("X"));
+	//               int z = int.Parse(reader.GetAttribute("Z"));
+
+	//               Building bld = PlaceBuilding(reader.GetAttribute("objectType"), tiles[x, z]);
+	//               //Debug.Log(bld.objectType);
+	//               bld.ReadXml(reader);
+	//           } while (reader.ReadToNextSibling("Building"));
+	//       }
+
+	//   }
+
+	//void ReadXml_Minions(XmlReader reader) {
+	//	Debug.Log("ReadXml_Minions");
+	//	if (reader.ReadToDescendant("Minion")) {
+	//		do {
+	//			int x = int.Parse(reader.GetAttribute("X"));
+	//			int y = int.Parse(reader.GetAttribute("Z"));
+
+	//			Minion m = PlaceMinion(reader.GetAttribute("objectType"), tiles[x, y]);
+	//			m.ReadXml(reader);
+	//		} while (reader.ReadToNextSibling("Minion"));
+	//	}
+	//}
 }
