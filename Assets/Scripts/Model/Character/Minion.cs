@@ -674,6 +674,9 @@ public class Minion : Character {
 		//string json = JsonUtility.ToJson(saveObject);
 		return saveObject;
 	}
+	public void LoadMinion(MinionSaveObject ms) {
+		minionParamaters = ms.minionParamaters;
+	}
 }
 
 [Serializable]

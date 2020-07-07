@@ -12,7 +12,7 @@ using System.Xml.Serialization;
 // InstalledObjects sitting on top of the floor.
 public enum TileType { Empty, Floor, OuterWall };
 
-public class Tile :IXmlSerializable {
+public class Tile {
 
     private TileType _type = TileType.Empty;
 
@@ -216,18 +216,41 @@ public class Tile :IXmlSerializable {
         return ns;
     }
 
-    	public XmlSchema GetSchema() {
-		return null;
+	public TileSaveObject SaveTile() {
+
+		TileSaveObject saveObject = new TileSaveObject {
+			X = X,
+			Z = Z,
+			Type = Type,
+		};
+		return saveObject;
 	}
 
-	public void WriteXml(XmlWriter writer) {
-		writer.WriteAttributeString( "X", X.ToString() );
-		writer.WriteAttributeString( "Z", Z.ToString() );
-		writer.WriteAttributeString("Type", ((int)Type).ToString() );
+	public void LoadTile(TileSaveObject ts) {
+		Type = ts.Type;
 	}
+}
 
-	public void ReadXml(XmlReader reader) {
-		Type = (TileType)int.Parse( reader.GetAttribute("Type") );
-	}
+[Serializable]
+public class TileSaveObject {
+	public int X;
+	public int Z;
+	public TileType Type;
 
 }
+
+//public XmlSchema GetSchema() {
+//		return null;
+//	}
+
+//	public void WriteXml(XmlWriter writer) {
+//		writer.WriteAttributeString( "X", X.ToString() );
+//		writer.WriteAttributeString( "Z", Z.ToString() );
+//		writer.WriteAttributeString("Type", ((int)Type).ToString() );
+//	}
+
+//	public void ReadXml(XmlReader reader) {
+//		Type = (TileType)int.Parse( reader.GetAttribute("Type") );
+//	}
+
+

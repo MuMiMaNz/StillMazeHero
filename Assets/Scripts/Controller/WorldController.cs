@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Xml.Serialization;
 using System.IO;
+using Newtonsoft.Json;
 
 public enum GameMode { BuildMode, PlayMode }
 
@@ -97,20 +98,20 @@ public class WorldController : MonoBehaviour
     public void SaveWorld() {
         Debug.Log("SaveWorld button was clicked.");
 
-		World.SaveJSON();
+		PlayerPrefs.SetString("SaveGame00", World.SaveJSON() );
 
-        //XmlSerializer serializer = new XmlSerializer(typeof(World));
-        //TextWriter writer = new StringWriter();
-        //serializer.Serialize(writer, World);
-        //writer.Close();
+		//XmlSerializer serializer = new XmlSerializer(typeof(World));
+		//TextWriter writer = new StringWriter();
+		//serializer.Serialize(writer, World);
+		//writer.Close();
 
-        //Debug.Log(writer.ToString());
+		//Debug.Log(writer.ToString());
 
-        //PlayerPrefs.SetString("SaveGame00", writer.ToString());
+		//PlayerPrefs.SetString("SaveGame00", writer.ToString());
 
-    }
+	}
 
-    public void LoadWorld() {
+	public void LoadWorld() {
         //Debug.Log("LoadWorld button was clicked.");
 
         // Reload the scene to reset all data (and purge old references)
@@ -127,16 +128,22 @@ public class WorldController : MonoBehaviour
 
     void CreateWorldFromSaveFile() {
         Debug.Log("CreateWorldFromSaveFile");
-        // Create a world from our save file data.
+		// Create a world from our save file data.
 
-        XmlSerializer serializer = new XmlSerializer(typeof(World));
-        TextReader reader = new StringReader(PlayerPrefs.GetString("SaveGame00"));
-        Debug.Log(reader.ToString());
-        World = (World)serializer.Deserialize(reader);
-        reader.Close();
-
-
-    }
+		string json = PlayerPrefs.GetString("SaveGame00", null);
+		if (string.IsNullOrEmpty(json) == true) {
+			Debug.LogError("No Save file JSON"); 
+				return;
+		}
+		WorldSaveObject wso = JsonConvert.DeserializeObject<WorldSaveObject>(json);
+		World = new World(wso.Width, wso.Height);
+		World.LoadWSO(wso);
+		//XmlSerializer serializer = new XmlSerializer(typeof(World));
+		//TextReader reader = new StringReader(PlayerPrefs.GetString("SaveGame00"));
+		//Debug.Log(reader.ToString());
+		//World = (World)serializer.Deserialize(reader);
+		//reader.Close();
+	}
 
 	// Start Pathfinding from Start to Goal tile
     public bool StartPathfinding() {

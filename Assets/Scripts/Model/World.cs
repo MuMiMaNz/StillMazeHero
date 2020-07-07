@@ -1,110 +1,108 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections.Generic;
-using System.Xml;
-using System.Xml.Schema;
-using System.Xml.Serialization;
+
 using System.Linq;
 using Newtonsoft.Json;
 
-public class World  {
+public class World {
 
-    // A two-dimensional array to hold our tile data.
-    Tile[,] tiles;
+	// A two-dimensional array to hold our tile data.
+	Tile[,] tiles;
 
 	// Array use on Save/Load
 	public List<Building> buildings { get; protected set; }
 	public List<Minion> minions { get; protected set; }
-	public Player player {  get; protected set; }
+	public Player player { get; protected set; }
 
 	// The pathfinding graph used to navigate our world map.
 	public Path_TileGraph tileGraph;
-    public Tile startTile { get; protected set; }
-    public Tile goalTile { get; protected set; }
+	public Tile startTile { get; protected set; }
+	public Tile goalTile { get; protected set; }
 
-    // Store building prototype data
-    Dictionary<string, Building> buildingPrototypes;
+	// Store building prototype data
+	Dictionary<string, Building> buildingPrototypes;
 	Dictionary<string, Minion> minionPrototypes;
 	Dictionary<string, Player> playerPrototypes;
 	Dictionary<string, Weapon> weaponPrototypes;
 
 	Action<Building> cbBuildingCreated;
-    Action<Player> cbPlayerCreated;
+	Action<Player> cbPlayerCreated;
 	Action<Minion> cbMinionCreated;
 	Action<Tile> cbTileChanged;
 
 
-    public int Width { get; protected set; }
-    public int Height { get; protected set; }
+	public int Width { get; protected set; }
+	public int Height { get; protected set; }
 
-    // Initializes a new instance of the World class.
-    public World(int _width , int _height ) {
+	// Initializes a new instance of the World class.
+	public World(int _width, int _height) {
 
-        SetupWorld(_width, _height);
-    }
+		SetupWorld(_width, _height);
+	}
 
-    private void SetupWorld(int width,int height) {
+	private void SetupWorld(int width, int height) {
 
-        Width = width;
-        Height = height;
+		Width = width;
+		Height = height;
 
-        tiles = new Tile[Width, Height];
+		tiles = new Tile[Width, Height];
 
-        for (int x = 0; x < Width; x++) {
-            for (int z = 0; z < Height; z++) {
+		for (int x = 0; x < Width; x++) {
+			for (int z = 0; z < Height; z++) {
 
-                tiles[x, z] = new Tile(this, x, z);
-                // Set TileType
-                tiles[x, z].RegisterTileTypeChangedCallback(OnTileChanged);
-            }
-        }
-        Debug.Log("World created with " + (Width * Height) + " tiles.");
-        CreateBuildingPrototypes();
+				tiles[x, z] = new Tile(this, x, z);
+				// Set TileType
+				tiles[x, z].RegisterTileTypeChangedCallback(OnTileChanged);
+			}
+		}
+		Debug.Log("World created with " + (Width * Height) + " tiles.");
+		CreateBuildingPrototypes();
 		CreateWeaponPrototypes();
 		CreateMinionPrototypes();
 
 
 		minions = new List<Minion>();
 		buildings = new List<Building>();
-    }
+	}
 
-    // Set Square OuterWall TileType
-    public void PlaceOuterWalledWithTiles() {
-        
-        for (int x = 0; x < Width; x++) {
-            for (int z = 0; z < Height; z++) {
+	// Set Square OuterWall TileType
+	public void PlaceOuterWalledWithTiles() {
 
-                Tile tile_data = GetTileAt(x, z);
+		for (int x = 0; x < Width; x++) {
+			for (int z = 0; z < Height; z++) {
 
-                if (x == 0 || z == 0 || x == Width - 1 || z == Height - 1) {
-                    // Set Outer wall tile type 
-                    tiles[x, z].Type = TileType.OuterWall;
+				Tile tile_data = GetTileAt(x, z);
 
-                    // Place Outer gate building with start tile
-                    if (tile_data.Z == 0 && tile_data.X == Width / 2) {
-                        PlaceBuilding("OuterWall_Gate", tile_data);
-                        
-                        
-                    } // Empty at left&right of Gate center pivot
-                    else if (tile_data.Z == 0 && (tile_data.X == (Width / 2) - 1 || tile_data.X == (Width / 2) + 1)) {
+				if (x == 0 || z == 0 || x == Width - 1 || z == Height - 1) {
+					// Set Outer wall tile type 
+					tiles[x, z].Type = TileType.OuterWall;
 
-                    }// Outer Wall
-                    else if (tile_data.Z == 0 || tile_data.Z == Height - 1 || tile_data.X == 0 || tile_data.X == Width - 1) {
-                        PlaceBuilding("OuterWall", tile_data);
-                    }
-                }
-                else {
-                    // Set Floor tile type
-                    tiles[x, z].Type = TileType.Floor;
-                    // Goal building with goal tile
-                    if (tile_data.Z == Height - 3 && tile_data.X == Width / 2) {
-                        PlaceBuilding("Goal", tile_data);
-                        
-                    }
-                }
-            }
-        }
-    }
+					// Place Outer gate building with start tile
+					if (tile_data.Z == 0 && tile_data.X == Width / 2) {
+						PlaceBuilding("OuterWall_Gate", tile_data);
+
+
+					} // Empty at left&right of Gate center pivot
+					else if (tile_data.Z == 0 && (tile_data.X == (Width / 2) - 1 || tile_data.X == (Width / 2) + 1)) {
+
+					}// Outer Wall
+					else if (tile_data.Z == 0 || tile_data.Z == Height - 1 || tile_data.X == 0 || tile_data.X == Width - 1) {
+						PlaceBuilding("OuterWall", tile_data);
+					}
+				}
+				else {
+					// Set Floor tile type
+					tiles[x, z].Type = TileType.Floor;
+					// Goal building with goal tile
+					if (tile_data.Z == Height - 3 && tile_data.X == Width / 2) {
+						PlaceBuilding("Goal", tile_data);
+
+					}
+				}
+			}
+		}
+	}
 
 	public void CreatePlayerAtStart() {
 		//Debug.Log("CreatePlayer");
@@ -135,18 +133,18 @@ public class World  {
 
 	// Set the Goal tile
 	public void SetGoalTile(Tile t) {
-        Debug.Log("Change Goal Tile to" + t.X + "," + t.Z);
-        goalTile = t;
-    }
+		Debug.Log("Change Goal Tile to" + t.X + "," + t.Z);
+		goalTile = t;
+	}
 
-    // Gets the tile data at x and y.
-    public Tile GetTileAt(int x, int z) {
-        if (x >= Width || x < 0 || z >= Height || z < 0) {
-            //Debug.LogError("Tile (" + x + "," + z + ") is out of range.");
-            return null;
-        }
-        return tiles[x, z];
-    }
+	// Gets the tile data at x and y.
+	public Tile GetTileAt(int x, int z) {
+		if (x >= Width || x < 0 || z >= Height || z < 0) {
+			//Debug.LogError("Tile (" + x + "," + z + ") is out of range.");
+			return null;
+		}
+		return tiles[x, z];
+	}
 
 
 
@@ -160,8 +158,8 @@ public class World  {
 		minionPrototypes = new Dictionary<string, Minion>();
 
 		minionPrototypes.Add("Yeti",
-			new Minion(	objectType: "Yeti", 
-						name: "Yeti", 
+			new Minion(objectType: "Yeti",
+						name: "Yeti",
 						description: "Ancient winter mountain giant",
 						STR: new Stat(name: "STR", val: 10, isPrimaryStat: true),
 						INT: new Stat(name: "INT", val: 1),
@@ -171,14 +169,14 @@ public class World  {
 						LUK: new Stat(name: "LUK", val: 4),
 						DEF: 10,
 						mDEF: 5,
-						HP: 300, 
-						speed: 0.5f, 
-						spaceNeed: 1, 
-						patrolRange: 2, 
+						HP: 300,
+						speed: 0.5f,
+						spaceNeed: 1,
+						patrolRange: 2,
 						viewRadius: 1.7f,
 						viewAngle: 60f,
 						ATKRange: 0.8f,
-						parent: "Minion" 
+						parent: "Minion"
 							)
 		);
 	}
@@ -187,9 +185,9 @@ public class World  {
 		weaponPrototypes = new Dictionary<string, Weapon>();
 
 		weaponPrototypes.Add("RedTearSword",
-			new Weapon( objectType: "RedTearSword", 
-						wName:	"RedTearSword", 
-						wDescription: "You look at this Bad ass sword and cry in blood", 
+			new Weapon(objectType: "RedTearSword",
+						wName: "RedTearSword",
+						wDescription: "You look at this Bad ass sword and cry in blood",
 						wATK: 100, //ATK
 						wMagicATK: 0, // mATK
 						wATKspeed: 5, // ATKspeed
@@ -202,7 +200,7 @@ public class World  {
 		);
 
 		weaponPrototypes.Add("CrimsonWingShield",
-			new Weapon( objectType: "CrimsonWingShield", // Object type
+			new Weapon(objectType: "CrimsonWingShield", // Object type
 						wName: "CrimsonWingShield", // Name
 						wDescription: "Original shield color is white, but time to times its cover with enemy blood", // Description
 						wATK: 0, //ATK
@@ -219,7 +217,7 @@ public class World  {
 
 	// All Building prototypes data
 	void CreateBuildingPrototypes() {
-        buildingPrototypes = new Dictionary<string, Building>();
+		buildingPrototypes = new Dictionary<string, Building>();
 
 		buildingPrototypes.Add("InnerWall",
 			new Building(
@@ -229,11 +227,11 @@ public class World  {
 								height: 1,  // Height
 								parent: "Buildings", // Parent
 								allowMinion: false, // Allow minion on top of building
-                                linksToNeighbour: true // Links to neighbours and "sort of" becomes part of a large object
-                            )
-        );
-        buildingPrototypes.Add("OuterWall",
-            new Building(
+								linksToNeighbour: true // Links to neighbours and "sort of" becomes part of a large object
+							)
+		);
+		buildingPrototypes.Add("OuterWall",
+			new Building(
 							   objectType: "OuterWall",
 							   movementCost: 0,  // Impassable
 							   width: 1,  // Width
@@ -242,9 +240,9 @@ public class World  {
 							   allowMinion: false, // Allow minion on top of building
 							   linksToNeighbour: true // Links to neighbours and "sort of" becomes part of a large object
 							)
-        );
-        buildingPrototypes.Add("OuterWall_Gate",
-           new Building(
+		);
+		buildingPrototypes.Add("OuterWall_Gate",
+		   new Building(
 								objectType: "OuterWall_Gate",
 								movementCost: 0,  // Impassable
 								width: 3,  // Width
@@ -253,9 +251,9 @@ public class World  {
 								allowMinion: false, // Allow minion on top of building
 								linksToNeighbour: false // Links to neighbours and "sort of" becomes part of a large object
 							)
-        );
-        buildingPrototypes.Add("Goal",
-            new Building(
+		);
+		buildingPrototypes.Add("Goal",
+			new Building(
 								objectType: "Goal",
 								movementCost: 1,  // passable
 								width: 1,  // Width
@@ -264,20 +262,20 @@ public class World  {
 								allowMinion: false, // Allow minion on top of building
 								linksToNeighbour: false // Links to neighbours and "sort of" becomes part of a large object
 							)
-        );
-        buildingPrototypes.Add("DummyGoal",
-            new Building(
+		);
+		buildingPrototypes.Add("DummyGoal",
+			new Building(
 								objectType: "DummyGoal",
 								movementCost: 1,  // passable
-							    width: 1,  // Width
+								width: 1,  // Width
 								height: 1,  // Height
 								parent: "Buildings",// Parent
 								allowMinion: false, // Allow minion on top of building
 								linksToNeighbour: false // Links to neighbours and "sort of" becomes part of a large object
 							)
-        );
-        buildingPrototypes.Add("DummyBuilding",
-           new Building(
+		);
+		buildingPrototypes.Add("DummyBuilding",
+		   new Building(
 								objectType: "DummyBuilding",
 								movementCost: 0,  // IMpassable
 								width: 1,  // Width
@@ -286,8 +284,8 @@ public class World  {
 								allowMinion: false, // Allow minion on top of building
 								linksToNeighbour: false // Links to neighbours and "sort of" becomes part of a large object
 							)
-        );
-    }
+		);
+	}
 
 	public Weapon GetWeaponPrototype(string weaponType) {
 		if (weaponPrototypes.ContainsKey(weaponType) == false) {
@@ -317,7 +315,7 @@ public class World  {
 
 	#region Place Character&Building
 
-	public void PlacePlayer( Tile t) {
+	public void PlacePlayer(Tile t) {
 		//if (characterPrototypes.ContainsKey(playerType) == false) {
 		//	Debug.LogError("buildingPrototypes doesn't contain a proto for key: " + playerType);
 		//	return null;
@@ -332,33 +330,33 @@ public class World  {
 		primWeaponSlot.Add(0);
 		primWeaponSlot.Add(1);
 
-		Player dummyPlayer = new Player("Player", "MuMiMaN", 
+		Player dummyPlayer = new Player("Player", "MuMiMaN",
 			weapondict, primWeaponSlot,
 			STR: new Stat(name: "STR", val: 5),
 			INT: new Stat(name: "INT", val: 3),
-			VIT: new Stat(name: "VIT", val: 8), 
-			DEX: new Stat(name: "DEX", val: 10,isPrimaryStat: true),
+			VIT: new Stat(name: "VIT", val: 8),
+			DEX: new Stat(name: "DEX", val: 10, isPrimaryStat: true),
 			AGI: new Stat(name: "AGI", val: 6),
 			LUK: new Stat(name: "LUK", val: 4),
-			HP:500,speed: 2,parent: "PlayerRoot");
+			HP: 500, speed: 2, parent: "PlayerRoot");
 
 		Player p = Player.PlacePlayer(dummyPlayer, t);
 
 		if (p == null) {
 			// Failed to place Character -- most likely there was already something there.
-			return ;
+			return;
 		}
 
 		p.RegisterOnRemovedCallback(OnPlayerRemoved);
 		player = p;
 
-		if (cbPlayerCreated != null) 
+		if (cbPlayerCreated != null)
 			cbPlayerCreated(p);
 
 	}
 
 	public Minion PlaceMinion(string chrType, Tile t) {
-		
+
 		if (minionPrototypes.ContainsKey(chrType) == false) {
 			Debug.LogError("buildingPrototypes doesn't contain a proto for key: " + chrType);
 			return null;
@@ -374,46 +372,46 @@ public class World  {
 		m.RegisterOnRemovedCallback(OnEnemyRemoved);
 		minions.Add(m);
 
-		if (cbMinionCreated != null) 
+		if (cbMinionCreated != null)
 			cbMinionCreated(m);
 
 		return m;
 	}
 
-    public Building PlaceBuilding(string bldType, Tile t) {
-        //Debug.Log("PlaceInstalledObject");
-        // TODO: This function assumes 1x1 tiles -- change this later!
+	public Building PlaceBuilding(string bldType, Tile t) {
+		//Debug.Log("PlaceInstalledObject");
+		// TODO: This function assumes 1x1 tiles -- change this later!
 
-        if (buildingPrototypes.ContainsKey(bldType) == false) {
-            Debug.LogError("buildingPrototypes doesn't contain a proto for key: " + bldType);
-            return null;
-        }
+		if (buildingPrototypes.ContainsKey(bldType) == false) {
+			Debug.LogError("buildingPrototypes doesn't contain a proto for key: " + bldType);
+			return null;
+		}
 
-        Building bld = Building.PlaceBuilding(buildingPrototypes[bldType], t);
+		Building bld = Building.PlaceBuilding(buildingPrototypes[bldType], t);
 
-        if (bld == null) {
-            // Failed to place object -- most likely there was already something there.
-            return null;
-        }
+		if (bld == null) {
+			// Failed to place object -- most likely there was already something there.
+			return null;
+		}
 
 		bld.RegisterOnRemovedCallback(OnBuildingRemoved);
 		// Don't Save Dummy building
 		//if (bld.objectType != "DummyBuilding" && bld.objectType != "DummyGoal" )
-        buildings.Add(bld);
+		buildings.Add(bld);
 
-        // Set start and goal tile due to specific building
-        if (bld.objectType == "OuterWall_Gate") { 
-            startTile = GetTileAt(t.X, t.Z + 1);
-            Debug.Log("Start Tile at" + startTile.X + "," + startTile.Z);
-        }
-        if (bld.objectType == "Goal") {
-            goalTile = GetTileAt(t.X, t.Z);
-            Debug.Log("Goal Tile at" + goalTile.X + "," + goalTile.Z);
-			
-        }
+		// Set start and goal tile due to specific building
+		if (bld.objectType == "OuterWall_Gate") {
+			startTile = GetTileAt(t.X, t.Z + 1);
+			Debug.Log("Start Tile at" + startTile.X + "," + startTile.Z);
+		}
+		if (bld.objectType == "Goal") {
+			goalTile = GetTileAt(t.X, t.Z);
+			Debug.Log("Goal Tile at" + goalTile.X + "," + goalTile.Z);
 
-        if (cbBuildingCreated != null) {
-            cbBuildingCreated(bld);
+		}
+
+		if (cbBuildingCreated != null) {
+			cbBuildingCreated(bld);
 
 			if (bld.movementCost != 1) {
 				// Since tiles return movement cost as their base cost multiplied
@@ -423,8 +421,8 @@ public class World  {
 				InvalidateTileGraph();  // Reset the pathfinding system
 			}
 		}
-        return bld;
-    }
+		return bld;
+	}
 
 	#endregion
 
@@ -457,39 +455,39 @@ public class World  {
 	}
 
 	public void RegisterBuildingCreated(Action<Building> callbackfunc) {
-        cbBuildingCreated += callbackfunc;
-    }
+		cbBuildingCreated += callbackfunc;
+	}
 
-    public void UnregisterBuildingCreated(Action<Building> callbackfunc) {
-        cbBuildingCreated -= callbackfunc;
-    }
+	public void UnregisterBuildingCreated(Action<Building> callbackfunc) {
+		cbBuildingCreated -= callbackfunc;
+	}
 
-    public void RegisterTileChanged(Action<Tile> callbackfunc) {
-        cbTileChanged += callbackfunc;
-    }
+	public void RegisterTileChanged(Action<Tile> callbackfunc) {
+		cbTileChanged += callbackfunc;
+	}
 
-    public void UnregisterTileChanged(Action<Tile> callbackfunc) {
-        cbTileChanged -= callbackfunc;
-    }
+	public void UnregisterTileChanged(Action<Tile> callbackfunc) {
+		cbTileChanged -= callbackfunc;
+	}
 
-    // Gets called whenever ANY tile changes
-    void OnTileChanged(Tile t) {
-        if (cbTileChanged == null) {
-            return;
-        }
-        cbTileChanged(t);
-        InvalidateTileGraph();
-    }
+	// Gets called whenever ANY tile changes
+	void OnTileChanged(Tile t) {
+		if (cbTileChanged == null) {
+			return;
+		}
+		cbTileChanged(t);
+		InvalidateTileGraph();
+	}
 
-    // This should be called whenever a change to the world
-    // means that our old pathfinding info is invalid.
-    public void InvalidateTileGraph() {
-        tileGraph = null;
-    }
+	// This should be called whenever a change to the world
+	// means that our old pathfinding info is invalid.
+	public void InvalidateTileGraph() {
+		tileGraph = null;
+	}
 
-    public bool IsBuildingPlacementValid(string buildingType, Tile t) {
-        return buildingPrototypes[buildingType].IsValidPosition(t);
-    }
+	public bool IsBuildingPlacementValid(string buildingType, Tile t) {
+		return buildingPrototypes[buildingType].IsValidPosition(t);
+	}
 
 
 
@@ -498,20 +496,19 @@ public class World  {
 	/// 						SAVING & LOADING
 	/// 
 	//////////////////////////////////////////////////////////////////////////////////////
-	[Serializable]
-	private class WorldSaveObject {
-		public int Width;
-		public int Height;
 
-		public List<BuildingSaveObject> buildingsSaveObject;
-		public List<MinionSaveObject> minionsSaveObject;
-	}
 
-	public void SaveJSON() {
+	public string SaveJSON() {
 
+		List<TileSaveObject> tsList = new List<TileSaveObject>();
 		List<BuildingSaveObject> bsList = new List<BuildingSaveObject>();
 		List<MinionSaveObject> msList = new List<MinionSaveObject>();
 
+		for (int x = 0; x < Width; x++) {
+			for (int y = 0; y < Height; y++) {
+				tsList.Add(tiles[x, y].SaveTile());
+			}
+		}
 		foreach (Building bld in buildings) {
 			bsList.Add(bld.SaveBuilding());
 		}
@@ -522,16 +519,44 @@ public class World  {
 		WorldSaveObject worldSaveObject = new WorldSaveObject {
 			Width = Width,
 			Height = Height,
+			tilesSaveObject = tsList,
 			buildingsSaveObject = bsList,
 			minionsSaveObject = msList
 		};
-
-
 		string json = JsonConvert.SerializeObject(worldSaveObject);
 		Debug.Log(json);
+		return json;
 
 	}
 
+	public void LoadWSO(WorldSaveObject wso) {
+
+		foreach (TileSaveObject ts in wso.tilesSaveObject) {
+			tiles[ts.X, ts.Z].LoadTile(ts);
+		}
+
+		foreach (BuildingSaveObject bs in wso.buildingsSaveObject) {
+			Building b = PlaceBuilding(bs.objectType, tiles[bs.X, bs.Z]);
+			b.LoadBuilding(bs);
+		}
+
+		foreach (MinionSaveObject ms in wso.minionsSaveObject) {
+			Minion m = PlaceMinion(ms.objectType, tiles[ms.X, ms.Z]);
+			m.LoadMinion(ms);
+		}
+	}
+}
+
+[Serializable]
+public class WorldSaveObject {
+	public int Width;
+	public int Height;
+
+	public List<TileSaveObject> tilesSaveObject;
+	public List<BuildingSaveObject> buildingsSaveObject;
+	public List<MinionSaveObject> minionsSaveObject;
+
+}
 	// Old XML File structure
 
 	//   public World() {
@@ -656,4 +681,4 @@ public class World  {
 	//		} while (reader.ReadToNextSibling("Minion"));
 	//	}
 	//}
-}
+

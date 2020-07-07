@@ -231,6 +231,9 @@ public class Building {
 		//string json = JsonUtility.ToJson(saveObject);
 		return saveObject;
 	}
+	public void LoadBuilding(BuildingSaveObject bs) {
+		bldParamaters = bs.bldParamaters;
+	}
 
 }
 
