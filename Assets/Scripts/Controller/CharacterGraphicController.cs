@@ -157,11 +157,16 @@ public class CharacterGraphicController : MonoBehaviour {
 		// Set position
 		m_go.transform.position = new Vector3(m.X, 0, m.Z);
 		// Set front rotation
-		if(m.directionVector != Vector3.zero)
-			if(m.seePlayer == false)
-				m_go.transform.rotation = Quaternion.Slerp(m_go.transform.rotation,Quaternion.LookRotation(m.directionVector),0.08f);
-			else
-				m_go.transform.LookAt(playerGO.transform);
+		if (m.directionVector != Vector3.zero) {
+			if (m.seePlayer == false) {
+				m_go.transform.rotation = Quaternion.Slerp(m_go.transform.rotation, Quaternion.LookRotation(m.directionVector), 0.08f);
+			}
+			else {
+				Vector3 direction = playerGO.transform.position - m_go.transform.position;
+				m_go.transform.rotation = Quaternion.Slerp(m_go.transform.rotation, Quaternion.LookRotation(direction), 0.08f);
+				//m_go.transform.LookAt(playerGO.transform);
+			}
+		}
 		
 		// Set Animator variable
 		switch (m.minionState)
@@ -170,24 +175,56 @@ public class CharacterGraphicController : MonoBehaviour {
 				m_anim.SetBool("isIdle",true);
 				m_anim.SetBool("isWalk",false);
 				m_anim.SetBool("isAttack",false);
+				m_anim.SetBool("isGetHit", false);
+				m_anim.SetBool("isDie", false);
 				break ;
 			case MinionState.Patrol:
 				m_anim.SetBool("isIdle",false);
 				m_anim.SetBool("isWalk",true);
 				m_anim.SetBool("isAttack",false);
+				m_anim.SetBool("isGetHit", false);
+				m_anim.SetBool("isDie", false);
 				break ;
 			case MinionState.Chase:
 				m_anim.SetBool("isIdle",false);
 				m_anim.SetBool("isWalk",true);
 				m_anim.SetBool("isAttack",false);
+				m_anim.SetBool("isGetHit", false);
+				m_anim.SetBool("isDie", false);
 				break ;
 			case MinionState.Attack:
 				m_anim.SetBool("isIdle",false);
 				m_anim.SetBool("isWalk",false);
 				m_anim.SetBool("isAttack",true);
+				m_anim.SetBool("isGetHit", false);
+				m_anim.SetBool("isDie", false);
 				break ;
+			case MinionState.GetHit:
+				m_anim.SetBool("isIdle", false);
+				m_anim.SetBool("isWalk", false);
+				m_anim.SetBool("isAttack", false);
+				m_anim.SetBool("isGetHit", true);
+				m_anim.SetBool("isDie", false);
+
+				break;
+			case MinionState.Die:
+				m_anim.SetBool("isIdle", false);
+				m_anim.SetBool("isWalk", false);
+				m_anim.SetBool("isAttack", false);
+				m_anim.SetBool("isDie", true);
+				break;
 			default:
 				break;
+		}
+		if (m.minionState == MinionState.Die &&
+			m_anim.GetCurrentAnimatorStateInfo(0).IsName("Die") &&
+			m_anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f) {
+			m.Death();
+		}
+		if(m.minionState == MinionState.GetHit && m.seePlayer == false) {
+			Vector3 direction = playerGO.transform.position - m_go.transform.position;
+			m_go.transform.rotation = Quaternion.Slerp(m_go.transform.rotation, Quaternion.LookRotation(direction), 0.08f);
+			m.seePlayer = true;
 		}
 	}
 
@@ -204,7 +241,6 @@ public class CharacterGraphicController : MonoBehaviour {
 		if (minionGameObjectMap.ContainsKey(m) == false) { return; }
 
 		GameObject m_go = minionGameObjectMap[m];
-		Animator m_anim = m_go.GetComponent<Animator>();
 
 		Collider[] overlaps = Physics.OverlapSphere(m_go.transform.position, m.viewRadius, targetMask);
 

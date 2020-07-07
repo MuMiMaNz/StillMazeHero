@@ -245,7 +245,6 @@
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\Cloud_Shader.shader" />
     <None Include="Assets\Pack\PolygonMini_Fantasy\Shaders\DistanceGradient.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\PlaneLava_Shader.shader" />
-    <None Include="Assets\Resources\Prefabs\Characters\Minion\RPG Monster Wave Polyart\Shaders\PolyArtMaskTint.shader" />
     <None Include="Assets\Pack\PolygonMini_Fantasy\Shaders\WorldGradient.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\PlaneWater_Shader.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\Water_Shader.shader" />
@@ -286,7 +285,7 @@
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\Cloud_Shader.shader" />
     <None Include="Assets\Pack\Emerald AI\Resources\EmeraldAIFactions.txt" />
-    <None Include="Assets\Pack\RPG Monster Wave Polyart\Shaders\PolyArtMaskTint.shader" />
+    <None Include="Assets\Resources\Prefabs\Characters\Minion\RPG Monster Wave Polyart\Shaders\PolyArtMaskTint.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\Surface_Shader.shader" />

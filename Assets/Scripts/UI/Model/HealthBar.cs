@@ -13,6 +13,7 @@ public class HealthBar : MonoBehaviour
 	}
 
 	public void HealthBarChange(float HP, float MaxHP) {
+		if(HP < 0f) { HP = 0f; }
 		barImage.fillAmount = HP/MaxHP;
 		barText.text = HP.ToString("F0") + " / " + MaxHP.ToString("F0");
 	}

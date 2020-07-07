@@ -5,7 +5,7 @@ using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
-public enum MinionState { Chase, ChaseToPatrol ,Patrol,  Idle , Attack, Die }
+public enum MinionState { Chase, ChaseToPatrol ,Patrol,GetHit ,  Idle , Attack, Die }
 
 public class Minion : Character {
 
@@ -142,7 +142,7 @@ public class Minion : Character {
 
 		if (timer >= timerMax) {
 			timer = 0;
-			return true; //max reached - waited x - seconds
+			return true;
 		}
 		return false;
 	}
@@ -546,6 +546,10 @@ public class Minion : Character {
 	#endregion
 
 	public float CalAndTakeDamage() {
+
+		MinionState previusState = minionState;
+		minionState = MinionState.GetHit;
+
 		Player p = World.player;
 
 		// Calculate Player Attack Damage
@@ -565,19 +569,22 @@ public class Minion : Character {
 	}
 
 	public void Update(float deltaTime) {
-		// If see Player , Chase him ! do A*pathfinding in all World tile
-		if (seePlayer && playerInATKRange == false) {
-			minionState = MinionState.Chase;
+		// If see Player 
+		if (seePlayer ) {
+			// If not in ATK range ,Chase him ! do A*pathfinding in all World tile
+			if (playerInATKRange == false) {
+				minionState = MinionState.Chase;
 
-			DestTile = WorldController.Instance.World.GetTileAt(
-				Mathf.RoundToInt(World.player.X),
-				Mathf.RoundToInt(World.player.Z));
+				DestTile = WorldController.Instance.World.GetTileAt(
+					Mathf.RoundToInt(World.player.X),
+					Mathf.RoundToInt(World.player.Z));
 
-			DoMovement(deltaTime, true);
-
-		}// If see player and in ATK range, change to Attack State
-		else if (seePlayer && playerInATKRange) {
-			minionState = MinionState.Attack;
+				DoMovement(deltaTime, true);
+			}
+			// If see player and in ATK range, change to Attack State
+			else if(playerInATKRange == true) {
+				minionState = MinionState.Attack;
+			}
 		}
 		// If not see Player
 		else if (seePlayer == false) {
@@ -589,10 +596,15 @@ public class Minion : Character {
 				DoMovement(deltaTime, false, mTileGraph);
 			}
 			// If previosly chasing player and then don't see Player, come back to patrol
-			if (minionState == MinionState.Chase) {
+			if (minionState == MinionState.Chase || minionState == MinionState.Attack) {
+
 				// Wait for 2 seconds if really not see player and comeback to patrol
-				if (!WaitedInSeconds(deltaTime, 2)) return;
-				minionState = MinionState.ChaseToPatrol;
+				if (!WaitedInSeconds(deltaTime, 2)) {
+					return;
+				}
+				else {
+					minionState = MinionState.ChaseToPatrol;
+				}
 
 			}
 			if (minionState == MinionState.ChaseToPatrol) {
@@ -608,7 +620,6 @@ public class Minion : Character {
 
 		if (HP <= 0) {
 			minionState = MinionState.Die;
-			Death();
 		}
 
 	}
@@ -619,7 +630,7 @@ public class Minion : Character {
 	}
 
 	public void Death() {
-		Debug.Log("Minion Death");
+		Debug.Log(name + " Minion Death");
 
 		if (cbOnRemoved != null)
 			cbOnRemoved(this);
