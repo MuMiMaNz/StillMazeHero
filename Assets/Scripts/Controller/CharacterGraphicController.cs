@@ -155,11 +155,18 @@ public class CharacterGraphicController : MonoBehaviour {
 		m_canvas.transform.rotation = Camera.main.transform.rotation;
 
 		// Set position
-		m_go.transform.position = new Vector3(m.X, 0, m.Z);
+		if (m.minionState == MinionState.ChaseStraight) {
+			Vector3 actualTargetPos = new Vector3(playerGO.transform.position.x, 0, playerGO.transform.position.z);
+			m_go.transform.position = Vector3.MoveTowards(m_go.transform.position, actualTargetPos, m.speed * Time.deltaTime);
+			m.currTile = new Tile(World, Mathf.RoundToInt(m_go.transform.position.x), Mathf.RoundToInt(m_go.transform.position.z));
+		}
+		else {
+			m_go.transform.position = new Vector3(m.X, 0, m.Z);
+		}
 		// Set front rotation
 		if (m.directionVector != Vector3.zero) {
 			if (m.seePlayer == false) {
-				m_go.transform.rotation = Quaternion.Slerp(m_go.transform.rotation, Quaternion.LookRotation(m.directionVector), 0.08f);
+				m_go.transform.rotation = Quaternion.Slerp(m_go.transform.rotation, Quaternion.LookRotation(m.directionVector), 0.08f);	
 			}
 			else {
 				Vector3 direction = playerGO.transform.position - m_go.transform.position;
@@ -268,19 +275,26 @@ public class CharacterGraphicController : MonoBehaviour {
 						m.seePlayer = true;
 
 						// If Player in ATK range
-						if (distanceBetween < m.ATKRange){
-							//Debug.Log(m_go.name + " : Player in ATK Range!");
+						if (distanceBetween < m.chaseStraightRange && distanceBetween > m.ATKRange) {
+							m.playerInChaseStraight = true;
+							m.playerInATKRange = false;
+						}
+						else if (distanceBetween <= m.ATKRange){
+							m.playerInChaseStraight = false;
 							m.playerInATKRange = true;
 						}else{
+							m.playerInChaseStraight = false;
 							m.playerInATKRange = false;
 						}
 					}else {
 						m.seePlayer = false;
+						m.playerInChaseStraight = false;
 						m.playerInATKRange = false;
 					}
 				}
 				else {
 					m.seePlayer = false;
+					m.playerInChaseStraight = false;
 					m.playerInATKRange = false;
 				}
 			}

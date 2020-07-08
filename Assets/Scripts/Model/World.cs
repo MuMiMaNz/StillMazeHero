@@ -115,12 +115,12 @@ public class World {
 	// Update in Play Mode
 	public void UpdateInPlayMode(float deltaTime) {
 		foreach (Minion m in minions.ToList()) {
-			m.FixedUpdate(deltaTime);
+			m.Update(deltaTime);
 		}
 	}
 	public void FixedUpdateInPlayMode(float deltaTime) {
 		foreach (Minion m in minions.ToList()) {
-			m.Update(deltaTime);
+			m.FixedUpdate(deltaTime);
 		}
 	}
 	// Update in Build Mode
@@ -173,9 +173,10 @@ public class World {
 						speed: 0.5f,
 						spaceNeed: 1,
 						patrolRange: 2,
-						viewRadius: 1.7f,
+						viewRadius: 2.5f,
 						viewAngle: 60f,
 						ATKRange: 0.8f,
+						chaseStraightRange: 1.3f,
 						parent: "Minion"
 							)
 		);

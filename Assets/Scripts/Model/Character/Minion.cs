@@ -5,7 +5,7 @@ using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
-public enum MinionState { Chase, ChaseToPatrol ,Patrol,GetHit ,  Idle , Attack, Die }
+public enum MinionState { Chase, ChaseStraight, ChaseToPatrol ,Patrol,GetHit ,  Idle , Attack, Die ,InvalidTile}
 
 public class Minion : Character {
 
@@ -31,7 +31,11 @@ public class Minion : Character {
 	public bool playerInATKRange { get; set; }
 	public float viewRadius { get; protected set; }
 	public float viewAngle { get; protected set; }
+	
 	public float ATKRange { get; protected set; }
+	// Range that minion go directly without A* to player
+	public float chaseStraightRange { get; protected set; }
+	public bool playerInChaseStraight { get; set; }
 
 	public bool canTakeDMG { get; protected set; }
 	private float involuntaryTime = 0.2f;
@@ -64,7 +68,7 @@ public class Minion : Character {
 	public Tile currTile {
 		get { return _currTile; }
 
-		protected set {
+		set {
 			//if(_currTile != null) {
 			//	_currTile.characters.Remove(this);
 			//}
@@ -101,7 +105,7 @@ public class Minion : Character {
 		int DEF, int mDEF,
 		int HP = 100, float speed = 1, int spaceNeed = 1,
 		int patrolRange = 2, float viewRadius = 1.5f, float viewAngle = 45f,
-		float ATKRange = 0.5f, string parent = "Character") {
+		float ATKRange = 0.5f,float chaseStraightRange = 0.8f, string parent = "Character") {
 
 		this.objectType = objectType;
 		this.name = name;
@@ -125,6 +129,8 @@ public class Minion : Character {
 		this.viewRadius = viewRadius;
 		this.viewAngle = viewAngle;
 		this.ATKRange = ATKRange;
+
+		this.chaseStraightRange = chaseStraightRange;
 
 		this.parent = parent;
 
@@ -153,7 +159,7 @@ public class Minion : Character {
 			proto.STR, proto.INT, proto.VIT, proto.DEX, proto.AGI, proto.LUK,
 			proto.DEF, proto.mDEF,
 			proto.HP, proto.speed, proto.spaceNeed,
-			proto.patrolRange, proto.viewRadius, proto.viewAngle, proto.ATKRange, proto.parent);
+			proto.patrolRange, proto.viewRadius, proto.viewAngle, proto.ATKRange, proto.chaseStraightRange,proto.parent);
 
 		m.charStartTile = t;
 		m.currTile = t;
@@ -450,7 +456,7 @@ public class Minion : Character {
 	}
 
 
-	void DoMovement(float deltaTime, bool useWorldTG, Path_TileGraph tg = null) {
+	private void DoMovement(float deltaTime, bool useWorldTG, Path_TileGraph tg = null) {
 		// We're already were we want to be.
 		if (currTile == DestTile) {
 			mPathAStar = null;
@@ -470,8 +476,9 @@ public class Minion : Character {
 				else {
 					mPathAStar = new Path_AStar(false, currTile, DestTile, tg);
 				}
-
+				// No valid
 				if (mPathAStar.Length() == 0) {
+					minionState = MinionState.InvalidTile;
 					Debug.LogError("Path_AStar returned no path to destination!");
 					return;
 				}
@@ -571,7 +578,7 @@ public class Minion : Character {
 	public void Update(float deltaTime) {
 		// If see Player 
 		if (seePlayer ) {
-			// If not in ATK range ,Chase him ! do A*pathfinding in all World tile
+			// If not in ATK range ,Chase him ! Straight ahead
 			if (playerInATKRange == false) {
 				minionState = MinionState.Chase;
 
@@ -580,6 +587,8 @@ public class Minion : Character {
 					Mathf.RoundToInt(World.player.Z));
 
 				DoMovement(deltaTime, true);
+			}else if(playerInChaseStraight == true) {
+				minionState = MinionState.ChaseStraight;
 			}
 			// If see player and in ATK range, change to Attack State
 			else if(playerInATKRange == true) {
@@ -620,6 +629,12 @@ public class Minion : Character {
 
 		if (HP <= 0) {
 			minionState = MinionState.Die;
+		}
+		// If invalid Tile
+		if (minionState == MinionState.InvalidTile) {
+			// Try to move in random near tile -1,0,+1
+			DestTile = new Tile(World, currTile.X + UnityEngine.Random.Range(-1, 2),
+				currTile.Z + UnityEngine.Random.Range(-1, 2));
 		}
 
 	}
