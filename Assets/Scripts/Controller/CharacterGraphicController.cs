@@ -165,6 +165,7 @@ public class CharacterGraphicController : MonoBehaviour {
 		}
 		// Set front rotation
 		if (m.directionVector != Vector3.zero) {
+			// If player attack form behind rotate to player
 			if (m.seePlayer == false) {
 				m_go.transform.rotation = Quaternion.Slerp(m_go.transform.rotation, Quaternion.LookRotation(m.directionVector), 0.08f);	
 			}
@@ -174,8 +175,20 @@ public class CharacterGraphicController : MonoBehaviour {
 				//m_go.transform.LookAt(playerGO.transform);
 			}
 		}
-		
+
 		// Set Animator variable
+
+		//if (m.minionState2 == MinionState2.GetHit 
+		//	&& (m.minionState == MinionState.Idle
+		//	|| m.minionState == MinionState.Patrol
+		//	|| m.minionState == MinionState.Chase)) {
+		//	m_anim.SetBool("isIdle", false);
+		//	m_anim.SetBool("isWalk", false);
+		//	m_anim.SetBool("isAttack", false);
+		//	m_anim.SetBool("isGetHit", true);
+		//	m_anim.SetBool("isDie", false);
+		//}
+
 		switch (m.minionState)
 		{
 			case MinionState.Idle:
@@ -206,14 +219,13 @@ public class CharacterGraphicController : MonoBehaviour {
 				m_anim.SetBool("isGetHit", false);
 				m_anim.SetBool("isDie", false);
 				break ;
-			case MinionState.GetHit:
-				m_anim.SetBool("isIdle", false);
-				m_anim.SetBool("isWalk", false);
-				m_anim.SetBool("isAttack", false);
-				m_anim.SetBool("isGetHit", true);
-				m_anim.SetBool("isDie", false);
-
-				break;
+			//case MinionState.GetHit:
+			//	m_anim.SetBool("isIdle", false);
+			//	m_anim.SetBool("isWalk", false);
+			//	m_anim.SetBool("isAttack", false);
+			//	m_anim.SetBool("isGetHit", true);
+			//	m_anim.SetBool("isDie", false);
+			//	break;
 			case MinionState.Die:
 				m_anim.SetBool("isIdle", false);
 				m_anim.SetBool("isWalk", false);
@@ -228,9 +240,9 @@ public class CharacterGraphicController : MonoBehaviour {
 			m_anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f) {
 			m.Death();
 		}
-		if(m.minionState == MinionState.GetHit && m.seePlayer == false) {
+		if(m.minionState2 == MinionState2.GetHit && m.seePlayer == false) {
 			Vector3 direction = playerGO.transform.position - m_go.transform.position;
-			m_go.transform.rotation = Quaternion.Slerp(m_go.transform.rotation, Quaternion.LookRotation(direction), 0.08f);
+			m_go.transform.rotation = Quaternion.Slerp(m_go.transform.rotation, Quaternion.LookRotation(direction), 0.02f);
 			m.seePlayer = true;
 		}
 	}

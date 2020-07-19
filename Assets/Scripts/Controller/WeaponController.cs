@@ -19,8 +19,11 @@ public class WeaponController : MonoBehaviour {
 			//Debug.Log(this.name + " Hit " + other.gameObject.name);
 			
 			Minion m = DictionaryHelper.KeyByValue<Minion,GameObject>(cgc.minionGameObjectMap, other.gameObject);
-			FloatingTextController.CreateFloatingDMG(m.CalAndTakeDamage().ToString("F0"), other.transform); 
 
+			m.MinionGethit();
+			if (m.canTakeDMG == true) {
+				FloatingTextController.CreateFloatingDMG(m.CalAndTakeDamage().ToString("F0"), other.transform);
+			}
 		}
 	}
 

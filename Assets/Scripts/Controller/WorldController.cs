@@ -84,7 +84,7 @@ public class WorldController : MonoBehaviour
 		// Change Building to Real physics
 		buildingGraphicController.ChangeBuildingPhysic(true);
 		// All Minions start to set Patrol point
-		MinionsSetPatrolPoint();
+		MinionsInPlayMode();
 	}
 
     public void NewWorld() {
@@ -181,9 +181,9 @@ public class WorldController : MonoBehaviour
         }
     }
 
-	private void MinionsSetPatrolPoint() {
+	private void MinionsInPlayMode() {
 		foreach(Minion m in World.minions) {
-			m.SetValidPatrolPoints(World);
+			m.SetPlayMode(World);
 		}
 	}
 

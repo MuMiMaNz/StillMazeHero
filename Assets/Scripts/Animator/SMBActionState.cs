@@ -17,11 +17,13 @@ public class SMBActionState : StateMachineBehaviour
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.SetBool(boolName, !status);
+		playerController.normalAttack = true;
 	}
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.SetBool(boolName, !status);
+		
 	}
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

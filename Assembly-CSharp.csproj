@@ -154,6 +154,417 @@
     <Compile Include="Assets\Pack\LeanTween\Framework\LeanTest.cs" />
     <Compile Include="Assets\Pack\LeanTween\Framework\LeanTween.cs" />
     <Compile Include="Assets\Pack\LeanTween\Framework\LeanTweenExt.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\PlayMaker\ES3PlayMaker.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Attributes\ES3Attributes.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Auto Save\ES3AutoSave.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Auto Save\ES3AutoSaveMgr.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Debugging\ES3Debug.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\ES3.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\ES3Crypto.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\ES3File.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\ES3IO.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\ES3InspectorInfo.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\ES3Prefab.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\ES3ReferenceMgr.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\ES3ReferenceMgrBase.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\ES3Reflection.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\ES3SerializableDictionary.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\ES3Spreadsheet.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Readers\ES3BinaryReader.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Readers\ES3JSONReader.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Readers\ES3Reader.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Readers\ES3XMLReader.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Referencing\ES3GlobalReferences.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Settings\ES3DefaultSettings.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Settings\ES3Defaults.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Settings\ES3Settings.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Streams\ES3FileStream.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Streams\ES3PlayerPrefsStream.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Streams\ES3ResourcesStream.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Streams\ES3Stream.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Collection Types\ES32DArrayType.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Collection Types\ES33DArrayType.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Collection Types\ES3ArrayType.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Collection Types\ES3CollectionType.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Collection Types\ES3DictionaryType.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Collection Types\ES3HashSetType.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Collection Types\ES3ListType.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Collection Types\ES3QueueType.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Collection Types\ES3StackType.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\ES3ComponentType.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\ES3ObjectType.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\ES3Property.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\ES3ScriptableObjectType.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\ES3Type.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\ES3TypeMgr.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\ES3UnityObjectType.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\NET Types\ES3Type_Random.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Primitive Types\ES3Type_DateTime.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Primitive Types\ES3Type_ES3Ref.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Primitive Types\ES3Type_UIntPtr.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Primitive Types\ES3Type_bool.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Primitive Types\ES3Type_byte.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Primitive Types\ES3Type_byteArray.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Primitive Types\ES3Type_char.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Primitive Types\ES3Type_decimal.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Primitive Types\ES3Type_double.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Primitive Types\ES3Type_enum.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Primitive Types\ES3Type_float.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Primitive Types\ES3Type_int.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Primitive Types\ES3Type_intptr.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Primitive Types\ES3Type_long.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Primitive Types\ES3Type_sbyte.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Primitive Types\ES3Type_short.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Primitive Types\ES3Type_string.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Primitive Types\ES3Type_uint.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Primitive Types\ES3Type_ulong.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Primitive Types\ES3Type_ushort.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Reflected Types\ES3ReflectedComponentType.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Reflected Types\ES3ReflectedObjectType.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Reflected Types\ES3ReflectedScriptableObjectType.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Reflected Types\ES3ReflectedType.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Reflected Types\ES3ReflectedUnityObjectType.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Reflected Types\ES3ReflectedValueType.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\Component Types\ES3Type_BoxCollider.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\Component Types\ES3Type_BoxCollider2D.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\Component Types\ES3Type_Camera.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\Component Types\ES3Type_CapsuleCollider.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\Component Types\ES3Type_EventSystem.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\Component Types\ES3Type_Image.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\Component Types\ES3Type_MeshCollider.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\Component Types\ES3Type_MeshFilter.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\Component Types\ES3Type_MeshRenderer.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\Component Types\ES3Type_ParticleSystem.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\Component Types\ES3Type_PolygonCollider2D.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\Component Types\ES3Type_RawImage.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\Component Types\ES3Type_SphereCollider.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\Component Types\ES3Type_Text.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\Component Types\ES3Type_Transform.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_AnimationCurve.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_AudioClip.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_BoneWeight.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_Bounds.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_CollisionModule.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_Color.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_Color32.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_ColorBySpeedModule.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_ColorOverLifetimeModule.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_EmissionModule.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_ExternalForcesModule.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_Flare.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_Font.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_ForceOverLifetimeModule.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_GameObject.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_Gradient.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_GradientAlphaKey.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_GradientColorKey.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_InheritVelocityModule.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_Keyframe.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_LayerMask.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_Light.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_LightsModule.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_LimitVelocityOverLifetimeModule.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_MainModule.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_Material.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_Matrix4x4.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_Mesh.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_MinMaxCurve.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_MinMaxGradient.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_NoiseModule.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_PhysicMaterial.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_PhysicsMaterial2D.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_Quaternion.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_Rect.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_RectTransform.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_RotationBySpeedModule.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_RotationOverLifetimeModule.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_Shader.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_ShapeModule.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_SizeBySpeedModule.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_SizeOverLifetimeModule.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_SkinnedMeshRenderer.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_Sprite.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_SpriteRenderer.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_SubEmittersModule.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_Texture.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_Texture2D.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_TextureSheetAnimationModule.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_TrailModule.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_TriggerModule.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_Vector2.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_Vector2Int.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_Vector3.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_Vector3Int.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_Vector4.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Types\Unity Types\ES3Type_VelocityOverLifetimeModule.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Web\ES3Cloud.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Web\ES3WebClass.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Writers\ES3Binary.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Writers\ES3BinaryWriter.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Writers\ES3CacheWriter.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Writers\ES3JSONWriter.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Writers\ES3Writer.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Scripts\Writers\ES3XMLWriter.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Example\Implementation.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Example\TestAds.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\AdSettings.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\AdTypeSettings.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\Advertisements.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\AdvertiserSettings.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\Constants.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\FileLoader.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\ICustomAds.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\MediationSettings.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\ScreenWriter.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\SupportedAdvertisers\CustomAdColony.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\SupportedAdvertisers\CustomAdmob.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\SupportedAdvertisers\CustomAppLovin.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\SupportedAdvertisers\CustomChartboost.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\SupportedAdvertisers\CustomFacebook.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\SupportedAdvertisers\CustomHeyzap.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\SupportedAdvertisers\CustomIronSource.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\SupportedAdvertisers\CustomMoPub.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\SupportedAdvertisers\CustomUnityAds.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\SupportedAdvertisers\CustomVungle.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\UserSettings.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\BoltSupport\MobileAdsBoltSupport.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\GameFlowSupport\HideBanner.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\GameFlowSupport\InitializeGleyAds.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\GameFlowSupport\IsInterstitialAvailable.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\GameFlowSupport\IsRewardedVideoAvailable.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\GameFlowSupport\RemoveAds.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\GameFlowSupport\SetConsentToNo.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\GameFlowSupport\SetConsentToYes.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\GameFlowSupport\ShowBanner.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\GameFlowSupport\ShowInterstitial.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\GameFlowSupport\ShowRewardedVideo.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\GameFlowSupport\UserConsentWasSet.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\PlayMakerSupport\Actions\HideBanner.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\PlayMakerSupport\Actions\InitializePlaymakerAds.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\PlayMakerSupport\Actions\IsInterstitialAvailable.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\PlayMakerSupport\Actions\IsRewardedVideoAvailable.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\PlayMakerSupport\Actions\RemoveAds.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\PlayMakerSupport\Actions\SetConsentToNo.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\PlayMakerSupport\Actions\SetConsentToYes.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\PlayMakerSupport\Actions\ShowBanner.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\PlayMakerSupport\Actions\ShowInterstitial.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\PlayMakerSupport\Actions\ShowRewardedVideo.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\PlayMakerSupport\Actions\UserConsentWasSet.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\AllPlatformsSave\Example\Scripts\GameValues.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\AllPlatformsSave\Example\Scripts\TestSave.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\AllPlatformsSave\Scripts\BinarySerializationFileSave.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\AllPlatformsSave\Scripts\BinarySerializationPlayerPrefs.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\AllPlatformsSave\Scripts\BinarySerializationUtility.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\AllPlatformsSave\Scripts\Encryption.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\AllPlatformsSave\Scripts\ISaveClass.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\AllPlatformsSave\Scripts\JSONSerializationFileSave.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\AllPlatformsSave\Scripts\JSONSerializationPlayerPrefs.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\AllPlatformsSave\Scripts\SaveManager.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\AllPlatformsSave\Scripts\SaveSettings.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\CrossPromo\Example\AutoloadTest.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\CrossPromo\Example\LoadAndShowTest.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\CrossPromo\Scripts\Constants.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\CrossPromo\Scripts\CrossPromo.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\CrossPromo\Scripts\CrossPromoPrefab.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\CrossPromo\Scripts\CrossPromoSettings.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\CrossPromo\Scripts\FileLoader.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\CrossPromo\Scripts\SaveValues.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\CrossPromo\Scripts\VisualScriptingSupport\BoltSupport\CrossPromoBoltSupport.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\CrossPromo\Scripts\VisualScriptingSupport\GameFlow\AutoLoadAndShow.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\CrossPromo\Scripts\VisualScriptingSupport\GameFlow\ForceShowPromo.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\CrossPromo\Scripts\VisualScriptingSupport\GameFlow\InitializeCrossPromo.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\CrossPromo\Scripts\VisualScriptingSupport\GameFlow\ShowPromo.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\CrossPromo\Scripts\VisualScriptingSupport\PlaymakerSupport\AutoLoadAndShow.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\CrossPromo\Scripts\VisualScriptingSupport\PlaymakerSupport\ForceShowPromo.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\CrossPromo\Scripts\VisualScriptingSupport\PlaymakerSupport\InitializeCrossPromo.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\CrossPromo\Scripts\VisualScriptingSupport\PlaymakerSupport\ShowPromo.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\EasyIAP\Example\TestIAP.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\EasyIAP\Scripts\IAPManager.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\EasyIAP\Scripts\IAPSettings.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\EasyIAP\Scripts\ScreenWriter.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\EasyIAP\Scripts\ShopProductNames.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\EasyIAP\Scripts\StoreProduct.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\EasyIAP\Scripts\VisiualScriptingSupport\BoltSupport\EasyIAPBoltSupport.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\EasyIAP\Scripts\VisiualScriptingSupport\GameFlowSupport\BuyProduct.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\EasyIAP\Scripts\VisiualScriptingSupport\GameFlowSupport\CheckIfBought.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\EasyIAP\Scripts\VisiualScriptingSupport\GameFlowSupport\GetProductValue.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\EasyIAP\Scripts\VisiualScriptingSupport\GameFlowSupport\GetStorePrice.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\EasyIAP\Scripts\VisiualScriptingSupport\GameFlowSupport\InitializeIAP.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\EasyIAP\Scripts\VisiualScriptingSupport\GameFlowSupport\IsInitialized.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\EasyIAP\Scripts\VisiualScriptingSupport\GameFlowSupport\RestorePurchases.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\EasyIAP\Scripts\VisiualScriptingSupport\PlaymakerSupport\BuyProduct.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\EasyIAP\Scripts\VisiualScriptingSupport\PlaymakerSupport\CheckIfBought.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\EasyIAP\Scripts\VisiualScriptingSupport\PlaymakerSupport\GetLocalizedDescription.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\EasyIAP\Scripts\VisiualScriptingSupport\PlaymakerSupport\GetLocalizedTitle.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\EasyIAP\Scripts\VisiualScriptingSupport\PlaymakerSupport\GetProductValue.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\EasyIAP\Scripts\VisiualScriptingSupport\PlaymakerSupport\GetStorePrice.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\EasyIAP\Scripts\VisiualScriptingSupport\PlaymakerSupport\InitializeIAP.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\EasyIAP\Scripts\VisiualScriptingSupport\PlaymakerSupport\IsInitialized.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\EasyIAP\Scripts\VisiualScriptingSupport\PlaymakerSupport\RestorePurchases.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\GameServices\Example\TestGameServices.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\GameServices\Scripts\Achievement.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\GameServices\Scripts\AchievementNames.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\GameServices\Scripts\AchievementsManager.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\GameServices\Scripts\GameServices.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\GameServices\Scripts\GameServicesSettings.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\GameServices\Scripts\Leaderboard.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\GameServices\Scripts\LeaderboardManager.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\GameServices\Scripts\LeaderboardNames.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\GameServices\Scripts\LogInManager.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\GameServices\Scripts\ScreenWriter.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\GameServices\Scripts\VisualScriptingSupport\BoltSupport\GameServicesBoltSupport.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\GameServices\Scripts\VisualScriptingSupport\GameFlowSupport\Login.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\GameServices\Scripts\VisualScriptingSupport\GameFlowSupport\Logout.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\GameServices\Scripts\VisualScriptingSupport\GameFlowSupport\ShowAchievements.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\GameServices\Scripts\VisualScriptingSupport\GameFlowSupport\ShowLeaderboards.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\GameServices\Scripts\VisualScriptingSupport\GameFlowSupport\SubmitAchievement.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\GameServices\Scripts\VisualScriptingSupport\GameFlowSupport\SubmitScore.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\GameServices\Scripts\VisualScriptingSupport\PlaymakerSupport\Login.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\GameServices\Scripts\VisualScriptingSupport\PlaymakerSupport\Logout.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\GameServices\Scripts\VisualScriptingSupport\PlaymakerSupport\ShowAchievementsUI.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\GameServices\Scripts\VisualScriptingSupport\PlaymakerSupport\ShowAllLeaderboards.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\GameServices\Scripts\VisualScriptingSupport\PlaymakerSupport\ShowLeaderboard.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\GameServices\Scripts\VisualScriptingSupport\PlaymakerSupport\SubmitAchievement.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\GameServices\Scripts\VisualScriptingSupport\PlaymakerSupport\SubmitScore.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\JumpyCompleteGame\Scripts\AnimatorScripts\AnimatorEventsTrigger.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\JumpyCompleteGame\Scripts\GameState\CurrentGameState.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\JumpyCompleteGame\Scripts\GameState\SavedProperties.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\JumpyCompleteGame\Scripts\GeneralScripts\HelperMethods.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\JumpyCompleteGame\Scripts\GeneralScripts\SingleReference.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\JumpyCompleteGame\Scripts\Input\MyButton.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\JumpyCompleteGame\Scripts\Input\UserInputManager.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\JumpyCompleteGame\Scripts\Level\Alignment.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\JumpyCompleteGame\Scripts\Level\Corn.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\JumpyCompleteGame\Scripts\Level\Cylinder.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\JumpyCompleteGame\Scripts\Level\LevelBuilder.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\JumpyCompleteGame\Scripts\Level\LevelManager.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\JumpyCompleteGame\Scripts\Level\LevelObstacles.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\JumpyCompleteGame\Scripts\Level\Player.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\JumpyCompleteGame\Scripts\Managers\AssetsLoaderManager.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\JumpyCompleteGame\Scripts\Managers\GameManager.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\JumpyCompleteGame\Scripts\Sounds\SoundLoaderManager.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\JumpyCompleteGame\Scripts\Tween\TweenManager.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\JumpyCompleteGame\Scripts\UIScripts\AbstractClases\GenericInterfaceController.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\JumpyCompleteGame\Scripts\UIScripts\AbstractClases\GenericPopup.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\JumpyCompleteGame\Scripts\UIScripts\InGameInterface.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\JumpyCompleteGame\Scripts\UIScripts\LevelCompletePopup.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\JumpyCompleteGame\Scripts\UIScripts\PausePopup.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\JumpyCompleteGame\Scripts\UIScripts\TitleScreenPopup.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Notifications\Example\TestNotifications.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Notifications\Scripts\Constants.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Notifications\Scripts\GleyNotifications.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Notifications\Scripts\NotificationManager.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Notifications\Scripts\NotificationSettings.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Notifications\Scripts\VisualScriptingSupport\GameFlowSupport\AppWasOpenFromNotification.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Notifications\Scripts\VisualScriptingSupport\GameFlowSupport\InitializeNotifications.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Notifications\Scripts\VisualScriptingSupport\GameFlowSupport\SendNotification.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Notifications\Scripts\VisualScriptingSupport\PlaymakerSupport\AppWasOpenFromNotification.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Notifications\Scripts\VisualScriptingSupport\PlaymakerSupport\InitializeNotifications.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Notifications\Scripts\VisualScriptingSupport\PlaymakerSupport\SendNotification.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\RateGame\Example\TestScript.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\RateGame\Scripts\PlaymakerSupport\ForceShowRatePopup.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\RateGame\Scripts\PlaymakerSupport\IncreaseCustomEvents.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\RateGame\Scripts\PlaymakerSupport\ShowRatePopup.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\RateGame\Scripts\RateGame.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\RateGame\Scripts\RateGameSettings.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\RateGame\Scripts\SaveValues.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\RateGame\Scripts\StarsPopup.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\RateGame\Scripts\VisualScriptingSupport\BoltSupport\RateGameBoltSupport.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\RateGame\Scripts\VisualScriptingSupport\GameFlowSupport\ForceShowRatePopup.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\RateGame\Scripts\VisualScriptingSupport\GameFlowSupport\IncreaseCustomEvents.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\RateGame\Scripts\VisualScriptingSupport\GameFlowSupport\ShowRatePopup.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\RateGame\Scripts\YesNoPopup.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\SAFacebook\Samples\SA_FB_UseExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\SocialGif\Runtime\Core\SA_SG_Settings.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\SocialGif\Runtime\Core\SG_Player.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\SocialGif\Runtime\Core\SG_PlayerComponent.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\SocialGif\Runtime\Core\SG_Recorder.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\SocialGif\Runtime\Core\SG_RecorderComponent.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\SocialGif\Runtime\Encoder\SG_Encoder.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\SocialGif\Runtime\Encoder\SG_Frame.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\SocialGif\Runtime\Encoder\SG_LzwEncoder.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\SocialGif\Runtime\Encoder\SG_NeuQuant.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\SocialGif\Runtime\Giphy\SG_GiphyUploadResult.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\SocialGif\Runtime\Giphy\SG_GiphyUploader.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\SocialGif\Runtime\Utils\SG_ProxyPool.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\SocialGif\Runtime\Utils\SG_ReflectionUtils.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\SocialGif\Runtime\Utils\SG_Worker.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\UltimateMobile\Samples\AdvertisementSample\UM_AdvertisementExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\UltimateMobile\Samples\AnalyticsSample\UM_AnalyticsUseExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\UltimateMobile\Samples\CameraAndGallerySample\UM_CameraAndGalleryExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\UltimateMobile\Samples\ContactsSample\UM_ContactsSample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\UltimateMobile\Samples\FacebookSamples\UM_FB_Samples.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\UltimateMobile\Samples\FirebaseSample\UM_FirebaseSample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\UltimateMobile\Samples\GIFAPISamples\UM_GIF_Samples.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\UltimateMobile\Samples\GameServiceSample\Achievments\UM_AchievmentsMetaView.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\UltimateMobile\Samples\GameServiceSample\Achievments\UM_GameServiceAchievmentsExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\UltimateMobile\Samples\GameServiceSample\Leaderboards\UM_GameServiceLeaderboardsExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\UltimateMobile\Samples\GameServiceSample\Leaderboards\UM_LeaderboardMetaView.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\UltimateMobile\Samples\GameServiceSample\Multiplayer\UM_GameserviceMultiplayerSample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\UltimateMobile\Samples\GameServiceSample\SavedGames\UM_GameServiceSavedGamesExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\UltimateMobile\Samples\GameServiceSample\SavedGames\UM_SavaedGameMetaView.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\UltimateMobile\Samples\GameServiceSample\UM_GameServiceAuthExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\UltimateMobile\Samples\HelperUIScripts\UM_TabbedContent.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\UltimateMobile\Samples\InAppSample\UM_InAppExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\UltimateMobile\Samples\InAppSample\UM_PurchaseButton.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\UltimateMobile\Samples\InAppSample\UM_RewardManager.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\UltimateMobile\Samples\InAppSample\UM_StoreController.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\UltimateMobile\Samples\InAppSample\UM_TransactionObserverExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\UltimateMobile\Samples\LocalNotificationsSample\UM_LocalNotificationsExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\UltimateMobile\Samples\MedialPlayerSample\UM_MedialPlayerExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\UltimateMobile\Samples\SoicalSample\UM_SharingExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\UltimateMobile\Samples\WelcomePage\UM_AppFeaturesExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\UltimateMobile\Samples\WelcomePage\UM_BuildInfoExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\UltimateMobile\Samples\WelcomePage\UM_DialogsExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\UltimateMobile\Samples\WelcomePage\UM_SceneLink.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\CrossPlatform\UltimateMobile\Samples\WelcomePage\UM_WelcomeController.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\Foundation\APIModules\Public\SamplesUIFactory\Abstract\UIBuilder.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\Foundation\APIModules\Public\SamplesUIFactory\Runtime\Interfaces\IDataPanelController.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\Foundation\APIModules\Public\SamplesUIFactory\Runtime\SamplesUIFactory.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\Foundation\APIModules\Public\SamplesUIFactory\Runtime\Views\ButtonPanelViewUIController.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\Foundation\APIModules\Public\SamplesUIFactory\Runtime\Views\TabsPanelViewUIController.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\AndroidNativePro\Samples\AppExamples\CameraAdGalleryExample\AN_CameraAdGalleryExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\AndroidNativePro\Samples\AppExamples\ContactsEample\AN_ContactsEample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\AndroidNativePro\Samples\AppExamples\ContactsEample\AN_ContactsEampleView.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\AndroidNativePro\Samples\AppExamples\DialogsExample\AN_DialogsExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\AndroidNativePro\Samples\AppExamples\DialogsExample\AN_PlayVideoExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\AndroidNativePro\Samples\AppExamples\GeneralExample\AN_GeneralAppExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\AndroidNativePro\Samples\AppExamples\NotificationsExample\AN_NotificationsExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\AndroidNativePro\Samples\AppExamples\PermissionExample\AN_PermissionsExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\AndroidNativePro\Samples\FirebaseExamples\Messaging\FB_MessagingExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\AndroidNativePro\Samples\GooglePlayExamples\Scripts\AN_GMS_Achievements_Example.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\AndroidNativePro\Samples\GooglePlayExamples\Scripts\AN_GMS_Auth_Example.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\AndroidNativePro\Samples\GooglePlayExamples\Scripts\AN_GMS_Leaderboards_Example.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\AndroidNativePro\Samples\GooglePlayExamples\Scripts\AN_GMS_Snapshot_Example.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\AndroidNativePro\Samples\GooglePlayExamples\Scripts\AN_SwitchScene.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\AndroidNativePro\Samples\SocialExamples\AN_SocialExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\AndroidNativePro\Samples\VendinSamples\AN_BillingClientSample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\AndroidNativePro\Samples\VendinSamples\AN_ProductView.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\AndroidNativePro\Samples\VendinSamples\AN_VendingSample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\Samples\AVKitUseExamples\AVKitUseExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\Samples\AdSupport\ASIdentifierManagerExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\Samples\AppDelegateExample\ISN_AppdelegateUseExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\Samples\AppleSingIn\AuthorizationDelegateExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\Samples\AppleSingIn\ISN_AppleSignInUseExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\Samples\Base\Scripts\ISN_BaseIOSFeaturePreview.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\Samples\CoreLocationUseExamples\ISN_CoreLocationDelegateExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\Samples\CoreLocationUseExamples\ISN_CoreLocationUseExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\Samples\EventKitExamples\ISN_EventKitExamples.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\Samples\FoundationExamples\ISN_FoundationExamples.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\Samples\GameKitUseExamples\GameKitUseExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\Samples\GameKitUseExamples\ISN_GameKitUseExample_TvOS.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\Samples\MediaPlayerExample\ISN_MediaPlayerExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\Samples\ReplayKitUseExamples\ISN_ReplayKitUseExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\Samples\SocialExamples\ISN_CameraGalleryExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\Samples\SocialExamples\ISN_SocialExamples.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\Samples\StoreKitUseExamples\ISN_MarketExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\Samples\StoreKitUseExamples\ISN_PaymentManagerExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\Samples\UIKitUseExamples\ISN_UIImagePickerControllerExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\Samples\UIKitUseExamples\ISN_UIKitExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\Samples\UserNotificationsExamples\ISN_UserNotificationExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\Samples\UserNotificationsExamples\ISN_UserNotificationsExamples.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\Samples\iCloudUseExamples\DocumentationExample.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\Samples\iCloudUseExamples\iCloudUseExample.cs" />
     <Compile Include="Assets\Resources\Prefabs\Characters\Player\ModularRPGHeroesHP\TPController\Scripts\AnimatorMatcher.cs" />
     <Compile Include="Assets\Resources\Prefabs\Characters\Player\ModularRPGHeroesHP\TPController\Scripts\BoolOperator1.cs" />
     <Compile Include="Assets\Resources\Prefabs\Characters\Player\ModularRPGHeroesHP\TPController\Scripts\BoolOperator2.cs" />
@@ -218,75 +629,151 @@
     <Compile Include="Assets\Scripts\Utilities\SimplePool.cs" />
     <None Include="Assets\Resources\Prefabs\Characters\Player\ModularRPGHeroesHP\Shader\HPMaskTint.shader" />
     <None Include="Assets\Pack\Emerald AI\Credit\Credit.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\GameKit\ISN_GKLocalPlayerListener.h.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\Contacts\ISN_CNCommunication.m.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\GameKit\ISN_GKCommunication.h.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\EventKit\ISN_EventKit.mm.txt" />
+    <None Include="Assets\Resources\HelperResources\GleyPlugins\CrossPromo\Scripts\Version.txt" />
     <None Include="Assets\Pack\PolygonMini_Fantasy\Shaders\LocalFog_Multiply.shader" />
     <None Include="Assets\Pack\Emerald AI\Demo Source\AI Models\MeshSmith\ToonMonsterII\Toon Demon\Mesh\readMe.txt" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\PlaneWater_Shader.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\Ice_Shader.shader" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\StoreKit\ISN_SKStoreReviewController.mm.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\Photos\ISN_PHFetchOptions.mm.txt" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\Vertical Fog.shader" />
     <None Include="Assets\Pack\LeanTween\ReadMe.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\AuthenticationServices\ISN_ASAuthorizationOpenIDRequest.mm.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\WaterGreen_Shader.shader" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\ReplayKit\ISN_RPPreviewViewControllerDelegate.h.txt" />
+    <None Include="Assets\Resources\HelperResources\GleyPlugins\AllPlatformsSave\Scripts\Version.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\GameKit\ISN_GKGameCenterViewController.mm.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\CoreLocation\ISN_CLCommunication.h.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\EventKit\ISN_EventKit.h.txt" />
     <None Include="Assets\Resources\VictorsAssets\TouchControlsKit-Lite\TCK_Changelog.txt" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\WaterGreen_Shader.shader" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\ReplayKit\ISN_RPCommunication.m.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\Social\ISN_UIActivityViewController.mm.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\AdSupport\ISN_ASIdentifierManager.mm.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\AndroidNativePro\Android\Core\an_library.bundle\res\xml\file_paths.xml" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\GameKit\ISN_GKPlayer.h.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\AndroidNativePro\AndroidDisabled\Internal\an_gms.aar.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\StoreKit\ISN_SKTransactionObserver.m.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\GameKit\ISN_GKCommunication.mm.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\StoreKit\ISN_SKCommunication.m.txt" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\Magma_Shader.shader" />
     <None Include="Assets\Resources\VictorsAssets\TouchControlsKit-Lite\Content\FirstPersonExample\ReadMeToo.txt" />
     <None Include="Assets\Pack\ModularRPGHeroesHP\ReadMe.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\UserNotifications\ISN_UNUserNotificationCenterDelegate.mm.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\GameKit\ISN_GKLocalPlayer.mm.txt" />
     <None Include="Assets\Pack\LeanTween\License.txt" />
+    <None Include="Assets\Resources\HelperResources\GleyPlugins\RateGame\Scripts\Version.txt" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\Sun_Shader.shader" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\StoreKit\ISN_SKInAppManager.mm.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\Contacts\ISN_Contacts.mm.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\StoreKit\ISN_SKReceiptRefreshRequest.mm.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\Social\ISN_SocialGate.mm.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\UserNotifications\ISN_UNCommunication.mm.txt" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\Surface_Shader.shader" />
     <None Include="Assets\Pack\Emerald AI\Scripts\Shaders\Emerald AI UI +1.shader" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\GameKit\ISN_GKPlayer.mm.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\Ice_Shader.shader" />
     <None Include="Assets\Pack\Emerald AI\Demo Source\AI Models\MeshSmith\ToonMonsterII\Toon Mouse Spear\Mesh\readMe.txt" />
-    <None Include="Assets\JsonDotNet\link.xml" />
+    <None Include="Assets\Resources\HelperResources\JsonDotNet\link.xml" />
     <None Include="Assets\Pack\Emerald AI\Demo Source\AI Models\RainEntertainment\FantasyMonster2\Elf Mage Pack\readMe.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\GameKit\ISN_GKAchievementManager.m.txt" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\Cloud_Shader.shader" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\AndroidNativePro\AndroidDisabled\Internal\an_gallery.aar.txt" />
     <None Include="Assets\Pack\PolygonMini_Fantasy\Shaders\DistanceGradient.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\PlaneLava_Shader.shader" />
+    <None Include="Assets\Resources\HelperResources\GleyPlugins\GameServices\Scripts\Version.txt" />
     <None Include="Assets\Pack\PolygonMini_Fantasy\Shaders\WorldGradient.shader" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\Photos\ISN_PHFetchResult.mm.txt" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\PlaneWater_Shader.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\Water_Shader.shader" />
+    <None Include="Assets\Resources\HelperResources\GleyPlugins\JumpyCompleteGame\Scripts\Version.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\Pack\Emerald AI\Scripts\Shaders\Emerald AI Outline Shader.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\Pack\ModularRPGHeroesHP\Shader\HPMaskTint.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
+    <None Include="Assets\Resources\HelperResources\Easy Save 3\Change Log\Change Log.txt" />
     <None Include="Assets\Pack\Emerald AI\Demo Source\AI Models\BitGem\Skeleton_Swordsman\Animations\skeleton_swordsman_animation_list.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\GameKit\ISN_GKLeaderboardManager.mm.txt" />
     <None Include="Assets\Pack\Emerald AI\Demo Source\AI Models\MikeMoose\Art\Shaders\SeeThrough.shader" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\AVKit\ISN_AVPlayerViewController.mm.txt" />
     <None Include="Assets\Pack\PolygonMini_Fantasy\Shaders\LocalFog_Overlay.shader" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\AppDelegate\ISN_UIApplicationDelegate.mm.txt" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\AndroidNativePro\Android\Core\an_library.bundle\res\values\strings.xml" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\MediaPlayer\ISN_MPRemoteCommandCenter.mm.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\UserNotifications\ISN_UNUserNotificationCenter.mm.txt" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\Magma_Shader.shader" />
     <None Include="Assets\Pack\Emerald AI\Demo Source\AI Models\MeshSmith\ToonMonsterII\Toon Rock\Mesh\readMe.txt" />
+    <None Include="Assets\Resources\HelperResources\GleyPlugins\CrossPromo\PromoFiles\AppStorePromoFile.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\Third-PartyNotices.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\Pack\Cartoon Castle Building Kit\ReadMe.txt" />
     <None Include="Assets\Scripts\Utilities\Priority_Queue\LICENSE.txt" />
+    <None Include="Assets\Resources\HelperResources\GleyPlugins\EasyIAP\Scripts\Version.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\UserNotifications\ISN_UNUserNotificationCenterDelegate.h.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\StoreKit\ISN_SKProductsRequestDelegate.m.txt" />
+    <None Include="Assets\Resources\HelperResources\GleyPlugins\CrossPromo\PromoFiles\GooglePlayPromoFile.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\GameKit\ISN_GKLocalPlayerManager.h.txt" />
     <None Include="Assets\Pack\PolygonMini_Fantasy\Shaders\WorldFog.shader" />
     <None Include="Assets\Pack\PolygonMini_Fantasy\Shaders\LocalFog_Add.shader" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\Photos\ISN_PHPhotoLibrary.mm.txt" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\MediaPlayer\ISN_MPMusicPlayerController.mm.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\AndroidNativePro\AndroidDisabled\Internal\an_vending.aar.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\Photos\ISN_PHAsset.mm.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\MediaPlayer\ISN_MPMusicPlayerController.h.txt" />
+    <None Include="Assets\Resources\HelperResources\GleyPlugins\Notifications\Scripts\Version.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\CoreLocation\ISN_CLLocationManager.mm.txt" />
     <None Include="Assets\Pack\LeanTween\Examples\Archived\2dUnlitWithFade.shader" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\UserNotifications\ISN_UNUserNotificationCenter.h.txt" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\CustomStandardSpecular.shader" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\CoreLocation\ISN_CLCommunication.mm.txt" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\Lava_Shader.shader" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\Contacts\ISN_CNCommunication.h.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\StoreKit\ISN_SKTransactionObserver.h.txt" />
     <None Include="Assets\Pack\Emerald AI\Scripts\Shaders\Emerald AI UI.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\PlaneLava_Shader.shader" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\GameKit\ISN_GKLocalPlayerListener.m.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\UserNotifications\ISN_UNCommunication.h.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\Resources\Prefabs\Characters\Player\ModularRPGHeroesHP\ReadMe.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\ReplayKit\ISN_RPScreenRecorder.mm.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\StoreKit\ISN_SKProductsRequestDelegate.h.txt" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\Fog_Shader.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\CustomStandardSpecular.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\Water_Shader.shader" />
     <None Include="Assets\Pack\PolygonMini_Fantasy\Shaders\LocalGradient.shader" />
+    <None Include="Assets\Resources\HelperResources\GleyPlugins\Ads\AdOrderFile\AdOrder.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\GameKit\ISN_GKLocalPlayerManager.mm.txt" />
+    <None Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\Version.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\AndroidNativePro\Android\Core\an_library.bundle\res\drawable\ic_launcher_background.xml" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\Scripts\Utilities\Priority_Queue\GITHUB PAGE.txt" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\Lava_Shader.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\GameKit\ISN_GKAchievementManager.h.txt" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\ReplayKit\ISN_RPPreviewViewControllerDelegate.m.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\AuthenticationServices\ISN_ASAuthorizationController.mm.txt" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\Cloud_Shader.shader" />
     <None Include="Assets\Pack\Emerald AI\Resources\EmeraldAIFactions.txt" />
     <None Include="Assets\Resources\Prefabs\Characters\Minion\RPG Monster Wave Polyart\Shaders\PolyArtMaskTint.shader" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\StoreKit\ISN_SKCommunication.h.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\AuthenticationServices\ISN_ASAuthorizationAppleIDProvider.mm.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\ReplayKit\ISN_RPCommunication.h.txt" />
+    <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\MediaPlayer\ISN_MPMediaPickerController.mm.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\Surface_Shader.shader" />
     <Reference Include="Unity.Timeline.Editor">
@@ -499,8 +986,11 @@
     <Reference Include="UnityEngine.XRModule">
       <HintPath>D:/Program Files/Unity/2019.3.0f6/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityWindowsPhonePlugin">
+      <HintPath>D:/Unity_project/StillMazeHero/Assets/Resources/HelperResources/GleyPlugins/AllPlatformsSave/Plugins/UnityWindowsPhonePlugin.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>D:/Unity_project/StillMazeHero/Assets/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
+      <HintPath>D:/Unity_project/StillMazeHero/Assets/Resources/HelperResources/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>D:/Program Files/Unity/2019.3.0f6/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
@@ -867,6 +1357,78 @@
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
       <Project>{BAA39084-CD42-F301-AF3B-D0DC2EA1A2FA}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
+    <ProjectReference Include="SA.Android.Editor.csproj">
+      <Project>{D21254DC-8AC3-8F95-EDB1-96873EA153B8}</Project>
+      <Name>SA.Android.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="SA.Foundation.csproj">
+      <Project>{0471AF38-D52F-04EB-79FA-1866DBF4C34E}</Project>
+      <Name>SA.Foundation</Name>
+    </ProjectReference>
+    <ProjectReference Include="SA.CrossPlatform.csproj">
+      <Project>{6F0C8283-0C78-DF1C-4ABC-AA3C3AC35473}</Project>
+      <Name>SA.CrossPlatform</Name>
+    </ProjectReference>
+    <ProjectReference Include="SA.iOS.csproj">
+      <Project>{EBB04160-CD39-FFB7-6EFE-40F62BFE8373}</Project>
+      <Name>SA.iOS</Name>
+    </ProjectReference>
+    <ProjectReference Include="SA.Foundation.Network.csproj">
+      <Project>{3F50ABAD-EE72-1934-02B0-D88965571568}</Project>
+      <Name>SA.Foundation.Network</Name>
+    </ProjectReference>
+    <ProjectReference Include="SA.iOS.XCode.Editor.csproj">
+      <Project>{B19A73BB-72CB-F27A-60EF-86681AD26763}</Project>
+      <Name>SA.iOS.XCode.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="SA.Foundation.ThirdParty.Editor.csproj">
+      <Project>{37123414-C079-B436-70DA-A7018F492AF3}</Project>
+      <Name>SA.Foundation.ThirdParty.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="SA.iOS.Editor.csproj">
+      <Project>{E6C3823C-C688-0204-CDD7-B3F9A12EFDCC}</Project>
+      <Name>SA.iOS.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="SA.CrossPlatform.Editor.csproj">
+      <Project>{A034BBE7-C46B-4E39-FFF2-91BF2BBC7F27}</Project>
+      <Name>SA.CrossPlatform.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="SA.Foundation.Editor.csproj">
+      <Project>{3F325368-2FE0-7564-E261-7F76D7E1762A}</Project>
+      <Name>SA.Foundation.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="StansAssets.Foundation.csproj">
+      <Project>{8B776E21-6D0A-3402-B91C-6C29F2913DFD}</Project>
+      <Name>StansAssets.Foundation</Name>
+    </ProjectReference>
+    <ProjectReference Include="SA.Android.csproj">
+      <Project>{E3EFEAE7-810E-5A59-2643-BDC2B4CD0DBA}</Project>
+      <Name>SA.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="StansAssets.Foundation.Editor.csproj">
+      <Project>{5D506AAF-DA28-2EA1-CBA5-BB38FEC13B6D}</Project>
+      <Name>StansAssets.Foundation.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="SA.Facebook.Editor.csproj">
+      <Project>{603274C2-F62B-EB16-53BE-4D0792546DA6}</Project>
+      <Name>SA.Facebook.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="SA.Android.Manifest.csproj">
+      <Project>{FAA82A0C-D438-9858-9D5D-9DAB721CE825}</Project>
+      <Name>SA.Android.Manifest</Name>
+    </ProjectReference>
+    <ProjectReference Include="SA.Facebook.csproj">
+      <Project>{3625ECBC-BC78-5858-81F8-0366E70951A0}</Project>
+      <Name>SA.Facebook</Name>
+    </ProjectReference>
+    <ProjectReference Include="SA.Android.Manifest.Editor.csproj">
+      <Project>{81D6CC66-43AE-49D3-A7D6-06CF5741FDA0}</Project>
+      <Name>SA.Android.Manifest.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="SA.iOS.XCode.csproj">
+      <Project>{DADB596B-FEC8-C421-6F55-DAC2F75FE2B7}</Project>
+      <Name>SA.iOS.XCode</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

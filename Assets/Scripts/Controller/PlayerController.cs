@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviour
 		playerAnim.CrossFade("Attack01",0.1f);
 		//playerAnim.CrossFade(randomAttacks[Random.Range(0, randomAttacks.Length)], 0.1f); // Play Random attack animation
 		pressedAttack = false;
-
+		
 		// Detect weapon box colider to enemy
 
 		// Calculate damage to enemy

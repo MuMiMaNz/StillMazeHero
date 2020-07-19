@@ -75,6 +75,83 @@
     <Compile Include="Assets\Pack\Emerald AI\Scripts\Player\Editor\PlayerWeaponEditor.cs" />
     <Compile Include="Assets\Pack\Emerald AI\Scripts\Player\Editor\PlayerWeaponEditor3rdPerson.cs" />
     <Compile Include="Assets\Pack\LeanTween\Editor\LeanTweenDocumentationEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Editor\AddES3Prefab.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Editor\AutoSaveWindow.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Editor\ES3AutoSaveEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Editor\ES3AutoSaveMgrEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Editor\ES3EditorStyle.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Editor\ES3EditorUtility.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Editor\ES3GlobalReferencesEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Editor\ES3InspectorInfoEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Editor\ES3PlayMakerEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Editor\ES3Postprocessor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Editor\ES3PrefabEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Editor\ES3ReferenceMgrEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Editor\ES3SettingsEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Editor\ES3Window.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Editor\HomeWindow.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Editor\ReferencesWindow.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Editor\SettingsWindow.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Editor\ToolsWindow.cs" />
+    <Compile Include="Assets\Resources\HelperResources\Easy Save 3\Editor\TypesWindow.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\About\Editor\AssetState.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\About\Editor\AssetStorePackage.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\About\Editor\AssetVersion.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\About\Editor\AssetVersions.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\About\Editor\EditorFileLoader.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\About\Editor\GleyAboutWindow.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\About\Editor\GleyAssets.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\Editor\AdSettingsDataEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\Editor\SettingsWindow.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\GameFlowSupport\Editor\HideBannerEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\GameFlowSupport\Editor\InitializeGleyAdsEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\GameFlowSupport\Editor\IsInterstitialAvailableEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\GameFlowSupport\Editor\IsRewardedVideoAvailableEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\GameFlowSupport\Editor\RemoveAdsEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\GameFlowSupport\Editor\SetConsentToNoEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\GameFlowSupport\Editor\SetConsentToYesEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\GameFlowSupport\Editor\ShowBannerEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\GameFlowSupport\Editor\ShowInterstitialEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\GameFlowSupport\Editor\ShowRewardedVideoEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Ads\Scripts\VisualScriptingSupport\GameFlowSupport\Editor\UserConsentWasSetEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\AllPlatformsSave\Scripts\Editor\SaveSettingsWindow.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\CrossPromo\Scripts\Editor\SettingsWindow.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\CrossPromo\Scripts\VisualScriptingSupport\GameFlow\Editor\AutoLoadAndShowEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\CrossPromo\Scripts\VisualScriptingSupport\GameFlow\Editor\ForceShowPromoEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\CrossPromo\Scripts\VisualScriptingSupport\GameFlow\Editor\InitializeCrossPromoEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\CrossPromo\Scripts\VisualScriptingSupport\GameFlow\Editor\ShowPromoEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\EasyIAP\Scripts\Editor\IAPDataEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\EasyIAP\Scripts\Editor\IAPSettingsWindow.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\EasyIAP\Scripts\VisiualScriptingSupport\GameFlowSupport\Editor\BuyProductEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\EasyIAP\Scripts\VisiualScriptingSupport\GameFlowSupport\Editor\CheckIfBoughtEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\EasyIAP\Scripts\VisiualScriptingSupport\GameFlowSupport\Editor\GetProductValueEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\EasyIAP\Scripts\VisiualScriptingSupport\GameFlowSupport\Editor\GetStorePriceEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\EasyIAP\Scripts\VisiualScriptingSupport\GameFlowSupport\Editor\InitializeIAPEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\EasyIAP\Scripts\VisiualScriptingSupport\GameFlowSupport\Editor\IsInitializedEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\EasyIAP\Scripts\VisiualScriptingSupport\GameFlowSupport\Editor\RestorePurchasesEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\GameServices\Scripts\Editor\GameServicesSettingsWindow.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\GameServices\Scripts\VisualScriptingSupport\GameFlowSupport\Editor\LoginEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\GameServices\Scripts\VisualScriptingSupport\GameFlowSupport\Editor\LogoutEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\GameServices\Scripts\VisualScriptingSupport\GameFlowSupport\Editor\ShowAchievementsEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\GameServices\Scripts\VisualScriptingSupport\GameFlowSupport\Editor\ShowLeaderboardsEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\GameServices\Scripts\VisualScriptingSupport\GameFlowSupport\Editor\SubmitAchievementEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\GameServices\Scripts\VisualScriptingSupport\GameFlowSupport\Editor\SubmitScoreEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\JumpyCompleteGame\Scripts\Editor\JumpyEditorWindow.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Notifications\Scripts\Editor\SettingsWindow.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Notifications\Scripts\VisualScriptingSupport\GameFlowSupport\Editor\AppWasOpenFromNotificationEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Notifications\Scripts\VisualScriptingSupport\GameFlowSupport\Editor\InitializeNotificationsEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\Notifications\Scripts\VisualScriptingSupport\GameFlowSupport\Editor\SendNotificationEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\RateGame\Scripts\Editor\RateGameSettingsEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\RateGame\Scripts\Editor\SettingsWindow.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\RateGame\Scripts\VisualScriptingSupport\GameFlowSupport\Editor\ForceShowRatePopupEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\RateGame\Scripts\VisualScriptingSupport\GameFlowSupport\Editor\IncreaseCustomEventsEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\GleyPlugins\RateGame\Scripts\VisualScriptingSupport\GameFlowSupport\Editor\ShowRatePopupEditor.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\Foundation\APIModules\Public\SamplesUIFactory\Editor\Inspectors\ButtonPanelViewUIControllerInspector.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\Foundation\APIModules\Public\SamplesUIFactory\Editor\Inspectors\TabsPanelViewUIControllerInspector.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\Foundation\APIModules\Public\SamplesUIFactory\Editor\UIBuilders\ButtonsPanelBuilder.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\Foundation\APIModules\Public\SamplesUIFactory\Editor\UIBuilders\DescriptionPanelBuilder.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\Foundation\APIModules\Public\SamplesUIFactory\Editor\UIBuilders\TabsBuilder.cs" />
+    <Compile Include="Assets\Resources\HelperResources\StansAssets\Foundation\APIModules\Public\SamplesUIFactory\Editor\UIBuilders\TitlePanelBuilder.cs" />
     <Compile Include="Assets\Resources\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\CustomInspectors\Controllers\Base\AxesBasedControllerEditor.cs" />
     <Compile Include="Assets\Resources\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\CustomInspectors\Controllers\Base\ControllerBaseEditor.cs" />
     <Compile Include="Assets\Resources\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\CustomInspectors\Controllers\TCKButtonEditor.cs" />
@@ -89,6 +166,12 @@
     <Compile Include="Assets\Resources\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\Utils\TCKPrefabCreator.cs" />
     <Compile Include="Assets\Resources\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\Windows\TCKWindow.cs" />
     <Compile Include="Assets\Resources\VictorsAssets\TouchControlsKit-Lite\Scripts\Editor\Windows\Tabs\TCKAboutTab.cs" />
+    <None Include="Assets\Resources\HelperResources\Easy Save 3\Editor\ES3ValueTypeTemplate.txt" />
+    <None Include="Assets\Resources\HelperResources\Easy Save 3\Editor\ES3ComponentTypeTemplate.txt" />
+    <None Include="Assets\Resources\HelperResources\Easy Save 3\Editor\ES3TypeTemplate.txt" />
+    <None Include="Assets\Resources\HelperResources\Easy Save 3\Editor\ES3Type_MaterialTemplate.txt" />
+    <None Include="Assets\Resources\HelperResources\Easy Save 3\Editor\ES3ScriptableObjectTypeTemplate.txt" />
+    <None Include="Assets\Resources\HelperResources\Easy Save 3\Editor\ES3ClassTypeTemplate.txt" />
     <Reference Include="UnityEditor.TestRunner">
       <HintPath>D:/Unity_project/StillMazeHero/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
     </Reference>
@@ -329,8 +412,26 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/2015/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
+    <Reference Include="UnityWindowsPhonePlugin">
+      <HintPath>D:/Unity_project/StillMazeHero/Assets/Resources/HelperResources/GleyPlugins/AllPlatformsSave/Plugins/UnityWindowsPhonePlugin.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>D:/Unity_project/StillMazeHero/Assets/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
+      <HintPath>D:/Unity_project/StillMazeHero/Assets/Resources/HelperResources/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.IOSResolver_v1.2.153">
+      <HintPath>D:/Unity_project/StillMazeHero/Library/PackageCache/com.google.external-dependency-manager@1.2.153/ExternalDependencyManager/Editor/Google.IOSResolver_v1.2.153.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.JarResolver_v1.2.153">
+      <HintPath>D:/Unity_project/StillMazeHero/Library/PackageCache/com.google.external-dependency-manager@1.2.153/ExternalDependencyManager/Editor/Google.JarResolver_v1.2.153.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.PackageManagerResolver_v1.2.153">
+      <HintPath>D:/Unity_project/StillMazeHero/Library/PackageCache/com.google.external-dependency-manager@1.2.153/ExternalDependencyManager/Editor/Google.PackageManagerResolver_v1.2.153.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.VersionHandler">
+      <HintPath>D:/Unity_project/StillMazeHero/Library/PackageCache/com.google.external-dependency-manager@1.2.153/ExternalDependencyManager/Editor/Google.VersionHandler.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.VersionHandlerImpl_v1.2.153">
+      <HintPath>D:/Unity_project/StillMazeHero/Library/PackageCache/com.google.external-dependency-manager@1.2.153/ExternalDependencyManager/Editor/Google.VersionHandlerImpl_v1.2.153.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>D:/Unity_project/StillMazeHero/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
@@ -704,6 +805,78 @@
     <ProjectReference Include="Assembly-CSharp.csproj">
       <Project>{FEE3BD07-82C9-2472-D385-F51B0A47F1AD}</Project>
       <Name>Assembly-CSharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="SA.Android.Editor.csproj">
+      <Project>{D21254DC-8AC3-8F95-EDB1-96873EA153B8}</Project>
+      <Name>SA.Android.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="SA.Foundation.csproj">
+      <Project>{0471AF38-D52F-04EB-79FA-1866DBF4C34E}</Project>
+      <Name>SA.Foundation</Name>
+    </ProjectReference>
+    <ProjectReference Include="SA.CrossPlatform.csproj">
+      <Project>{6F0C8283-0C78-DF1C-4ABC-AA3C3AC35473}</Project>
+      <Name>SA.CrossPlatform</Name>
+    </ProjectReference>
+    <ProjectReference Include="SA.iOS.csproj">
+      <Project>{EBB04160-CD39-FFB7-6EFE-40F62BFE8373}</Project>
+      <Name>SA.iOS</Name>
+    </ProjectReference>
+    <ProjectReference Include="SA.Foundation.Network.csproj">
+      <Project>{3F50ABAD-EE72-1934-02B0-D88965571568}</Project>
+      <Name>SA.Foundation.Network</Name>
+    </ProjectReference>
+    <ProjectReference Include="SA.iOS.XCode.Editor.csproj">
+      <Project>{B19A73BB-72CB-F27A-60EF-86681AD26763}</Project>
+      <Name>SA.iOS.XCode.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="SA.Foundation.ThirdParty.Editor.csproj">
+      <Project>{37123414-C079-B436-70DA-A7018F492AF3}</Project>
+      <Name>SA.Foundation.ThirdParty.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="SA.iOS.Editor.csproj">
+      <Project>{E6C3823C-C688-0204-CDD7-B3F9A12EFDCC}</Project>
+      <Name>SA.iOS.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="SA.CrossPlatform.Editor.csproj">
+      <Project>{A034BBE7-C46B-4E39-FFF2-91BF2BBC7F27}</Project>
+      <Name>SA.CrossPlatform.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="SA.Foundation.Editor.csproj">
+      <Project>{3F325368-2FE0-7564-E261-7F76D7E1762A}</Project>
+      <Name>SA.Foundation.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="StansAssets.Foundation.csproj">
+      <Project>{8B776E21-6D0A-3402-B91C-6C29F2913DFD}</Project>
+      <Name>StansAssets.Foundation</Name>
+    </ProjectReference>
+    <ProjectReference Include="SA.Android.csproj">
+      <Project>{E3EFEAE7-810E-5A59-2643-BDC2B4CD0DBA}</Project>
+      <Name>SA.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="StansAssets.Foundation.Editor.csproj">
+      <Project>{5D506AAF-DA28-2EA1-CBA5-BB38FEC13B6D}</Project>
+      <Name>StansAssets.Foundation.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="SA.Facebook.Editor.csproj">
+      <Project>{603274C2-F62B-EB16-53BE-4D0792546DA6}</Project>
+      <Name>SA.Facebook.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="SA.Android.Manifest.csproj">
+      <Project>{FAA82A0C-D438-9858-9D5D-9DAB721CE825}</Project>
+      <Name>SA.Android.Manifest</Name>
+    </ProjectReference>
+    <ProjectReference Include="SA.Facebook.csproj">
+      <Project>{3625ECBC-BC78-5858-81F8-0366E70951A0}</Project>
+      <Name>SA.Facebook</Name>
+    </ProjectReference>
+    <ProjectReference Include="SA.Android.Manifest.Editor.csproj">
+      <Project>{81D6CC66-43AE-49D3-A7D6-06CF5741FDA0}</Project>
+      <Name>SA.Android.Manifest.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="SA.iOS.XCode.csproj">
+      <Project>{DADB596B-FEC8-C421-6F55-DAC2F75FE2B7}</Project>
+      <Name>SA.iOS.XCode</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

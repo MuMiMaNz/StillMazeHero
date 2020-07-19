@@ -1,11 +1,13 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections.Generic;
-using System.Xml;
-using System.Xml.Schema;
-using System.Xml.Serialization;
+using System.Collections;
+//using System.Xml;
+//using System.Xml.Schema;
+//using System.Xml.Serialization;
 
-public enum MinionState { Chase, ChaseStraight, ChaseToPatrol ,Patrol,GetHit ,  Idle , Attack, Die ,InvalidTile}
+public enum MinionState { Chase, ChaseStraight, ChaseToPatrol ,Patrol ,  Idle , Attack, Die ,InvalidTile}
+public enum MinionState2 { Normal, GetHit }
 
 public class Minion : Character {
 
@@ -22,6 +24,9 @@ public class Minion : Character {
 	public int spaceNeed { get; protected set; }
 
 	public MinionState minionState { get; protected set; }
+	private MinionState previusState ;
+
+	public MinionState2 minionState2 { get; protected set; }
 	// Maximum tile that minion will patrol
 	public int patrolRange { get; protected set; }
 	// Set of patrol point tiles
@@ -38,7 +43,7 @@ public class Minion : Character {
 	public bool playerInChaseStraight { get; set; }
 
 	public bool canTakeDMG { get; protected set; }
-	private float involuntaryTime = 0.2f;
+	private float involuntaryTime = 0.4f;
 
 	public float X {
 		get {
@@ -142,12 +147,24 @@ public class Minion : Character {
 
 	private float timer = 0;
 	private float timerMax = 0;
-	private bool WaitedInSeconds(float deltaTime, float seconds) {
+	private bool WaitedInPatrol(float deltaTime, float seconds) {
 		timerMax = seconds;
 		timer += deltaTime;
 
 		if (timer >= timerMax) {
 			timer = 0;
+			return true;
+		}
+		return false;
+	}
+	private float timer2 = 0;
+	private float timerMax2 = 0;
+	private bool WaitedInGetHit(float deltaTime, float seconds) {
+		timerMax2 = seconds;
+		timer2 += deltaTime;
+
+		if (timer2 >= timerMax2) {
+			timer2 = 0;
 			return true;
 		}
 		return false;
@@ -191,10 +208,15 @@ public class Minion : Character {
 
 	#region Minion Movement
 
-	// Set Patrol Point in 4 Quadrant
-	public void SetValidPatrolPoints(World world) {
+	
+	public void SetPlayMode(World world) {
 
+		canTakeDMG = true;
+
+		// Set Patrol Point in 4 Quadrant
 		minionState = MinionState.Patrol;
+		//minionState2 = MinionState2.Normal;
+		
 		patrolPoints = new List<Tile>();
 
 		if (patrolRange == 0)
@@ -446,7 +468,7 @@ public class Minion : Character {
 		if (currTile == DestTile) {
 			// Set Idle state for 2 seconds
 			minionState = MinionState.Idle;
-			if (!WaitedInSeconds(deltaTime, idleWaitTime)) return;
+			if (!WaitedInPatrol(deltaTime, idleWaitTime)) return;
 
 			// then set new Destination
 			minionState = MinionState.Patrol;
@@ -552,10 +574,12 @@ public class Minion : Character {
 
 	#endregion
 
-	public float CalAndTakeDamage() {
+	public void MinionGethit() {
+		//previusState = minionState;
+		minionState2 = MinionState2.GetHit;
+	}
 
-		MinionState previusState = minionState;
-		minionState = MinionState.GetHit;
+	public float CalAndTakeDamage() {
 
 		Player p = World.player;
 
@@ -575,9 +599,11 @@ public class Minion : Character {
 		return finalDMG;
 	}
 
+
 	public void Update(float deltaTime) {
+
 		// If see Player 
-		if (seePlayer ) {
+		if (seePlayer) {
 			// If not in ATK range ,Chase him ! Straight ahead
 			if (playerInATKRange == false) {
 				minionState = MinionState.Chase;
@@ -608,7 +634,7 @@ public class Minion : Character {
 			if (minionState == MinionState.Chase || minionState == MinionState.Attack) {
 
 				// Wait for 2 seconds if really not see player and comeback to patrol
-				if (!WaitedInSeconds(deltaTime, 2)) {
+				if (!WaitedInPatrol(deltaTime, 2)) {
 					return;
 				}
 				else {
@@ -636,6 +662,22 @@ public class Minion : Character {
 			DestTile = new Tile(World, currTile.X + UnityEngine.Random.Range(-1, 2),
 				currTile.Z + UnityEngine.Random.Range(-1, 2));
 		}
+
+		//If minion get hit, Involuntary for less a second
+		if (minionState2 == MinionState2.GetHit) {
+				if (!WaitedInGetHit(deltaTime, involuntaryTime)) {
+					//Debug.Log(name + " :  " + minionState2);
+					canTakeDMG = false;
+					return;
+				}
+				else {
+					minionState2 = MinionState2.Normal;
+					//Debug.Log(name + " :  " + minionState2);
+					canTakeDMG = true;
+				}
+			
+			}
+
 
 	}
 
