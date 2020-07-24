@@ -140,7 +140,7 @@ public class CharacterGraphicController : MonoBehaviour {
 		//Debug.Log("OnMinionChanged");
 
 		if (minionGameObjectMap.ContainsKey(m) == false) {
-			Debug.LogError("OnCharacterChanged -- trying to change visuals for Minion not in our map.");
+			Debug.LogError("OnCharacterChanged -- Minion not in minionGameObjectMap.");
 			return;
 		}
 		GameObject m_go = minionGameObjectMap[m];
@@ -148,8 +148,6 @@ public class CharacterGraphicController : MonoBehaviour {
 
 		// Find Canvas in child
 		GameObject m_canvas = m_go.transform.Find("CharCanvas").gameObject;
-		HealthBar hb = m_canvas.GetComponentInChildren<HealthBar>();
-		hb.HealthBarChange(m.HP,m.MaxHP);
 		// Rotate canvas to main camera
 		m_canvas.transform.position = m_go.transform.position + new Vector3(0, 0, 0.5f);
 		m_canvas.transform.rotation = Camera.main.transform.rotation;
@@ -163,18 +161,27 @@ public class CharacterGraphicController : MonoBehaviour {
 		else {
 			m_go.transform.position = new Vector3(m.X, 0, m.Z);
 		}
-		// Set front rotation
-		if (m.directionVector != Vector3.zero) {
-			// If player attack form behind rotate to player
-			if (m.seePlayer == false) {
+
+		// If minion got hit from behind , rotate to player and Attack player
+		if(m.minionState2 == MinionState2.GetHit && m.seePlayer == false) {
+			// Vector3 direction = new Vector3(playerGO.transform.position.x - m_go.transform.position.x,0,playerGO.transform.position.z - m_go.transform.position.z);
+			// m_go.transform.rotation = Quaternion.Slerp(m_go.transform.rotation, Quaternion.LookRotation(direction), 0.02f);
+			m.seePlayer = true;
+			m.playerInATKRange = true;
+		}
+		
+		// If not see Player, Rotate to Patrol direction
+		if (m.seePlayer == false) {
+			if (m.directionVector != Vector3.zero) {
 				m_go.transform.rotation = Quaternion.Slerp(m_go.transform.rotation, Quaternion.LookRotation(m.directionVector), 0.08f);	
 			}
-			else {
-				Vector3 direction = playerGO.transform.position - m_go.transform.position;
-				m_go.transform.rotation = Quaternion.Slerp(m_go.transform.rotation, Quaternion.LookRotation(direction), 0.08f);
-				//m_go.transform.LookAt(playerGO.transform);
-			}
 		}
+			// If see Player, Rotate to player (not Y position)
+		else {
+			Vector3 direction = new Vector3(playerGO.transform.position.x - m_go.transform.position.x,0,playerGO.transform.position.z - m_go.transform.position.z);
+			m_go.transform.rotation = Quaternion.Slerp(m_go.transform.rotation, Quaternion.LookRotation(direction), 0.04f);
+		}
+		
 
 		// Set Animator variable
 
@@ -235,16 +242,13 @@ public class CharacterGraphicController : MonoBehaviour {
 			default:
 				break;
 		}
+		// Death after animation end
 		if (m.minionState == MinionState.Die &&
 			m_anim.GetCurrentAnimatorStateInfo(0).IsName("Die") &&
 			m_anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f) {
 			m.Death();
 		}
-		if(m.minionState2 == MinionState2.GetHit && m.seePlayer == false) {
-			Vector3 direction = playerGO.transform.position - m_go.transform.position;
-			m_go.transform.rotation = Quaternion.Slerp(m_go.transform.rotation, Quaternion.LookRotation(direction), 0.02f);
-			m.seePlayer = true;
-		}
+		
 	}
 
 	private IEnumerator FindTargetsWithDelay(Minion m) {

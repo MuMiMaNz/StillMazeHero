@@ -7,7 +7,7 @@ public class HealthBar : MonoBehaviour
 	private Image barImage;
 	private Text barText;
 
-	private void Start() {
+	private void Awake() {
 		barImage = GetComponent<Image>();
 		barText = GetComponentInChildren<Text>();
 	}

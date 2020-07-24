@@ -26,6 +26,7 @@ public class CharCanvasController : MonoBehaviour
 		instance.name = "CharCanvas";
 		instance.transform.position = Vector3.zero;
 		instance.transform.SetParent(parent, false);
+		instance.SetActive(false);
 
 		return instance;
 	}
