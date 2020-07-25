@@ -121,15 +121,6 @@ public class Player : Character {
 		//}
 	}
 	
-	public Stat GetPrimaryStat() {
-		if (STR.isPrimaryStat) return STR;
-		else if (INT.isPrimaryStat) return INT;
-		else if (VIT.isPrimaryStat) return VIT;
-		else if (DEX.isPrimaryStat) return DEX;
-		else if (AGI.isPrimaryStat) return AGI;
-		else if (LUK.isPrimaryStat) return LUK;
-		else return null;
-	}
 
 	// TODO : Set primary waepon by player click select weapon
 	public void SetPrimaryWeapon() {
@@ -155,6 +146,20 @@ public class Player : Character {
 		//}
 
 		return p;
+	}
+
+	public float TakeDamage(Minion m) {
+
+		Stat primStat = m.GetPrimaryStat();
+
+		float AtkDMG = ((primStat.BaseValue + primStat.BuffValue) * UnityEngine.Random.Range(0f, 2.0f)) ;
+
+		int finalDMG = Mathf.RoundToInt(AtkDMG - (DEF * 2.5f));
+		HP -= finalDMG;
+
+		Debug.Log("Player HP :" + HP);
+
+		return finalDMG;
 	}
 
 	public void RegisterOnChangedCallback(Action<Player> cb) {

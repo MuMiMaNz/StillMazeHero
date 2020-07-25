@@ -27,6 +27,16 @@ public class Character {
 
 	public Tile charStartTile { get; protected set; }
 
+	public Stat GetPrimaryStat() {
+		if (STR.isPrimaryStat) return STR;
+		else if (INT.isPrimaryStat) return INT;
+		else if (VIT.isPrimaryStat) return VIT;
+		else if (DEX.isPrimaryStat) return DEX;
+		else if (AGI.isPrimaryStat) return AGI;
+		else if (LUK.isPrimaryStat) return LUK;
+		else return null;
+	}
+
 
 	//public Character() {
 

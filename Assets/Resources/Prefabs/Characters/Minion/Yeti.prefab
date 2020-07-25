@@ -2063,3 +2063,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea35c01b58b704cddb25123b2a7ee906, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MinionGO: {fileID: 6915106198529149815}
