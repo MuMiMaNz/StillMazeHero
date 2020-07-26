@@ -9,21 +9,37 @@ public class MinionMeleeCTR : MonoBehaviour
 	World World {
 		get { return WorldController.Instance.World; }
 	}	private CharacterGraphicController cgc;
-	private PlayerController playerController;
+	private HealthBar playerHPBar ;
+	private Player p;
+	private Minion m;
 
 	private void OnEnable() {
-		//playerController = GameObject.Find("PlayerController").GetComponent<PlayerController>();
 		cgc = GameObject.Find("CharacterController").GetComponent<CharacterGraphicController>();
+	}
+	
+	public void SetPlayMode(){
+		m = DictionaryHelper.KeyByValue<Minion,GameObject>(cgc.minionGameObjectMap, MinionGO);
+		p = World.player;
+		playerHPBar = GameObject.Find("PlayerHPBar").GetComponent<HealthBar>();
+		playerHPBar.HealthBarChange(p.HP,p.MaxHP);
+	}
+	public void RemoveMinionMeleeCTR(){
+		m = null;
+		p = null;
+		playerHPBar = null;
+		cgc = null;
 	}
 
 	private void OnTriggerEnter(Collider other) {
 
 		if (other.gameObject.tag == "Player" ) {
 			//Debug.Log(MinionGO.name + "  Hit  " + other.gameObject.name);
-			Minion m = DictionaryHelper.KeyByValue<Minion,GameObject>(cgc.minionGameObjectMap, MinionGO);
-			Player p = World.player;
-
-			p.TakeDamage(m);
+	
+			FloatingTextController.CreateFloatingDMG(p.TakeDamage(m).ToString("F0"), other.transform);
+		
+			// Update Health Bar
+			
+			playerHPBar.HealthBarChange(p.HP,p.MaxHP);
 		}
 	}
     

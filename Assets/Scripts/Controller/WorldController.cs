@@ -18,6 +18,7 @@ public class WorldController : MonoBehaviour
 	public PanelController panelController;
 	public BuildingGraphicController buildingGraphicController;
 	public TileGraphicController tileGraphicController;
+	public CharacterGraphicController characterGraphicController;
 
 	public int Width = 14;
     public int Height = 14;
@@ -185,6 +186,7 @@ public class WorldController : MonoBehaviour
 		foreach(Minion m in World.minions) {
 			m.SetPlayMode(World);
 		}
+		characterGraphicController.SetMinionsPlayMode();
 	}
 
 }

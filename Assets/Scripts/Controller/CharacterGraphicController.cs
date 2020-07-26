@@ -84,6 +84,7 @@ public class CharacterGraphicController : MonoBehaviour {
 					if(w.weaponType == WeaponType.TwoHandMelee || w.weaponType == WeaponType.Range) {
 						isTwoHandWeapon = true;
 					}
+
 				}else if (w.wSide == WeaponSide.Left && isTwoHandWeapon==false) {
 					GameObject w_go = GetGOforWeapon(w);
 					w_go.name = w.wName;
@@ -325,10 +326,22 @@ public class CharacterGraphicController : MonoBehaviour {
 		}
 
 		GameObject m_go = minionGameObjectMap[m];
+		MinionMeleeCTR mMeleeCTR = m_go.GetComponentInChildren<MinionMeleeCTR>();
+		mMeleeCTR.RemoveMinionMeleeCTR();
 		Destroy(m_go);
 		minionGameObjectMap.Remove(m);
 		World.minions.Remove(m);
 		
+	}
+
+	// Set Minion MeleeCTR in Play mode (Player Health bar not see in Build Mode)
+	public void SetMinionsPlayMode(){
+		foreach (Minion m in World.minions) {
+			GameObject m_go = minionGameObjectMap[m];
+
+			MinionMeleeCTR mMeleeCTR = m_go.GetComponentInChildren<MinionMeleeCTR>();
+			mMeleeCTR.SetPlayMode();
+		}
 	}
 
 	#endregion

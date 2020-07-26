@@ -37,6 +37,7 @@ public class Player : Character {
 		//Debug.Log("Protected Player function");
 		this.name = other.name;
 		this.objectType = other.objectType;
+		this.MaxHP = other.HP;
 		this.HP = other.HP;
 		this.speed = other.speed;
 
@@ -99,6 +100,7 @@ public class Player : Character {
 
 		this.name = name;
 		this.objectType = objectType;
+		this.MaxHP = HP;
 		this.HP = HP;
 		this.speed = speed;
 
@@ -157,9 +159,22 @@ public class Player : Character {
 		int finalDMG = Mathf.RoundToInt(AtkDMG - (DEF * 2.5f));
 		HP -= finalDMG;
 
-		Debug.Log("Player HP :" + HP);
+		//Debug.Log("Player HP :" + HP);
 
 		return finalDMG;
+	}
+
+	public void Update(float deltaTime) {
+		// if (!WaitedInGetHit(deltaTime, involuntaryTime)) {
+		// 			//Debug.Log(name + " :  " + minionState2);
+		// 			canTakeDMG = false;
+		// 			return;
+		// 		}
+		// 		else {
+		// 			minionState2 = MinionState2.Normal;
+		// 			//Debug.Log(name + " :  " + minionState2);
+		// 			canTakeDMG = true;
+		// 		}
 	}
 
 	public void RegisterOnChangedCallback(Action<Player> cb) {

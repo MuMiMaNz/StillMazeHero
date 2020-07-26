@@ -117,6 +117,7 @@ public class World {
 		foreach (Minion m in minions.ToList()) {
 			m.Update(deltaTime);
 		}
+		//player.Update(deltaTime);
 	}
 	public void FixedUpdateInPlayMode(float deltaTime) {
 		foreach (Minion m in minions.ToList()) {
