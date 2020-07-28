@@ -48,14 +48,14 @@ public class Player : Character {
 		this.AGI = other.AGI;
 		this.LUK = other.LUK;
 
-		//this.X = other.X;
-		//this.Z = other.Z;
+		this.ATKIntervalTime = other.ATKIntervalTime;
+
 		this.parent = other.parent;
 
 		weapons = new List<Weapon>();
 		primaryWeapons = new List<Weapon>();
 		primWeaponSlot = other.primWeaponSlot;
-		Debug.Log(this.primWeaponSlot.Count);
+		//Debug.Log(this.primWeaponSlot.Count);
 
 		// Load weapon to Weapon iventory slot 
 		if (other.weaponsDict != null) {
@@ -96,7 +96,9 @@ public class Player : Character {
 		Dictionary<int, string> weaponsDict, List<int> primWeaponSlot,
 		Stat STR , Stat INT , Stat VIT,
 		Stat DEX , Stat AGI , Stat LUK , 
-		int HP = 100, float speed = 1, string parent = "Character") {
+		int HP = 100, float speed = 1, string parent = "Character",
+		float ATKIntervalTime = 0.6f
+		) {
 
 		this.name = name;
 		this.objectType = objectType;
@@ -111,8 +113,8 @@ public class Player : Character {
 		this.AGI = AGI;
 		this.LUK = LUK;
 
-		//this.X = charStartTile.X;
-		//this.Z = charStartTile.Z;
+		this.ATKIntervalTime = ATKIntervalTime;
+
 		this.parent = parent;
 
 		this.weaponsDict = weaponsDict;

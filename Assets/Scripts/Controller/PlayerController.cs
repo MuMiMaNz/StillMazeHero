@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 	World World {
 		get { return WorldController.Instance.World; }
 	}
+	private Player p ;
 	public CameraController camController;
 	private Transform camTransform;
 
@@ -15,6 +16,8 @@ public class PlayerController : MonoBehaviour
 
 	public bool normalAttack { get;  set; }
 	private bool pressedAttack;
+	private bool ATKOn = false;
+	private float ATKtimecounter = 0;
 
 	public GameObject playerGO { get; protected set; }
 	private Rigidbody rb;
@@ -44,8 +47,7 @@ public class PlayerController : MonoBehaviour
 		if (playerTag.Length != 1) {
 			Debug.LogError("More than 1 Player tag GameObject");
 		} else {
-			
-
+			p = World.player;
 			playerGO = playerTag[0];
 			rb = playerGO.GetComponent<Rigidbody>();
 			playerAnim = playerGO.GetComponent<Animator>();
@@ -69,8 +71,24 @@ public class PlayerController : MonoBehaviour
 			// Get button press
 			pressedAttack = TCKInput.GetAction("AtkButton", EActionEvent.Down);
 
-			if (pressedAttack && canMove) {
-				PlayerNormalAttack();
+			if (pressedAttack) ATKOn = true;
+
+			// Set ATK with interval time
+			if ( ATKOn //&& canMove 
+			) {
+				ATKtimecounter += Time.deltaTime;
+				Debug.Log(ATKtimecounter);
+				if(ATKtimecounter <  p.ATKAnimTime ) {
+					if (normalAttack == false) 
+						PlayerNormalAttack();
+
+				} else if (ATKtimecounter >= p.ATKIntervalTime + p.ATKAnimTime){
+					ATKtimecounter = 0;
+					ATKOn = false;
+				}
+				else {
+					// Not Attack
+				}
 			}
 			//camController.MoveCamOnPlayerMove(move);
 		}
@@ -103,15 +121,11 @@ public class PlayerController : MonoBehaviour
 	private void PlayerNormalAttack() {
 
 		//chosing random attack from array.
-		//play the target animation in 0.1 second.
+		//play the target animation in  second.
 		normalAttack = true;
-		playerAnim.CrossFade("Attack01",0.1f);
+		playerAnim.CrossFade("Attack01",0.02f);
 		//playerAnim.CrossFade(randomAttacks[Random.Range(0, randomAttacks.Length)], 0.1f); // Play Random attack animation
-		pressedAttack = false;
 		
-		// Detect weapon box colider to enemy
-
-		// Calculate damage to enemy
 	}
 
 }

@@ -340,7 +340,8 @@ public class World {
 			DEX: new Stat(name: "DEX", val: 10, isPrimaryStat: true),
 			AGI: new Stat(name: "AGI", val: 6),
 			LUK: new Stat(name: "LUK", val: 4),
-			HP: 500, speed: 2, parent: "PlayerRoot");
+			HP: 500, speed: 2, parent: "PlayerRoot"
+			);
 
 		Player p = Player.PlacePlayer(dummyPlayer, t);
 

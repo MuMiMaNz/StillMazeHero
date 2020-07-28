@@ -8,6 +8,7 @@ using System.Collections;
 
 public enum MinionState { Chase, ChaseStraight, ChaseToPatrol ,Patrol ,  Idle , Attack, Die ,InvalidTile}
 public enum MinionState2 { Normal, GetHit }
+public enum CombatType { Melee, Range}
 
 public class Minion : Character {
 
@@ -38,12 +39,16 @@ public class Minion : Character {
 	public float viewAngle { get; protected set; }
 	
 	public float ATKRange { get; protected set; }
+	// Time counter for ATK interval
+	private float ATKtimecounter = 0;
+	
+
 	// Range that minion go directly without A* to player
 	public float chaseStraightRange { get; protected set; }
 	public bool playerInChaseStraight { get; set; }
 
 	public bool canTakeDMG { get; protected set; }
-	private float involuntaryTime = 0.4f;
+	private float involuntaryTime = 0.6f;
 
 	public float X {
 		get {
@@ -110,7 +115,8 @@ public class Minion : Character {
 		int DEF, int mDEF,
 		int HP = 100, float speed = 1, int spaceNeed = 1,
 		int patrolRange = 2, float viewRadius = 1.5f, float viewAngle = 45f,
-		float ATKRange = 0.5f,float chaseStraightRange = 0.8f, string parent = "Character") {
+		float ATKRange = 0.5f, float ATKIntervalTime = 1.0f,
+		float chaseStraightRange = 0.8f, string parent = "Character") {
 
 		this.objectType = objectType;
 		this.name = name;
@@ -134,6 +140,9 @@ public class Minion : Character {
 		this.viewRadius = viewRadius;
 		this.viewAngle = viewAngle;
 		this.ATKRange = ATKRange;
+
+		this.ATKIntervalTime = ATKIntervalTime;
+		//this.ATKtimecounter = ATKTime;
 
 		this.chaseStraightRange = chaseStraightRange;
 
@@ -176,7 +185,8 @@ public class Minion : Character {
 			proto.STR, proto.INT, proto.VIT, proto.DEX, proto.AGI, proto.LUK,
 			proto.DEF, proto.mDEF,
 			proto.HP, proto.speed, proto.spaceNeed,
-			proto.patrolRange, proto.viewRadius, proto.viewAngle, proto.ATKRange, proto.chaseStraightRange,proto.parent);
+			proto.patrolRange, proto.viewRadius, proto.viewAngle, 
+			proto.ATKRange,proto.ATKIntervalTime, proto.chaseStraightRange,proto.parent);
 
 		m.charStartTile = t;
 		m.currTile = t;
@@ -617,8 +627,18 @@ public class Minion : Character {
 				minionState = MinionState.ChaseStraight;
 			}
 			// If see player and in ATK range, change to Attack State
+			// By ATKIntervalTime
 			else if(playerInATKRange == true) {
-				minionState = MinionState.Attack;
+				ATKtimecounter += deltaTime;
+				
+				if(ATKtimecounter <  ATKAnimTime ) {
+					minionState = MinionState.Attack;
+				} else if (ATKtimecounter >= ATKIntervalTime + ATKAnimTime){
+					ATKtimecounter = 0;
+				}
+				else {
+					minionState = MinionState.Idle;
+				}
 			}
 		}
 		// If not see Player

@@ -32,7 +32,7 @@ public class MinionMeleeCTR : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other) {
 
-		if (other.gameObject.tag == "Player" ) {
+		if (other.gameObject.tag == "Player" && m.minionState == MinionState.Attack) {
 			//Debug.Log(MinionGO.name + "  Hit  " + other.gameObject.name);
 	
 			FloatingTextController.CreateFloatingDMG(p.TakeDamage(m).ToString("F0"), other.transform);

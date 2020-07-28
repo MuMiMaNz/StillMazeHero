@@ -14,6 +14,8 @@ public class Character {
 	public int MaxHP { get; protected set; }
 	public int HP { get; protected set; }
 	public float speed { get; protected set; }
+	public float ATKIntervalTime { get; protected set; }
+	public float ATKAnimTime { get;  set; }
 
 	public Stat STR { get; protected set; }
 	public Stat INT { get; protected set; }

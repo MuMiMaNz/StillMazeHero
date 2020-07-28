@@ -68,6 +68,18 @@ public class CharacterGraphicController : MonoBehaviour {
 			p_go.name = p.objectType;
 			p_go.transform.position = new Vector3(p.charStartTile.X, -0.5f, p.charStartTile.Z);
 			p_go.transform.SetParent(this.transform.Find(p.parent), true);
+
+			// Get Attack clip lenght
+			Animator p_anim = p_go.GetComponent<Animator>();
+			RuntimeAnimatorController ac = p_anim.runtimeAnimatorController;    //Get Animator controller
+			for(int i = 0; i<ac.animationClips.Length; i++)                 //For all animations
+			{
+				if(ac.animationClips[i].name == "NormalAttack01_SwordShield")        //If it has the same name as your clip
+				{
+					p.ATKAnimTime = ac.animationClips[i].length;
+					print(p.ATKAnimTime);
+				}
+			}
 			
 			p.RegisterOnRemovedCallback(OnPlayerRemoved);
 
@@ -122,6 +134,18 @@ public class CharacterGraphicController : MonoBehaviour {
 			
 			m_go.transform.position = new Vector3(m.X, 0f, m.Z);
 			m_go.transform.SetParent(this.transform.Find(m.parent), true);
+
+			// Get Attack clip lenght
+			Animator m_anim = m_go.GetComponent<Animator>();
+			RuntimeAnimatorController ac = m_anim.runtimeAnimatorController;    //Get Animator controller
+			for(int i = 0; i<ac.animationClips.Length; i++)                 //For all animations
+			{
+				if(ac.animationClips[i].name == "Attack01")        //If it has the same name as your clip
+				{
+					print(ac.animationClips[i].length);
+					m.ATKAnimTime = ac.animationClips[i].length;
+				}
+			}
 
 			// Create Character mini-canvas
 			CharCanvasController.CreateHealthBar(m_go.transform);
