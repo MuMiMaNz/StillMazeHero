@@ -28,6 +28,7 @@ public class Minion : Character {
 	private MinionState previusState ;
 
 	public MinionState2 minionState2 { get; protected set; }
+	public CombatType combatType { get; protected set; }
 	// Maximum tile that minion will patrol
 	public int patrolRange { get; protected set; }
 	// Set of patrol point tiles
@@ -113,6 +114,7 @@ public class Minion : Character {
 		Stat STR, Stat INT, Stat VIT,
 		Stat DEX, Stat AGI, Stat LUK,
 		int DEF, int mDEF,
+		CombatType combatType,
 		int HP = 100, float speed = 1, int spaceNeed = 1,
 		int patrolRange = 2, float viewRadius = 1.5f, float viewAngle = 45f,
 		float ATKRange = 0.5f, float ATKIntervalTime = 1.0f,
@@ -134,6 +136,8 @@ public class Minion : Character {
 
 		this.DEF = DEF;
 		this.mDEF = mDEF;
+
+		this.combatType = combatType;
 
 		this.spaceNeed = spaceNeed;
 		this.patrolRange = patrolRange;
@@ -183,7 +187,7 @@ public class Minion : Character {
 		//Debug.Log("Minion.PlaceMinion()");
 		Minion m = new Minion(proto.objectType, proto.name, proto.description,
 			proto.STR, proto.INT, proto.VIT, proto.DEX, proto.AGI, proto.LUK,
-			proto.DEF, proto.mDEF,
+			proto.DEF, proto.mDEF, proto.combatType,
 			proto.HP, proto.speed, proto.spaceNeed,
 			proto.patrolRange, proto.viewRadius, proto.viewAngle, 
 			proto.ATKRange,proto.ATKIntervalTime, proto.chaseStraightRange,proto.parent);
@@ -623,14 +627,14 @@ public class Minion : Character {
 					Mathf.RoundToInt(World.player.Z));
 
 				DoMovement(deltaTime, true);
-			}else if(playerInChaseStraight == true) {
+			}else if(combatType == CombatType.Melee && playerInChaseStraight == true) {
 				minionState = MinionState.ChaseStraight;
 			}
 			// If see player and in ATK range, change to Attack State
 			// By ATKIntervalTime
 			else if(playerInATKRange == true) {
 				ATKtimecounter += deltaTime;
-				
+
 				if(ATKtimecounter <  ATKAnimTime ) {
 					minionState = MinionState.Attack;
 				} else if (ATKtimecounter >= ATKIntervalTime + ATKAnimTime){

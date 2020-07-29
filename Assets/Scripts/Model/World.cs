@@ -170,6 +170,7 @@ public class World {
 						LUK: new Stat(name: "LUK", val: 4),
 						DEF: 10,
 						mDEF: 5,
+						combatType: CombatType.Melee,
 						HP: 300,
 						speed: 0.5f,
 						spaceNeed: 1,
@@ -178,6 +179,31 @@ public class World {
 						viewAngle: 60f,
 						ATKRange: 0.8f,
 						chaseStraightRange: 1.3f,
+						parent: "Minion"
+							)
+		);
+
+		minionPrototypes.Add("Bat",
+			new Minion(objectType: "Bat",
+						name: "Bat",
+						description: "Sleepy in day, do the OT at night",
+						STR: new Stat(name: "STR", val: 3),
+						INT: new Stat(name: "INT", val: 3),
+						VIT: new Stat(name: "VIT", val: 4),
+						DEX: new Stat(name: "DEX", val: 8),
+						AGI: new Stat(name: "AGI", val: 12, isPrimaryStat: true),
+						LUK: new Stat(name: "LUK", val: 5),
+						DEF: 6,
+						mDEF: 6,
+						combatType: CombatType.Range,
+						HP: 180,
+						speed: 0.7f,
+						spaceNeed: 1,
+						patrolRange: 2,
+						viewRadius: 3.0f,
+						viewAngle: 75f,
+						ATKRange: 1.4f,
+						chaseStraightRange: 0f,
 						parent: "Minion"
 							)
 		);

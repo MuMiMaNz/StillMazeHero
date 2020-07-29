@@ -315,11 +315,13 @@ public class CharacterGraphicController : MonoBehaviour {
 						//Debug.Log(m_go.name + "  See Player !");
 						m.seePlayer = true;
 
-						// If Player in ATK range
-						if (distanceBetween < m.chaseStraightRange && distanceBetween > m.ATKRange) {
+						// If Player in Chase Straight range
+						if (m.combatType == CombatType.Melee &&
+						 distanceBetween < m.chaseStraightRange && distanceBetween > m.ATKRange) {
 							m.playerInChaseStraight = true;
 							m.playerInATKRange = false;
 						}
+						// If Player in ATK range
 						else if (distanceBetween <= m.ATKRange){
 							m.playerInChaseStraight = false;
 							m.playerInATKRange = true;
