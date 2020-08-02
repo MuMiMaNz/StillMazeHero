@@ -62,6 +62,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\GabrielAguiarProductions\Unique_Projectiles_Volume_1\Scripts\ParticleSystemController\ParticleSystemController.cs" />
+    <Compile Include="Assets\GabrielAguiarProductions\Unique_Projectiles_Volume_1\Scripts\ParticleSystemController\ParticleSystemControllerEditor.cs" />
+    <Compile Include="Assets\GabrielAguiarProductions\Unique_Projectiles_Volume_1\Scripts\ParticleSystemController\SaveParticleSystemScript.cs" />
+    <Compile Include="Assets\GabrielAguiarProductions\Unique_Projectiles_Volume_1\Scripts\ParticleSystemController\Serializables.cs" />
+    <Compile Include="Assets\GabrielAguiarProductions\Unique_Projectiles_Volume_1\Scripts\UniqueProjectiles\CameraShakeSimpleScript.cs" />
+    <Compile Include="Assets\GabrielAguiarProductions\Unique_Projectiles_Volume_1\Scripts\UniqueProjectiles\ProjectileMoveScript.cs" />
+    <Compile Include="Assets\GabrielAguiarProductions\Unique_Projectiles_Volume_1\Scripts\UniqueProjectiles\RotateToMouseScript.cs" />
+    <Compile Include="Assets\GabrielAguiarProductions\Unique_Projectiles_Volume_1\Scripts\UniqueProjectiles\SpawnProjectilesScript.cs" />
     <Compile Include="Assets\Network\Scripts\NetworkConnectionManager.cs" />
     <Compile Include="Assets\Old\ActualBuilding.cs" />
     <Compile Include="Assets\Old\BuildingManager.cs" />
@@ -596,6 +604,7 @@
     <Compile Include="Assets\Scripts\Controller\CharCanvasController.cs" />
     <Compile Include="Assets\Scripts\Controller\CharacterGraphicController.cs" />
     <Compile Include="Assets\Scripts\Controller\FOVDetection.cs" />
+    <Compile Include="Assets\Scripts\Controller\MinionMeleeCTR.cs" />
     <Compile Include="Assets\Scripts\Controller\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Controller\TileGraphicController.cs" />
     <Compile Include="Assets\Scripts\Controller\WeaponController.cs" />
@@ -607,7 +616,6 @@
     <Compile Include="Assets\Scripts\Model\Character\Player.cs" />
     <Compile Include="Assets\Scripts\Model\Character\Stat.cs" />
     <Compile Include="Assets\Scripts\Model\GroundCube.cs" />
-    <Compile Include="Assets\Scripts\Model\IPrototypable.cs" />
     <Compile Include="Assets\Scripts\Model\Tile.cs" />
     <Compile Include="Assets\Scripts\Model\Weapon.cs" />
     <Compile Include="Assets\Scripts\Model\World.cs" />
@@ -633,6 +641,7 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
     <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\Contacts\ISN_CNCommunication.m.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\GabrielAguiarProductions\Unique_Projectiles_Volume_1\Readme.txt" />
     <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\GameKit\ISN_GKCommunication.h.txt" />
     <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\EventKit\ISN_EventKit.mm.txt" />
     <None Include="Assets\Resources\HelperResources\GleyPlugins\CrossPromo\Scripts\Version.txt" />
@@ -643,6 +652,7 @@
     <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\StoreKit\ISN_SKStoreReviewController.mm.txt" />
     <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\Photos\ISN_PHFetchOptions.mm.txt" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\Vertical Fog.shader" />
+    <None Include="Assets\GabrielAguiarProductions\Unique_Projectiles_Volume_1\Shaders\Additive_Scroll01.shader" />
     <None Include="Assets\Pack\LeanTween\ReadMe.txt" />
     <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\AuthenticationServices\ISN_ASAuthorizationOpenIDRequest.mm.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
@@ -693,9 +703,11 @@
     <None Include="Assets\Pack\PolygonMini_Fantasy\Shaders\WorldGradient.shader" />
     <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\Photos\ISN_PHFetchResult.mm.txt" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\PlaneWater_Shader.shader" />
+    <None Include="Assets\GabrielAguiarProductions\Unique_Projectiles_Volume_1\Shaders\AdditiveMobile_Scroll01.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\Water_Shader.shader" />
     <None Include="Assets\Resources\HelperResources\GleyPlugins\JumpyCompleteGame\Scripts\Version.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
+    <None Include="Assets\GabrielAguiarProductions\Unique_Projectiles_Volume_1\Shaders\AlphaBlendedMobile_Scroll01.shader" />
     <None Include="Assets\Pack\Emerald AI\Scripts\Shaders\Emerald AI Outline Shader.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\Pack\ModularRPGHeroesHP\Shader\HPMaskTint.shader" />
@@ -731,12 +743,14 @@
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\MediaPlayer\ISN_MPMusicPlayerController.mm.txt" />
     <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\AndroidNativePro\AndroidDisabled\Internal\an_vending.aar.txt" />
+    <None Include="Assets\GabrielAguiarProductions\Unique_Projectiles_Volume_1\Shaders\Additive_EdgeSoft.shader" />
     <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\Photos\ISN_PHAsset.mm.txt" />
     <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\MediaPlayer\ISN_MPMusicPlayerController.h.txt" />
     <None Include="Assets\Resources\HelperResources\GleyPlugins\Notifications\Scripts\Version.txt" />
     <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\CoreLocation\ISN_CLLocationManager.mm.txt" />
     <None Include="Assets\Pack\LeanTween\Examples\Archived\2dUnlitWithFade.shader" />
     <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\UserNotifications\ISN_UNUserNotificationCenter.h.txt" />
+    <None Include="Assets\GabrielAguiarProductions\Unique_Projectiles_Volume_1\Shaders\AlphaBlended_EdgeSoft.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\Shaders\CustomStandardSpecular.shader" />
     <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\CoreLocation\ISN_CLCommunication.mm.txt" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\Lava_Shader.shader" />
@@ -744,6 +758,7 @@
     <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\StoreKit\ISN_SKTransactionObserver.h.txt" />
     <None Include="Assets\Pack\Emerald AI\Scripts\Shaders\Emerald AI UI.shader" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\PlaneLava_Shader.shader" />
+    <None Include="Assets\GabrielAguiarProductions\Unique_Projectiles_Volume_1\Shaders\AlphaBlended_Scroll01.shader" />
     <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\GameKit\ISN_GKLocalPlayerListener.m.txt" />
     <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\UserNotifications\ISN_UNCommunication.h.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
@@ -768,7 +783,7 @@
     <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\AuthenticationServices\ISN_ASAuthorizationController.mm.txt" />
     <None Include="Assets\Pack\KUBIKOS - World\LWRP Support\Shaders LWRP\Cloud_Shader.shader" />
     <None Include="Assets\Pack\Emerald AI\Resources\EmeraldAIFactions.txt" />
-    <None Include="Assets\Resources\Prefabs\Characters\Minion\RPG Monster Wave Polyart\Shaders\PolyArtMaskTint.shader" />
+    <None Include="Assets\Resources\RPG Monster Wave Polyart\Shaders\PolyArtMaskTint.shader" />
     <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\StoreKit\ISN_SKCommunication.h.txt" />
     <None Include="Assets\Resources\HelperResources\StansAssets\NativePlugins\IOSNativePro\XCodeDisabled\AuthenticationServices\ISN_ASAuthorizationAppleIDProvider.mm.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />

@@ -634,14 +634,28 @@ public class Minion : Character {
 			// By ATKIntervalTime
 			else if(playerInATKRange == true) {
 				ATKtimecounter += deltaTime;
-
-				if(ATKtimecounter <  ATKAnimTime ) {
-					minionState = MinionState.Attack;
-				} else if (ATKtimecounter >= ATKIntervalTime + ATKAnimTime){
-					ATKtimecounter = 0;
-				}
-				else {
-					minionState = MinionState.Idle;
+				// Melee minion got ATK state all over animation time
+				if (combatType == CombatType.Melee) {
+					
+					if (ATKtimecounter < ATKAnimTime) {
+						minionState = MinionState.Attack;
+					}
+					else if (ATKtimecounter >= ATKIntervalTime + ATKAnimTime) {
+						ATKtimecounter = 0;
+					}
+					else {
+						minionState = MinionState.Idle;
+					}
+				// Range Minion got ATK state "Once"
+				}else if (combatType == CombatType.Range) {
+					if (ATKtimecounter < deltaTime*2) {
+						minionState = MinionState.Attack;
+						Debug.Log("Range ATK");
+					}
+					else if (ATKtimecounter >= ATKIntervalTime + ATKAnimTime)
+						ATKtimecounter = 0;
+					else
+						minionState = MinionState.Idle;
 				}
 			}
 		}

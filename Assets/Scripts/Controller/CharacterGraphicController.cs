@@ -244,13 +244,20 @@ public class CharacterGraphicController : MonoBehaviour {
 				m_anim.SetBool("isGetHit", false);
 				m_anim.SetBool("isDie", false);
 				break ;
+			// Melee Minion Attack by do animation with Hitbox collider
+			// Range Minion Instantiate projectile
 			case MinionState.Attack:
 				m_anim.SetBool("isIdle",false);
 				m_anim.SetBool("isWalk",false);
 				m_anim.SetBool("isAttack",true);
 				m_anim.SetBool("isGetHit", false);
 				m_anim.SetBool("isDie", false);
+
+				if(m.combatType == CombatType.Range) {
+					Instantiate(characterGOS[m.objectType + "_Projectile"], m_go.transform.position, m_go.transform.rotation);
+				}
 				break ;
+
 			//case MinionState.GetHit:
 			//	m_anim.SetBool("isIdle", false);
 			//	m_anim.SetBool("isWalk", false);
@@ -315,7 +322,7 @@ public class CharacterGraphicController : MonoBehaviour {
 						//Debug.Log(m_go.name + "  See Player !");
 						m.seePlayer = true;
 
-						// If Player in Chase Straight range
+						// If Melee Minion go to Chase player Straight in range
 						if (m.combatType == CombatType.Melee &&
 						 distanceBetween < m.chaseStraightRange && distanceBetween > m.ATKRange) {
 							m.playerInChaseStraight = true;
@@ -365,8 +372,10 @@ public class CharacterGraphicController : MonoBehaviour {
 		foreach (Minion m in World.minions) {
 			GameObject m_go = minionGameObjectMap[m];
 
-			MinionMeleeCTR mMeleeCTR = m_go.GetComponentInChildren<MinionMeleeCTR>();
-			mMeleeCTR.SetPlayMode();
+			if (m.combatType == CombatType.Melee) {
+				MinionMeleeCTR mMeleeCTR = m_go.GetComponentInChildren<MinionMeleeCTR>();
+				mMeleeCTR.SetPlayMode();
+			}
 		}
 	}
 
