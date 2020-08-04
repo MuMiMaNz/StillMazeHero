@@ -5273,10 +5273,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 2077411287}
-  targetMask:
+  playerLayer:
     serializedVersion: 2
     m_Bits: 1024
-  obstacleMask:
+  obstacleLayer:
     serializedVersion: 2
     m_Bits: 2304
 --- !u!4 &1977449483

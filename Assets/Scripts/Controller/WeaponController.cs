@@ -25,7 +25,7 @@ public class WeaponController : MonoBehaviour {
 			// Calculate DMG
 			m.MinionGethit();
 			if (m.canTakeDMG == true) {
-				FloatingTextController.CreateFloatingDMG(m.CalAndTakeDamage().ToString("F0"), other.transform);
+				FloatingTextController.CreateFloatingDMG(m.CalAndTakeDamage(), other.transform);
 			}
 			
 			// Update Health Bar

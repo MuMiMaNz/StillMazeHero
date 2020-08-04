@@ -34,7 +34,7 @@ public class MinionMeleeCTR : MonoBehaviour
 
 		if (other.gameObject.tag == "Player" && m.minionState == MinionState.Attack) {
 			//Debug.Log(MinionGO.name + "  Hit  " + other.gameObject.name);
-			FloatingTextController.CreateFloatingDMG(p.TakeDamage(m).ToString("F0"), other.transform);
+			FloatingTextController.CreateFloatingDMG(p.TakeDamage(m), other.transform);
 		
 			// Update Health Bar
 			playerHPBar.HealthBarChange(p.HP,p.MaxHP);

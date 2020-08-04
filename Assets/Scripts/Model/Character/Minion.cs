@@ -40,16 +40,14 @@ public class Minion : Character {
 	public float viewAngle { get; protected set; }
 	
 	public float ATKRange { get; protected set; }
+	public float MeleeATKRange { get; protected set; }
 	// Time counter for ATK interval
 	private float ATKtimecounter = 0;
-	
+	public bool alreadyATK { get; protected set; }
 
 	// Range that minion go directly without A* to player
 	public float chaseStraightRange { get; protected set; }
 	public bool playerInChaseStraight { get; set; }
-
-	public bool canTakeDMG { get; protected set; }
-	private float involuntaryTime = 0.6f;
 
 	public float X {
 		get {
@@ -117,7 +115,7 @@ public class Minion : Character {
 		CombatType combatType,
 		int HP = 100, float speed = 1, int spaceNeed = 1,
 		int patrolRange = 2, float viewRadius = 1.5f, float viewAngle = 45f,
-		float ATKRange = 0.5f, float ATKIntervalTime = 1.0f,
+		float ATKRange = 0.5f, float MeleeATKRange = 0f, float ATKIntervalTime = 1.0f,
 		float chaseStraightRange = 0.8f, string parent = "Character") {
 
 		this.objectType = objectType;
@@ -144,9 +142,11 @@ public class Minion : Character {
 		this.viewRadius = viewRadius;
 		this.viewAngle = viewAngle;
 		this.ATKRange = ATKRange;
+		this.MeleeATKRange = MeleeATKRange;
 
 		this.ATKIntervalTime = ATKIntervalTime;
-		//this.ATKtimecounter = ATKTime;
+		this.involuntaryTime = 0.6f;
+		this.alreadyATK = false;
 
 		this.chaseStraightRange = chaseStraightRange;
 
@@ -190,7 +190,8 @@ public class Minion : Character {
 			proto.DEF, proto.mDEF, proto.combatType,
 			proto.HP, proto.speed, proto.spaceNeed,
 			proto.patrolRange, proto.viewRadius, proto.viewAngle, 
-			proto.ATKRange,proto.ATKIntervalTime, proto.chaseStraightRange,proto.parent);
+			proto.ATKRange,proto.MeleeATKRange, proto.ATKIntervalTime, 
+			proto.chaseStraightRange,proto.parent);
 
 		m.charStartTile = t;
 		m.currTile = t;
@@ -595,6 +596,9 @@ public class Minion : Character {
 
 	public float CalAndTakeDamage() {
 
+		if (canTakeDMG == false)
+			return 0f;
+
 		Player p = World.player;
 
 		// Calculate Player Attack Damage
@@ -633,30 +637,27 @@ public class Minion : Character {
 			// If see player and in ATK range, change to Attack State
 			// By ATKIntervalTime
 			else if(playerInATKRange == true) {
-				ATKtimecounter += deltaTime;
-				// Melee minion got ATK state all over animation time
-				if (combatType == CombatType.Melee) {
-					
-					if (ATKtimecounter < ATKAnimTime) {
+				
+				if (ATKtimecounter <= deltaTime * 2) {
+					if (alreadyATK == false) {
+						alreadyATK = true;
 						minionState = MinionState.Attack;
+						
+					}else {
+						//minionState = MinionState.Idle;
+						alreadyATK = false;
 					}
-					else if (ATKtimecounter >= ATKIntervalTime + ATKAnimTime) {
-						ATKtimecounter = 0;
-					}
-					else {
-						minionState = MinionState.Idle;
-					}
-				// Range Minion got ATK state "Once"
-				}else if (combatType == CombatType.Range) {
-					if (ATKtimecounter < deltaTime*2) {
-						minionState = MinionState.Attack;
-						Debug.Log("Range ATK");
-					}
-					else if (ATKtimecounter >= ATKIntervalTime + ATKAnimTime)
-						ATKtimecounter = 0;
-					else
-						minionState = MinionState.Idle;
 				}
+				else if (ATKtimecounter >= ATKIntervalTime + ATKAnimTime) {
+					alreadyATK = false;
+					minionState = MinionState.Idle;
+					ATKtimecounter = 0;
+					
+				}
+				else {
+					minionState = MinionState.Idle;
+				}
+				ATKtimecounter += deltaTime;
 			}
 		}
 		// If not see Player

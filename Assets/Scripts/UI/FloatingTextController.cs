@@ -13,7 +13,11 @@ public class FloatingTextController : MonoBehaviour{
 		
 	}
 
-	public static void CreateFloatingDMG(string text, Transform location) {
+	public static void CreateFloatingDMG(float dmg, Transform location) {
+
+		//if (dmg == 0f)
+		//	return;
+
 		FloatingText instance = Instantiate(floatText);
 		Vector2 screenPostition = Camera.main.WorldToScreenPoint(
 			location.position);
@@ -26,7 +30,7 @@ public class FloatingTextController : MonoBehaviour{
 		instance.transform.position = stupidPrivotCanvasPos;
 		instance.transform.SetParent(canvas.transform, false);
 		
-		instance.SetText(text);
+		instance.SetText(dmg.ToString("F0"));
 	}
 
 }

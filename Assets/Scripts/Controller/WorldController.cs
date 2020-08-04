@@ -186,7 +186,7 @@ public class WorldController : MonoBehaviour
 		foreach(Minion m in World.minions) {
 			m.SetPlayMode(World);
 		}
-		characterGraphicController.SetMinionsPlayMode();
+		//characterGraphicController.SetMinionsPlayMode();
 	}
 
 }

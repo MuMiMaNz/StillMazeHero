@@ -17,6 +17,9 @@ public class Character {
 	public float ATKIntervalTime { get; protected set; }
 	public float ATKAnimTime { get;  set; }
 
+	public float involuntaryTime { get; protected set; }
+	public bool canTakeDMG { get; protected set; }
+
 	public Stat STR { get; protected set; }
 	public Stat INT { get; protected set; }
 	public Stat VIT { get; protected set; }

@@ -117,7 +117,7 @@ public class World {
 		foreach (Minion m in minions.ToList()) {
 			m.Update(deltaTime);
 		}
-		//player.Update(deltaTime);
+		player.Update(deltaTime);
 	}
 	public void FixedUpdateInPlayMode(float deltaTime) {
 		foreach (Minion m in minions.ToList()) {
@@ -178,6 +178,7 @@ public class World {
 						viewRadius: 2.5f,
 						viewAngle: 60f,
 						ATKRange: 0.8f,
+						MeleeATKRange: 0.5f,
 						chaseStraightRange: 1.3f,
 						parent: "Minion"
 							)

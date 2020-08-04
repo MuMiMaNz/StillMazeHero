@@ -11,12 +11,13 @@ public class CharacterGraphicController : MonoBehaviour {
 	public Dictionary<Minion, GameObject> minionGameObjectMap { get; protected set; }
 	private Dictionary<string, GameObject> characterGOS;
 	private Dictionary<string, GameObject> weaponGOS;
+	
 
 	public PlayerController playerController;
 	private GameObject playerGO;
 		// Minion FOW
-	public LayerMask targetMask;
-	public LayerMask obstacleMask;
+	public LayerMask playerLayer;
+	public LayerMask obstacleLayer;
 
 	void Start() {
 		playerGameObjectMap = new Dictionary<Player, GameObject>();
@@ -77,7 +78,7 @@ public class CharacterGraphicController : MonoBehaviour {
 				if(ac.animationClips[i].name == "NormalAttack01_SwordShield")        //If it has the same name as your clip
 				{
 					p.ATKAnimTime = ac.animationClips[i].length;
-					print(p.ATKAnimTime);
+					//print(p.ATKAnimTime);
 				}
 			}
 			
@@ -135,6 +136,9 @@ public class CharacterGraphicController : MonoBehaviour {
 			m_go.transform.position = new Vector3(m.X, 0f, m.Z);
 			m_go.transform.SetParent(this.transform.Find(m.parent), true);
 
+			//if(m.combatType == CombatType.Melee)
+			//	ATKPoint = m_go.gameObject.transform.Find("ATKPoint").gameObject;
+
 			// Get Attack clip lenght
 			Animator m_anim = m_go.GetComponent<Animator>();
 			RuntimeAnimatorController ac = m_anim.runtimeAnimatorController;    //Get Animator controller
@@ -142,7 +146,7 @@ public class CharacterGraphicController : MonoBehaviour {
 			{
 				if(ac.animationClips[i].name == "Attack01")        //If it has the same name as your clip
 				{
-					print(ac.animationClips[i].length);
+					//print(ac.animationClips[i].length);
 					m.ATKAnimTime = ac.animationClips[i].length;
 				}
 			}
@@ -253,8 +257,19 @@ public class CharacterGraphicController : MonoBehaviour {
 				m_anim.SetBool("isGetHit", false);
 				m_anim.SetBool("isDie", false);
 
-				if(m.combatType == CombatType.Range) {
+				if (m.combatType == CombatType.Range) {
 					Instantiate(characterGOS[m.objectType + "_Projectile"], m_go.transform.position, m_go.transform.rotation);
+				}
+				else if (m.combatType == CombatType.Melee) {
+					Collider[] overlaps = Physics.OverlapSphere(
+						m_go.gameObject.transform.Find("ATKPoint").transform.position, m.MeleeATKRange, playerLayer);
+					if (overlaps.Length != 0) {
+						//foreach(Collider c in overlaps) {
+						//	GameObject p_go = c.GetComponent<Transform>().gameObject;
+						//}
+						if(m.alreadyATK == true)
+							FloatingTextController.CreateFloatingDMG(World.player.TakeDamage(m), playerGO.transform);
+					}
 				}
 				break ;
 
@@ -297,7 +312,7 @@ public class CharacterGraphicController : MonoBehaviour {
 
 		GameObject m_go = minionGameObjectMap[m];
 
-		Collider[] overlaps = Physics.OverlapSphere(m_go.transform.position, m.viewRadius, targetMask);
+		Collider[] overlaps = Physics.OverlapSphere(m_go.transform.position, m.viewRadius, playerLayer);
 
 		if (overlaps.Length <= 0) { m.seePlayer = false; return; }
 
@@ -318,7 +333,7 @@ public class CharacterGraphicController : MonoBehaviour {
 					
 					// No obstruction in minion ray to player
 					Ray ray = new Ray(m_go.transform.position, target.position - m_go.transform.position);
-					if (!Physics.Raycast(m_go.transform.position, target.position - m_go.transform.position, m.viewRadius, obstacleMask)) {
+					if (!Physics.Raycast(m_go.transform.position, target.position - m_go.transform.position, m.viewRadius, obstacleLayer)) {
 						//Debug.Log(m_go.name + "  See Player !");
 						m.seePlayer = true;
 
@@ -368,16 +383,16 @@ public class CharacterGraphicController : MonoBehaviour {
 	}
 
 	// Set Minion MeleeCTR in Play mode (Player Health bar not see in Build Mode)
-	public void SetMinionsPlayMode(){
-		foreach (Minion m in World.minions) {
-			GameObject m_go = minionGameObjectMap[m];
+	//public void SetMinionsPlayMode(){
+	//	foreach (Minion m in World.minions) {
+	//		GameObject m_go = minionGameObjectMap[m];
 
-			if (m.combatType == CombatType.Melee) {
-				MinionMeleeCTR mMeleeCTR = m_go.GetComponentInChildren<MinionMeleeCTR>();
-				mMeleeCTR.SetPlayMode();
-			}
-		}
-	}
+	//		if (m.combatType == CombatType.Melee) {
+	//			MinionMeleeCTR mMeleeCTR = m_go.GetComponentInChildren<MinionMeleeCTR>();
+	//			mMeleeCTR.SetPlayMode();
+	//		}
+	//	}
+	//}
 
 	#endregion
 

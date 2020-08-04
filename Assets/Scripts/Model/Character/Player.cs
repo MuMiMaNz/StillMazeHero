@@ -49,8 +49,11 @@ public class Player : Character {
 		this.LUK = other.LUK;
 
 		this.ATKIntervalTime = other.ATKIntervalTime;
+		this.involuntaryTime = 0.1f;
 
 		this.parent = other.parent;
+
+		canTakeDMG = true;
 
 		weapons = new List<Weapon>();
 		primaryWeapons = new List<Weapon>();
@@ -154,6 +157,9 @@ public class Player : Character {
 
 	public float TakeDamage(Minion m) {
 
+		if (canTakeDMG == false)
+			return 0f;
+
 		Stat primStat = m.GetPrimaryStat();
 
 		float AtkDMG = ((primStat.BaseValue + primStat.BuffValue) * UnityEngine.Random.Range(0f, 2.0f)) ;
@@ -163,20 +169,21 @@ public class Player : Character {
 
 		//Debug.Log("Player HP :" + HP);
 
+		canTakeDMG = false;
 		return finalDMG;
 	}
 
+	private float takeDMGTimeCounter = 0f;
+
 	public void Update(float deltaTime) {
-		// if (!WaitedInGetHit(deltaTime, involuntaryTime)) {
-		// 			//Debug.Log(name + " :  " + minionState2);
-		// 			canTakeDMG = false;
-		// 			return;
-		// 		}
-		// 		else {
-		// 			minionState2 = MinionState2.Normal;
-		// 			//Debug.Log(name + " :  " + minionState2);
-		// 			canTakeDMG = true;
-		// 		}
+		if (canTakeDMG == false) {
+			Debug.Log(takeDMGTimeCounter);
+			takeDMGTimeCounter += deltaTime;
+			if (takeDMGTimeCounter >= involuntaryTime) {
+				canTakeDMG = true;
+				takeDMGTimeCounter = 0f;
+			}
+		}
 	}
 
 	public void RegisterOnChangedCallback(Action<Player> cb) {

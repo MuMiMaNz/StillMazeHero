@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
 			if ( ATKOn //&& canMove 
 			) {
 				ATKtimecounter += Time.deltaTime;
-				Debug.Log(ATKtimecounter);
+				//Debug.Log(ATKtimecounter);
 				if(ATKtimecounter <  p.ATKAnimTime ) {
 					if (normalAttack == false) 
 						PlayerNormalAttack();
