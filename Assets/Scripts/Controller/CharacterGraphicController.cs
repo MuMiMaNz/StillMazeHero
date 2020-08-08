@@ -230,21 +230,24 @@ public class CharacterGraphicController : MonoBehaviour {
 			case MinionState.Idle:
 				m_anim.SetBool("isIdle",true);
 				m_anim.SetBool("isWalk",false);
-				m_anim.SetBool("isAttack",false);
+				m_anim.ResetTrigger("isAttack");
+				//m_anim.SetBool("isAttack",false);
 				m_anim.SetBool("isGetHit", false);
 				m_anim.SetBool("isDie", false);
 				break ;
 			case MinionState.Patrol:
 				m_anim.SetBool("isIdle",false);
 				m_anim.SetBool("isWalk",true);
-				m_anim.SetBool("isAttack",false);
+				m_anim.ResetTrigger("isAttack");
+				//m_anim.SetBool("isAttack",false);
 				m_anim.SetBool("isGetHit", false);
 				m_anim.SetBool("isDie", false);
 				break ;
 			case MinionState.Chase:
 				m_anim.SetBool("isIdle",false);
 				m_anim.SetBool("isWalk",true);
-				m_anim.SetBool("isAttack",false);
+				m_anim.ResetTrigger("isAttack");
+				//m_anim.SetBool("isAttack",false);
 				m_anim.SetBool("isGetHit", false);
 				m_anim.SetBool("isDie", false);
 				break ;
@@ -253,7 +256,8 @@ public class CharacterGraphicController : MonoBehaviour {
 			case MinionState.Attack:
 				m_anim.SetBool("isIdle",false);
 				m_anim.SetBool("isWalk",false);
-				m_anim.SetBool("isAttack",true);
+				m_anim.SetTrigger("isAttack");
+				//m_anim.SetBool("isAttack",true);
 				m_anim.SetBool("isGetHit", false);
 				m_anim.SetBool("isDie", false);
 
@@ -283,7 +287,8 @@ public class CharacterGraphicController : MonoBehaviour {
 			case MinionState.Die:
 				m_anim.SetBool("isIdle", false);
 				m_anim.SetBool("isWalk", false);
-				m_anim.SetBool("isAttack", false);
+				m_anim.ResetTrigger("isAttack");
+				//m_anim.SetBool("isAttack",false);
 				m_anim.SetBool("isDie", true);
 				break;
 			default:

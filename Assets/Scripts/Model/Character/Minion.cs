@@ -638,14 +638,14 @@ public class Minion : Character {
 			// By ATKIntervalTime
 			else if(playerInATKRange == true) {
 				
-				if (ATKtimecounter <= deltaTime * 2) {
+				if (ATKtimecounter <= deltaTime * 3) {
 					if (alreadyATK == false) {
 						alreadyATK = true;
 						minionState = MinionState.Attack;
 						
 					}else {
-						//minionState = MinionState.Idle;
-						alreadyATK = false;
+						minionState = MinionState.Idle;
+						//alreadyATK = false;
 					}
 				}
 				else if (ATKtimecounter >= ATKIntervalTime + ATKAnimTime) {
